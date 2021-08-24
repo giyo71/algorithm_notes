@@ -22,6 +22,8 @@
              return []
      ```
 
+     
+
    - [1108.IP地址无效化](https://leetcode-cn.com/problems/defanging-an-ip-address/)
 
      给你一个有效的 IPv4 地址 `address`，返回这个 IP 地址的无效化版本。
@@ -38,12 +40,69 @@
              return ''.join(res)
      ```
 
-   - 344.反转字符串
-   - 剑指Offer58-1.翻转单词顺序
+   - [344.反转字符串](https://leetcode-cn.com/problems/reverse-string/)
+
+     编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
+
+     不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+
+     你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
+
+     ```python
+     class Solution:
+         def reverseString(self, s: List[str]) -> None:
+             """
+             Do not return anything, modify s in-place instead.
+             """
+             i, j = 0, len(s) - 1
+             while i < j:
+                 s[i], s[j] = s[j], s[i]
+                 i += 1
+                 j -= 1
+     ```
+
+     
+
+   - [剑指Offer58-1.翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/)
+
+     输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入字符串"I am a student. "，则输出"student. a am I"。
+
+     ```python
+     class Solution:
+         def reverseWords(self, s: str) -> str:
+             s = s.strip()
+             res = []
+             i = j = len(s) - 1
+             while i >= 0:
+                 while i >= 0 and s[i] != ' ': i -= 1
+                 res.append(s[i + 1: j + 1])
+                 while s[i] == ' ': i -= 1
+                 j = i
+             return ' '.join(res)
+     ```
+
+     
+
    - 125.验证回文串
+
+     给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+
+     **说明：**本题中，我们将空字符串定义为有效的回文串。
+
+     ```python
+     
+     ```
+
+     
+
    - 9.回文数
+
    - 58.最后一个单词的长度
+
    - 剑指Offer05.替换空格
+
    - 剑指Offer58-2.左旋转字符串
+
    - 26.删除排序数组中的重复项
+
    - 剑指Offer67.把字符串转换成整数
