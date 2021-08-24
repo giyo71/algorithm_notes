@@ -83,19 +83,38 @@
 
      
 
-   - 125.验证回文串
+   - [125.验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
 
      给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
 
      **说明：**本题中，我们将空字符串定义为有效的回文串。
 
      ```python
-     
+     class Solution:
+         def isPalindrome(self, s: str) -> bool:
+             i, j = 0, len(s) - 1
+             while i < j:
+                 while i < j and not s[i].isalnum(): i += 1
+                 while i < j and not s[j].isalnum(): j -= 1
+                 if i < j:
+                     if s[i].lower() != s[j].lower(): return False
+                     i, j = i + 1, j - 1
+             return True
      ```
 
      
 
    - 9.回文数
+
+     给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
+
+     回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。例如，121 是回文，而 123 不是。
+
+     ```python
+     
+     ```
+
+     
 
    - 58.最后一个单词的长度
 
