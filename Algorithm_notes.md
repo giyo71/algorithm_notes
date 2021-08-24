@@ -199,7 +199,7 @@
 
      
 
-   - 剑指Offer67.把字符串转换成整数
+   - [剑指Offer67.把字符串转换成整数](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/)
 
      写一个函数 StrToInt，实现把字符串转换成整数这个功能。不能使用 atoi 或者其他类似的库函数。
 
@@ -217,8 +217,30 @@
 
      说明：
 
-     假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−2^31,  2^31 − 1]。如果数值超过这个范围，请返回  INT_MAX (2^31 − 1) 或 INT_MIN (−2^31) 。
+     假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−2^31^,  2^31^ − 1]。如果数值超过这个范围，请返回  INT_MAX (2^31^ − 1) 或 INT_MIN (−2^31^) 。
 
+     p.s. 补充一个语言`int`的边界：int的边界在 [-2147483648, 2147483647]
+
+     p.s. 此题不要用 `int()` 函数
      
-
+     ```python
+     class Solution:
+         def strToInt(self, str: str) -> int:
+             s = str.strip()
+             if not s: return 0
+     
+             res, i, sign = 0, 1, 1
+             int_min, int_max, tmp = -2 ** 31, 2 ** 31 - 1, 2 ** 31 // 10
+     
+             if s[0] == '-': sign = -1
+             elif s[0] != '+': i = 0
+             for c in s[i:]:
+                 if not '0' <= c <= '9': break
+                 if res > tmp or res == tmp and c > '7': return int_max if sign == 1 else int_min
+                 res = res * 10 + ord(c) - ord('0')
+             return sign * res
+     ```
+     
+     
+     
      
