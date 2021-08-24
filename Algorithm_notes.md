@@ -104,19 +104,49 @@
 
      
 
-   - 9.回文数
+   - [9.回文数](https://leetcode-cn.com/problems/palindrome-number/)
 
      给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
 
      回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。例如，121 是回文，而 123 不是。
 
      ```python
-     
+     class Solution:
+         def isPalindrome(self, x: int) -> bool:
+             if x < 0 or (x % 10 == 0 and x != 0): return False
+             reverted = 0
+             while x > reverted:
+                 reverted = reverted * 10 + x % 10
+                 x //= 10
+             return x == reverted or x == reverted // 10
      ```
 
      
 
-   - 58.最后一个单词的长度
+   - [58.最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word/)
+
+     给你一个字符串 `s`，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。
+
+     **单词** 是指仅由字母组成、不包含任何空格字符的最大子字符串。
+
+     ```python
+     class Solution:
+         def lengthOfLastWord(self, s: str) -> int:
+             s = s.strip()
+             i = j = len(s) - 1
+             while i >= 0 and s[i] != ' ': i -= 1
+             return j - i
+           
+     class Solution:
+         def lengthOfLastWord(self, s: str) -> int:
+             i = len(s) - 1
+             while i >= 0 and s[i] == ' ': i -= 1
+             j = i
+             while i >= 0 and s[i] != ' ': i -= 1
+             return j - i
+     ```
+
+     
 
    - 剑指Offer05.替换空格
 
