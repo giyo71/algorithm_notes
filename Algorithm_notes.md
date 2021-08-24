@@ -1,6 +1,6 @@
 # Algorithm notes
 
-1. **纯编程题**
+1. ### 纯编程题
 
    例题：
 
@@ -22,7 +22,7 @@
              return []
      ```
 
-   - 1108.IP地址无效化
+   - [1108.IP地址无效化](https://leetcode-cn.com/problems/defanging-an-ip-address/)
 
      给你一个有效的 IPv4 地址 `address`，返回这个 IP 地址的无效化版本。
 
