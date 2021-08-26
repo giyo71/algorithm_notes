@@ -332,18 +332,29 @@
 
      
 
-   - 面试题16.11.跳水板
+   - [面试题16.11.跳水板](https://leetcode-cn.com/problems/diving-board-lcci/)
 
      你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
 
      返回的长度需要从小到大排列。
 
      ```python
-     
+     class Solution:
+         def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
+             if k == 0: return []
+             if shorter == longer: return [shorter * k]
+             tmp = longer - shorter
+             return [shorter * k + tmp * i for i in range(k + 1)]
      ```
 
      
 
-   - 
+   - 面试题01.05.一次编辑
+   - 面试题16.15.珠玑妙算
+   - 面试题16.04.井字游戏
+   - 55.跳跃游戏
+   - 48.旋转图像
+   - 54.螺旋矩阵
+   - 240.搜索二维矩阵2
 
    
