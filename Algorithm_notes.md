@@ -288,11 +288,11 @@
 2. ==找规律题==
 
    例题：
-   
+
    - [面试题01.08.零矩阵](https://leetcode-cn.com/problems/zero-matrix-lcci/)
-   
+
      编写一种算法，若M × N矩阵中某个元素为0，则将其所在的行与列清零。
-   
+
      ```python
      class Solution:
          def setZeroes(self, matrix: List[List[int]]) -> None:
@@ -316,9 +316,9 @@
      ```
      
    - [剑指Offer61.扑克牌中的顺子](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/)
-   
+
      从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。
-   
+
      ```python
      class Solution:
          def isStraight(self, nums: List[int]) -> bool:
@@ -329,9 +329,21 @@
                  elif nums[i] == nums[i + 1]: return False
              return nums[4] - nums[joker] < 5
      ```
-   
+
      
-   
+
+   - 面试题16.11.跳水板
+
+     你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
+
+     返回的长度需要从小到大排列。
+
+     ```python
      
-   
+     ```
+
      
+
+   - 
+
+   
