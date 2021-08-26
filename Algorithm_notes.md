@@ -366,9 +366,52 @@
 
      
 
-   - 面试题16.15.珠玑妙算
+   - [面试题16.15.珠玑妙算](https://leetcode-cn.com/problems/master-mind-lcci/)
+
+     珠玑妙算游戏（the game of master mind）的玩法如下。
+
+     计算机有4个槽，每个槽放一个球，颜色可能是红色（R）、黄色（Y）、绿色（G）或蓝色（B）。例如，计算机可能有RGGB 4种（槽1为红色，槽2、3为绿色，槽4为蓝色）。作为用户，你试图猜出颜色组合。打个比方，你可能会猜YRGB。要是猜对某个槽的颜色，则算一次“猜中”；要是只猜对颜色但槽位猜错了，则算一次“伪猜中”。注意，“猜中”不能算入“伪猜中”。
+
+     给定一种颜色组合solution和一个猜测guess，编写一个方法，返回猜中和伪猜中的次数answer，其中answer[0]为猜中的次数，answer[1]为伪猜中的次数。
+
+     ```python
+     class Solution:
+         def masterMind(self, solution: str, guess: str) -> List[int]:
+             dic1, dic2 = {}, {}
+             answer = [0, 0]
+             for i in range(len(solution)):
+                 if solution[i] == guess[i]: answer[0] += 1
+                 else:
+                     if solution[i] not in dic1: dic1[solution[i]] = 1
+                     else: dic1[solution[i]] += 1
+                     if guess[i] not in dic2: dic2[guess[i]] = 1
+                     else: dic2[guess[i]] += 1
+             for key in dic1.keys():
+                 if key in dic2: answer[1] += min(dic1[key], dic2[key])
+             return answer
+     ```
+
+     
 
    - 面试题16.04.井字游戏
+
+     设计一个算法，判断玩家是否赢了井字游戏。输入是一个 N x N 的数组棋盘，由字符" "，"X"和"O"组成，其中字符" "代表一个空位。
+
+     以下是井字游戏的规则：
+
+     玩家轮流将字符放入空位（" "）中。
+     第一个玩家总是放字符"O"，且第二个玩家总是放字符"X"。
+     "X"和"O"只允许放置在空位中，不允许对已放有字符的位置进行填充。
+     当有N个相同（且非空）的字符填充任何行、列或对角线时，游戏结束，对应该字符的玩家获胜。
+     当所有位置非空时，也算为游戏结束。
+     如果游戏结束，玩家不允许再放置字符。
+     如果游戏存在获胜者，就返回该游戏的获胜者使用的字符（"X"或"O"）；如果游戏以平局结束，则返回 "Draw"；如果仍会有行动（游戏未结束），则返回 "Pending"。
+
+     ```python
+     
+     ```
+
+     
 
    - 55.跳跃游戏
 
