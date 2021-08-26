@@ -349,12 +349,33 @@
 
      
 
-   - 面试题01.05.一次编辑
+   - [面试题01.05.一次编辑](https://leetcode-cn.com/problems/one-away-lcci/)
+
+     字符串有三种编辑操作:插入一个字符、删除一个字符或者替换一个字符。 给定两个字符串，编写一个函数判定它们是否只需要一次(或者零次)编辑。
+
+     ```python
+     class Solution:
+         def oneEditAway(self, first: str, second: str) -> bool:
+             if abs(len(first) - len(second)) > 1: return False
+             if len(first) < len(second): first, second = second, first
+             for i in range(len(second)):
+                 if first[i] == second[i]: continue
+                 return first[i + 1:] == second[i + 1:] or first[i + 1:] == second[i:]
+             return True
+     ```
+
+     
+
    - 面试题16.15.珠玑妙算
+
    - 面试题16.04.井字游戏
+
    - 55.跳跃游戏
+
    - 48.旋转图像
+
    - 54.螺旋矩阵
+
    - 240.搜索二维矩阵2
 
    
