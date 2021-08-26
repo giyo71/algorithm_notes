@@ -439,12 +439,42 @@
 
      
 
-   - 54.螺旋矩阵
+   - [54.螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
 
      给你一个 `m` 行 `n` 列的矩阵 `matrix` ，请按照 **顺时针螺旋顺序** ，返回矩阵中的所有元素。
 
-     ```
+     ```python
+     class Solution:
+         def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+             l, r, t, b = 0, len(matrix[0]) - 1, 0, len(matrix) - 1
+             count = len(matrix) * len(matrix[0])
+             res = []
      
+             while count >= 1:
+                 for i in range(l, r + 1):
+                     if count < 1: break
+                     res.append(matrix[t][i])
+                     count -= 1
+                 t += 1
+     
+                 for i in range(t, b + 1):
+                     if count < 1: break
+                     res.append(matrix[i][r])
+                     count -= 1
+                 r -= 1
+     
+                 for i in range(r, l - 1, -1):
+                     if count < 1: break
+                     res.append(matrix[b][i])
+                     count -= 1
+                 b -= 1
+     
+                 for i in range(b, t - 1, -1):
+                     if count < 1: break
+                     res.append(matrix[i][l])
+                     count -= 1
+                 l += 1
+             return res
      ```
 
      
