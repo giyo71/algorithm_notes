@@ -393,7 +393,7 @@
 
      
 
-   - 55.跳跃游戏
+   - [55.跳跃游戏](https://leetcode-cn.com/problems/jump-game/)
 
      给定一个非负整数数组 `nums` ，你最初位于数组的 **第一个下标** 。
 
@@ -402,12 +402,30 @@
      判断你是否能够到达最后一个下标。
 
      ```python
-     
+     class Solution:
+         def canJump(self, nums: List[int]) -> bool:
+             max_i = 0
+             for i in range(len(nums)):
+                 if i > max_i: return False
+                 if i + nums[i] > max_i: 
+                     max_i = i + nums[i]
+                     if max_i + 1 >= len(nums): return True
+             return True
      ```
 
      
 
    - 48.旋转图像
+
+     给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
+
+     你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
+
+     ```python
+     
+     ```
+
+     
 
    - 54.螺旋矩阵
 
