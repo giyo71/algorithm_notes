@@ -326,19 +326,23 @@
      class Solution:
          def isStraight(self, nums: List[int]) -> bool:
              joker = 0
+             # 将nums从小到大排序后遍历
              nums.sort()
              for i in range(4):
                  if nums[i] == 0: joker += 1
+                   # 有重复牌时直接返回False
                  elif nums[i] == nums[i + 1]: return False
+             # 此时由于nums经过从小到大排序，因此 nums[joker] 即是不为0的最小数
+             # 最大数 - 最小数 < 5，既能保证是顺子
              return nums[4] - nums[joker] < 5
      ```
 
      
 
    - [面试题16.11.跳水板](https://leetcode-cn.com/problems/diving-board-lcci/)
-
+   
      你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
-
+   
      返回的长度需要从小到大排列。
    
      ```python
@@ -346,35 +350,42 @@
          def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
              if k == 0: return []
              if shorter == longer: return [shorter * k]
+             # 由于可能的跳水板总长度为 [shorter * (k-i) + longer * i]
+             # 化简后可得 [short * k + (longer - shorter) * i]
+             # 因此先计算 longer - shorter 可以加快方法效率
              tmp = longer - shorter
              return [shorter * k + tmp * i for i in range(k + 1)]
      ```
-
+   
      
-
+   
    - [面试题01.05.一次编辑](https://leetcode-cn.com/problems/one-away-lcci/)
-
+   
      字符串有三种编辑操作:插入一个字符、删除一个字符或者替换一个字符。 给定两个字符串，编写一个函数判定它们是否只需要一次(或者零次)编辑。
    
      ```python
      class Solution:
          def oneEditAway(self, first: str, second: str) -> bool:
              if abs(len(first) - len(second)) > 1: return False
+             # 保证first比second长，以此优化后续for循环
              if len(first) < len(second): first, second = second, first
              for i in range(len(second)):
                  if first[i] == second[i]: continue
+                 # 当前位置的first和second字符不相等时，判断两种情况：
+                 # 1. 两个字符串长度一样，两个字符串越过当前字符后的片段相等
+                 # 2. 两个字符串差1长度，长字符+1位后的片段 == 短字符当前位后的片段
                  return first[i + 1:] == second[i + 1:] or first[i + 1:] == second[i:]
              return True
      ```
-
+   
      
-
+   
    - [面试题16.15.珠玑妙算](https://leetcode-cn.com/problems/master-mind-lcci/)
-
+   
      珠玑妙算游戏（the game of master mind）的玩法如下。
-
+   
      计算机有4个槽，每个槽放一个球，颜色可能是红色（R）、黄色（Y）、绿色（G）或蓝色（B）。例如，计算机可能有RGGB 4种（槽1为红色，槽2、3为绿色，槽4为蓝色）。作为用户，你试图猜出颜色组合。打个比方，你可能会猜YRGB。要是猜对某个槽的颜色，则算一次“猜中”；要是只猜对颜色但槽位猜错了，则算一次“伪猜中”。注意，“猜中”不能算入“伪猜中”。
-
+   
      给定一种颜色组合solution和一个猜测guess，编写一个方法，返回猜中和伪猜中的次数answer，其中answer[0]为猜中的次数，answer[1]为伪猜中的次数。
    
      ```python
@@ -383,25 +394,29 @@
              dic1, dic2 = {}, {}
              answer = [0, 0]
              for i in range(len(solution)):
+                 # 同位同色，‘猜中’直接+1
                  if solution[i] == guess[i]: answer[0] += 1
+                 # 没有猜中，不断向dic1和dic2中加入pair 颜色：出现次数
                  else:
                      if solution[i] not in dic1: dic1[solution[i]] = 1
                      else: dic1[solution[i]] += 1
                      if guess[i] not in dic2: dic2[guess[i]] = 1
                      else: dic2[guess[i]] += 1
+             # 如果dic1即solution中出现的颜色，也在dic2即guess中出现
+             # ‘伪猜中’+两个dic共同出现的次数
              for key in dic1.keys():
                  if key in dic2: answer[1] += min(dic1[key], dic2[key])
              return answer
      ```
-
+   
      
-
+   
    - [55.跳跃游戏](https://leetcode-cn.com/problems/jump-game/)
-
+   
      给定一个非负整数数组 `nums` ，你最初位于数组的 **第一个下标** 。
-
+   
      数组中的每个元素代表你在该位置可以跳跃的最大长度。
-
+   
      判断你是否能够到达最后一个下标。
    
      ```python
@@ -409,19 +424,25 @@
          def canJump(self, nums: List[int]) -> bool:
              max_i = 0
              for i in range(len(nums)):
+                 # 如果当前index超过了最大能到达的index max_i 直接返回False
                  if i > max_i: return False
+                 # 如果当前index+当前index可跳数 > max_i
+                 # 则更新max_i
                  if i + nums[i] > max_i: 
                      max_i = i + nums[i]
+                     # 并判断更新后的 max_i + 1 是否 >= nums长度
+                     # 若已经能到达，则直接返回True
                      if max_i + 1 >= len(nums): return True
+             # 循环完成，所有index都没有超过max_i，则最终返回True
              return True
      ```
-
+   
      
-
+   
    - [48.旋转图像](https://leetcode-cn.com/problems/rotate-image/)
-
+   
      给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
-
+   
      你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
    
      ```python
@@ -431,47 +452,66 @@
              Do not return anything, modify matrix in-place instead.
              """
              n = len(matrix)
+             # e.g.
+             # [102]    [401]
+             # [000] -> [000]
+             # [403]    [302]
+             # 首先上下翻转
+             # [403]
+             # [000]
+             # [102]
              for i in range(n // 2):
                  for j in range(n):
-                     matrix[i][j], matrix[n - 1 - i][j] = matrix[n - 1 - i][j], matrix[i][j]
-             
+                     matrix[i][j], matrix[n-1-i][j] = matrix[n-1-i][j], matrix[i][j]
+             # 其次箭头朝左下角45度的对角线翻转
+             # [401]
+             # [000]
+             # [302]
+             # 即可简化顺时针90度旋转
              for i in range(n):
                  for j in range(i):
                      matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
      ```
-
+   
      
-
+   
    - [54.螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
-
+   
      给你一个 `m` 行 `n` 列的矩阵 `matrix` ，请按照 **顺时针螺旋顺序** ，返回矩阵中的所有元素。
    
      ```python
      class Solution:
          def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+             # 首先创建上下左右边界
+             # 并创建计数count，初始赋值该matrix所有数的数量
              l, r, t, b = 0, len(matrix[0]) - 1, 0, len(matrix) - 1
              count = len(matrix) * len(matrix[0])
              res = []
-     
+             # 当该matrix没有遍历完时
              while count >= 1:
+                 # 贴着上边界，从左到右打印
+                 # 上边界向下移动1
                  for i in range(l, r + 1):
                      if count < 1: break
                      res.append(matrix[t][i])
                      count -= 1
                  t += 1
-     
+                 # 贴着右边界，从上到下打印
+                 # 右边界向左移动1
                  for i in range(t, b + 1):
                      if count < 1: break
                      res.append(matrix[i][r])
                      count -= 1
                  r -= 1
-     
+                 # 贴着下边界，从右到左打印
+                 # 下边界向上移动1
                  for i in range(r, l - 1, -1):
                      if count < 1: break
                      res.append(matrix[b][i])
                      count -= 1
                  b -= 1
-     
+                 # 贴着左边界，从下到上打印
+                 # 左边界向右移动1
                  for i in range(b, t - 1, -1):
                      if count < 1: break
                      res.append(matrix[i][l])
@@ -479,9 +519,9 @@
                  l += 1
              return res
      ```
-
+   
      
-
+   
    - [240.搜索二维矩阵2](https://leetcode-cn.com/problems/search-a-2d-matrix-ii/)
    
      编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
@@ -492,12 +532,17 @@
      ```python
      class Solution:
          def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+             # 双指针，i代表行，j代表列
+             # 从矩阵左下角开始遍历
              i, j = len(matrix) - 1, 0
+             # 当双指针ij都在范围内时
+             # 如果该点 小于 target: 向右移动一列
+             # 如果该点 大于 target: 向上移动一行
              while i >= 0 and j < len(matrix[0]):
                  if matrix[i][j] < target: j += 1
                  elif matrix[i][j] > target: i -= 1
                  else: return True
              return False
      ```
-   
+     
      
