@@ -300,26 +300,28 @@
              """
              Do not return anything, modify matrix in-place instead.
              """
-             col0, row0 = set(), set()
+             # 分别创建行和列set，储存对应的为0的index
+             row0, col0 = set(), set()
+             # 循环遍历matrix
              for i in range(len(matrix)):
                  for j in range(len(matrix[0])):
                      if matrix[i][j] == 0:
-                         col0.add(i)
-                         row0.add(j)
-             
-             for col in col0:
-                 for j in range(len(matrix[0])):
-                     matrix[col][j] = 0
-     
+                         row0.add(i)
+                         col0.add(j)
+             # 循环遍历行set，将行set里的所有行赋值为0
              for row in row0:
+                 for j in range(len(matrix[0])):
+                     matrix[row][j] = 0
+             # 循环遍历列set，将列set里的所有列赋值为0
+             for col in col0:
                  for i in range(len(matrix)):
-                     matrix[i][row] = 0
+                     matrix[i][col] = 0
      ```
      
    - [剑指Offer61.扑克牌中的顺子](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/)
 
      从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。
-
+   
      ```python
      class Solution:
          def isStraight(self, nums: List[int]) -> bool:
@@ -338,7 +340,7 @@
      你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
 
      返回的长度需要从小到大排列。
-
+   
      ```python
      class Solution:
          def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:
@@ -353,7 +355,7 @@
    - [面试题01.05.一次编辑](https://leetcode-cn.com/problems/one-away-lcci/)
 
      字符串有三种编辑操作:插入一个字符、删除一个字符或者替换一个字符。 给定两个字符串，编写一个函数判定它们是否只需要一次(或者零次)编辑。
-
+   
      ```python
      class Solution:
          def oneEditAway(self, first: str, second: str) -> bool:
@@ -374,7 +376,7 @@
      计算机有4个槽，每个槽放一个球，颜色可能是红色（R）、黄色（Y）、绿色（G）或蓝色（B）。例如，计算机可能有RGGB 4种（槽1为红色，槽2、3为绿色，槽4为蓝色）。作为用户，你试图猜出颜色组合。打个比方，你可能会猜YRGB。要是猜对某个槽的颜色，则算一次“猜中”；要是只猜对颜色但槽位猜错了，则算一次“伪猜中”。注意，“猜中”不能算入“伪猜中”。
 
      给定一种颜色组合solution和一个猜测guess，编写一个方法，返回猜中和伪猜中的次数answer，其中answer[0]为猜中的次数，answer[1]为伪猜中的次数。
-
+   
      ```python
      class Solution:
          def masterMind(self, solution: str, guess: str) -> List[int]:
@@ -401,7 +403,7 @@
      数组中的每个元素代表你在该位置可以跳跃的最大长度。
 
      判断你是否能够到达最后一个下标。
-
+   
      ```python
      class Solution:
          def canJump(self, nums: List[int]) -> bool:
@@ -421,7 +423,7 @@
      给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
 
      你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
-
+   
      ```python
      class Solution:
          def rotate(self, matrix: List[List[int]]) -> None:
@@ -443,7 +445,7 @@
    - [54.螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
 
      给你一个 `m` 行 `n` 列的矩阵 `matrix` ，请按照 **顺时针螺旋顺序** ，返回矩阵中的所有元素。
-
+   
      ```python
      class Solution:
          def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
@@ -481,7 +483,7 @@
      
 
    - [240.搜索二维矩阵2](https://leetcode-cn.com/problems/search-a-2d-matrix-ii/)
-
+   
      编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
    
      每行的元素从左到右升序排列。
