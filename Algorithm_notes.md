@@ -182,6 +182,7 @@
      class Solution:
          def replaceSpace(self, s: str) -> str:
              res = []
+             # 循环遍历字符串s即可
              for c in s:
                  if c == ' ': res.append('%20')
                  else: res.append(c)
@@ -498,4 +499,3 @@
      ```
    
      
-   
