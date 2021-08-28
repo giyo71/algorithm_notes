@@ -1,8 +1,8 @@
 # Algorithm notes
 
-1. ==纯编程题==
+###### 1. 纯编程题
 
-   例题：
+例题：
 
    - [1.两树之和](https://leetcode-cn.com/problems/two-sum/)
 
@@ -284,11 +284,16 @@
              return sign * res
      ```
 
-     
 
-2. ==找规律题==
 
-   例题：
+
+------
+
+
+
+###### 2. 找规律题
+
+例题：
 
    - [面试题01.08.零矩阵](https://leetcode-cn.com/problems/zero-matrix-lcci/)
 
@@ -545,11 +550,16 @@
              return False
      ```
      
-     
-   
-3. ==链表==
 
-   例题：
+
+
+------
+
+
+
+###### 3. 链表
+
+例题：
 
    - 203.移除链表元素
    - 876.链表的中间结点
