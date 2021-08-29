@@ -583,21 +583,79 @@
 
 例题：
 
-   - 203.移除链表元素
+   - [203.移除链表元素](https://leetcode-cn.com/problems/remove-linked-list-elements/)
 
      给你一个链表的头节点 `head` 和一个整数 `val` ，请你删除链表中所有满足 `Node.val == val` 的节点，并返回 **新的头节点** 。
 
      ```python
-     
+     class Solution:
+         def removeElements(self, head: ListNode, val: int) -> ListNode:
+             if not head: return
+             dum = cur = ListNode(0)
+             cur.next = head
+             while cur.next:
+                 if cur.next.val == val: cur.next = cur.next.next
+                 else: cur = cur.next
+             return dum.next
      ```
 
      
 
-   - 876.链表的中间结点
+   - [876.链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)
 
-   - 83.删除排序链表中的重复元素
+     给定一个头结点为 `head` 的非空单链表，返回链表的中间结点。
 
-   - 剑指Offer25.合并两个排序的链表
+     如果有两个中间结点，则返回第二个中间结点。
+
+     ```python
+     class Solution:
+         def middleNode(self, head: ListNode) -> ListNode:
+             slow = fast = head
+             while fast and fast.next:
+                 slow, fast = slow.next, fast.next.next
+             return slow
+     ```
+
+     
+
+   - [83.删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+     存在一个按升序排列的链表，给你这个链表的头节点 `head` ，请你删除所有重复的元素，使每个元素 **只出现一次** 。
+
+     返回同样按升序排列的结果链表。
+
+     ```python
+     class Solution:
+         def deleteDuplicates(self, head: ListNode) -> ListNode:
+             if not head: return
+             cur = head
+             while cur.next:
+                 if cur.val == cur.next.val: cur.next = cur.next.next
+                 else: cur = cur.next
+             return head
+     ```
+
+     
+
+   - [剑指Offer25.合并两个排序的链表](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/)
+
+     输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+
+     ```python
+     class Solution:
+         def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+             dum = cur = ListNode(0)
+             while l1 and l2:
+                 if l1.val < l2.val:
+                     cur.next, l1 = l1, l1.next
+                 else:
+                     cur.next, l2 = l2, l2.next
+                 cur = cur.next
+             cur.next = l1 if l1 else l2
+             return dum.next
+     ```
+
+     
 
    - 2.两数相加
 
