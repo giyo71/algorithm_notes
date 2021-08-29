@@ -688,7 +688,22 @@
 
      
 
-   - 206.反转链表
+   - [206.反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
+
+     给你单链表的头节点 `head` ，请你反转链表，并返回反转后的链表。
+
+     ```python
+     class Solution:
+         def reverseList(self, head: ListNode) -> ListNode:
+             pre, cur = None, head
+             while cur:
+                 tmp = cur.next
+                 cur.next = pre
+                 cur, pre = tmp, cur
+             return pre
+     ```
+
+     
 
    - 234.回文链表
 
