@@ -739,19 +739,47 @@
 
      
 
-   - 328.奇偶链表
+   - [328.奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/)
 
      给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
 
      请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
 
      ```python
-     
+     class Solution:
+         def oddEvenList(self, head: ListNode) -> ListNode:
+             if not head: return
+             even_head = head.next
+             odd, even = head, even_head
+             while even and even.next:
+                 odd.next = even.next
+                 odd = odd.next
+                 even.next = odd.next
+                 even = even.next
+             odd.next = even_head
+             return head
      ```
 
      
 
    - 25.K个一组翻转链表
+
+     给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
+
+     k 是一个正整数，它的值小于或等于链表的长度。
+
+     如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+
+     进阶：
+
+     你可以设计一个只使用常数额外空间的算法来解决此问题吗？
+     你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+
+     ```python
+     
+     ```
+
+     
 
    - 剑指Offer22.链表中倒数第k个节点
 
