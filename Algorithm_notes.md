@@ -762,7 +762,7 @@
 
      
 
-   - 25.K个一组翻转链表
+   - [25.K个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
 
      给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
 
@@ -776,12 +776,44 @@
      你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
 
      ```python
+     class Solution:
+         def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+             def reverse(head):
+                 pre, cur = None, head
+                 while cur:
+                     tmp = cur.next
+                     cur.next = pre
+                     cur, pre = tmp, cur
+                 return pre
      
+             dum = ListNode(0)
+             dum.next = head
+             pre = cur = dum
+             while cur.next:
+                 tmp = cur.next
+                 for i in range(k):
+                     if cur: cur = cur.next
+                 if not cur: break
+                 tmp_next, cur.next = cur.next, None
+                 pre.next = reverse(tmp)
+                 tmp.next = tmp_next
+                 pre = cur = tmp
+             return dum.next
      ```
 
      
 
    - 剑指Offer22.链表中倒数第k个节点
+
+     输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
+
+     例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。
+
+     ```python
+     
+     ```
+
+     
 
    - 19.删除链表的倒数第N个结点
 
