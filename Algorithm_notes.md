@@ -679,8 +679,8 @@
                      tmp += l2.val
                      l2 = l2.next
                  if carry != 0: tmp += carry
-                 cur.next = ListNode(tmp % 10)
                  carry = tmp // 10
+                 cur.next = ListNode(tmp % 10)
                  cur = cur.next
              if carry != 0: cur.next = ListNode(carry)
              return dum.next
@@ -705,9 +705,51 @@
 
      
 
-   - 234.回文链表
+   - [234.回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/)
+
+     给你一个单链表的头节点 `head` ，请你判断该链表是否为回文链表。如果是，返回 `true` ；否则，返回 `false` 。
+
+     ```python
+     class Solution:
+         def isPalindrome(self, head: ListNode) -> bool:
+             if not head: return
+             def middleNode(head):
+                 slow = fast = head
+                 while fast.next and fast.next.next:
+                     slow, fast = slow.next, fast.next.next
+                 return slow
+             
+             def reverseList(head):
+                 pre, cur = None, head
+                 while cur:
+                     tmp = cur.next
+                     cur.next = pre
+                     cur, pre = tmp, cur
+                 return pre
+             
+             mid = middleNode(head)
+             right_head = reverseList(mid.next)
+             cur, right_cur = head, right_head
+             while right_cur:
+                 if cur.val != right_cur.val: return False
+                 cur, right_cur = cur.next, right_cur.next
+             reverseList(right_head)
+             return True
+     ```
+
+     
 
    - 328.奇偶链表
+
+     给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
+
+     请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
+
+     ```python
+     
+     ```
+
+     
 
    - 25.K个一组翻转链表
 
