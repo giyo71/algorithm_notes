@@ -782,13 +782,16 @@
      class Solution:
          def oddEvenList(self, head: ListNode) -> ListNode:
              if not head: return
+             # 创建奇数位头节点，并使用奇偶双指针 head (odd) -> even_head (even) 
              even_head = head.next
              odd, even = head, even_head
+             # 奇数为还有 next 则代表仍需循环让偶数位连接该 next
              while even and even.next:
                  odd.next = even.next
                  odd = odd.next
                  even.next = odd.next
                  even = even.next
+             # 偶数位最后拼接上奇数位头节点
              odd.next = even_head
              return head
      ```
@@ -818,17 +821,24 @@
                      cur.next = pre
                      cur, pre = tmp, cur
                  return pre
-     
+             # 创建虚拟头节点 dum (pre / cur) -> head
              dum = ListNode(0, head)
              pre = cur = dum
              while cur.next:
+                 # tmp即需要翻转的第一位
                  tmp = cur.next
+                 # 循环让cur指针走完k步长
                  for i in range(k):
                      if cur: cur = cur.next
+                 # 即最后链表节点数量不满k时直接停止while循环
                  if not cur: break
+                 # 将该片段的链表与后面断开
+                 # pre.next -> reverse(tmp) -> tmp_next
                  tmp_next, cur.next = cur.next, None
+                 # 翻转断开的部分并与前后重新连接
                  pre.next = reverse(tmp)
                  tmp.next = tmp_next
+                 # 双指针移动到翻转部分的最后一位
                  pre = cur = tmp
              return dum.next
      ```
@@ -844,7 +854,11 @@
      ```python
      class Solution:
          def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+             # 创建快慢指针 head (slow / fast)
              slow = fast = head
+             # node (倒数k) -> ...... -> null
+             # slow                     fast
+             # for与while循环后两个指针位置如上，正好相差k
              for _ in range(k):
                  fast = fast.next
              while fast:
@@ -863,15 +877,22 @@
      ```python
      class Solution:
          def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+             # 创建虚拟头节点以及快慢指针
+             # dum (slow) -> head (fast)
              dum = ListNode(0, head)
              slow, fast = dum, head
              for _ in range(n):
                  fast = fast.next
              while fast:
                  slow, fast = slow.next, fast.next
+             # 此时倒数第n个一定在slow的下一位
              slow.next = slow.next.next
              return dum.next
      ```
+
+     
+
+     p.s. 此题与[剑指Offer22.链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)的差别是，为了删除倒数第n个节点，需要用到倒数第n个节点的前一个节点，则在遍历时，slow需要慢一步即最终在倒数第n个节点的前一个节点上，增加虚拟头节点即可
 
      
 
@@ -891,6 +912,7 @@
      class Solution:
          def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
              l1, l2 = headA, headB
+             # l1与l2将会遍历相同的路程，最终在相同点上相遇
              while l1 != l2:
                  l1 = l1.next if l1 else headB
                  l2 = l2.next if l2 else headA
@@ -917,6 +939,8 @@
      class Solution:
          def hasCycle(self, head: ListNode) -> bool:
              if not head or not head.next: return False
+             # 为了循环条件快慢指针不相等，fast在初始赋值时就比slow快一步即可
+             # head (slow) -> head.next (fast)
              slow, fast = head, head.next
              while slow != fast:
                  if not fast or not fast.next: return False
