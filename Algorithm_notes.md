@@ -786,8 +786,7 @@
                      cur, pre = tmp, cur
                  return pre
      
-             dum = ListNode(0)
-             dum.next = head
+             dum = ListNode(0, head)
              pre = cur = dum
              while cur.next:
                  tmp = cur.next
@@ -803,20 +802,123 @@
 
      
 
-   - 剑指Offer22.链表中倒数第k个节点
+   - [剑指Offer22.链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
 
      输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
 
      例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。
 
      ```python
-     
+     class Solution:
+         def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+             slow = fast = head
+             for _ in range(k):
+                 fast = fast.next
+             while fast:
+                 slow, fast = slow.next, fast.next
+             return slow
      ```
 
      
 
-   - 19.删除链表的倒数第N个结点
+   - [19.删除链表的倒数第N个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
-   - 160,相交链表
+     给你一个链表，删除链表的倒数第 `n` 个结点，并且返回链表的头结点。
 
-   - 141.环形链表
+     **进阶：**你能尝试使用一趟扫描实现吗？
+
+     ```python
+     class Solution:
+         def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+             dum = ListNode(0, head)
+             slow, fast = dum, head
+             for _ in range(n):
+                 fast = fast.next
+             while fast:
+                 slow, fast = slow.next, fast.next
+             slow.next = slow.next.next
+             return dum.next
+     ```
+
+     
+
+   - [160.相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
+
+     给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。
+
+     图示两个链表在节点 c1 开始相交：
+
+     <img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png" style="zoom: 50%;" />
+
+     题目数据 **保证** 整个链式结构中不存在环。
+
+     **注意**，函数返回结果后，链表必须 **保持其原始结构** 。
+
+     ```python
+     class Solution:
+         def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+             l1, l2 = headA, headB
+             while l1 != l2:
+                 l1 = l1.next if l1 else headB
+                 l2 = l2.next if l2 else headA
+             return l1
+     ```
+
+     
+
+   - [141.环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
+
+     给定一个链表，判断链表中是否有环。
+
+     如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
+
+     如果链表中存在环，则返回 true 。 否则，返回 false 。
+
+      
+
+     进阶：
+
+     你能用 O(1)（即，常量）内存解决此问题吗？
+
+     ```python
+     class Solution:
+         def hasCycle(self, head: ListNode) -> bool:
+             if not head or not head.next: return False
+             slow, fast = head, head.next
+             while slow != fast:
+                 if not fast or not fast.next: return False
+                 slow, fast = slow.next, fast.next.next
+             return True
+     ```
+
+
+
+------
+
+
+
+###### 4. 栈和队列
+
+知识点：
+
+> pass
+
+例题：
+
+- 剑指Offer09.用两个栈实现队列
+- 225.用队列实现栈
+- 面试题03.05.栈排序
+- 155.最小栈
+- 面试题03.01.三合一
+- 20.有效的括号
+- 面试题16.26.计算器
+- 772.基本计算器3
+- 1047.删除字符串中的所有相邻重复项
+- 剑指Offer31.栈的压入、弹出序列
+- 739.每日温度
+- 42.接雨水
+- 84.柱状图中最大的矩形
+- 面试题03.06.动物收容所
+- 剑指Offer59-2.队列的最大值
+- 剑指Offer59-1.滑动窗口的最大值
+
