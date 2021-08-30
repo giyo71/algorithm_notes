@@ -591,10 +591,13 @@
      class Solution:
          def removeElements(self, head: ListNode, val: int) -> ListNode:
              if not head: return
+             # 创建虚拟头节点 dum (cur) -> head
              dum = cur = ListNode(0)
              cur.next = head
              while cur.next:
+                 # 若 cur.next 的值与目标值相等，则cur遍历指向下一个节点直到不相等
                  if cur.next.val == val: cur.next = cur.next.next
+                 # 不相等时，向后传递cur指针继续进行循环
                  else: cur = cur.next
              return dum.next
      ```
@@ -610,7 +613,10 @@
      ```python
      class Solution:
          def middleNode(self, head: ListNode) -> ListNode:
+             # 创建快慢指针 head (slow / fast)
              slow = fast = head
+             # 判断循环条件小技巧：赋值的前一位，即赋值时需要 fast.next.next，
+             # 则循环时前一位 fast.next 需要存在才能赋值
              while fast and fast.next:
                  slow, fast = slow.next, fast.next.next
              return slow
@@ -628,12 +634,18 @@
      class Solution:
          def deleteDuplicates(self, head: ListNode) -> ListNode:
              if not head: return
+             # 单指针遍历即可 head (cur)
              cur = head
              while cur.next:
+                 # 若cur与cur.next的值相等，cur遍历指向下一节点
                  if cur.val == cur.next.val: cur.next = cur.next.next
                  else: cur = cur.next
              return head
      ```
+
+     
+
+     p.s. 该题与[203.移除链表元素](https://leetcode-cn.com/problems/remove-linked-list-elements/)的差别是，203有处理头节点head的可能性，而该题head一定不会被删除，所以当需要处理头节点时，203便要创建虚拟头节点dum，该题则不需要。
 
      
 
@@ -644,13 +656,16 @@
      ```python
      class Solution:
          def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+             # 创建虚拟头节点 dum (cur)
              dum = cur = ListNode(0)
+             # 遍历拼接即可
              while l1 and l2:
                  if l1.val < l2.val:
                      cur.next, l1 = l1, l1.next
                  else:
                      cur.next, l2 = l2, l2.next
                  cur = cur.next
+             # 最后必有一个链表剩下，拼接上即可
              cur.next = l1 if l1 else l2
              return dum.next
      ```
@@ -668,7 +683,9 @@
      ```python
      class Solution:
          def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+             # 创建虚拟节点 dum (cur)
              dum = cur = ListNode(0)
+             # 数字加法，carry 存储进位的数字
              carry = 0
              while l1 or l2:
                  tmp = 0
@@ -679,9 +696,12 @@
                      tmp += l2.val
                      l2 = l2.next
                  if carry != 0: tmp += carry
+                 # carry 存储新的进位数字，即tmp除了个位数字的部分
                  carry = tmp // 10
+                 # 将tmp个位数字遍历使用单指针cur拼接在dum后
                  cur.next = ListNode(tmp % 10)
                  cur = cur.next
+             # 最后记得处理carry的剩余值
              if carry != 0: cur.next = ListNode(carry)
              return dum.next
      ```
@@ -695,6 +715,8 @@
      ```python
      class Solution:
          def reverseList(self, head: ListNode) -> ListNode:
+             # 创建空节点 None (pre)
+             # 使用双指针遍历将原链表第一位指向空节点形成的新链表 head (cur)
              pre, cur = None, head
              while cur:
                  tmp = cur.next
@@ -713,12 +735,13 @@
      class Solution:
          def isPalindrome(self, head: ListNode) -> bool:
              if not head: return
+             # 返回中点节点，偶数时为中点左节点
              def middleNode(head):
                  slow = fast = head
                  while fast.next and fast.next.next:
                      slow, fast = slow.next, fast.next.next
                  return slow
-             
+             # 反转节点
              def reverseList(head):
                  pre, cur = None, head
                  while cur:
@@ -728,14 +751,24 @@
                  return pre
              
              mid = middleNode(head)
+             # 反转右半部分链表
              right_head = reverseList(mid.next)
+             # 创建两个指针分别遍历左半部分和右半部分
+             # head （cur）
+             # right_head (right_cur)
              cur, right_cur = head, right_head
+             # 奇数时，右半部分比左半部分少一个节点，所以以右半部分为循环条件
              while right_cur:
                  if cur.val != right_cur.val: return False
                  cur, right_cur = cur.next, right_cur.next
+             # 将右半部分链表还原
              reverseList(right_head)
              return True
      ```
+
+     
+
+     p.s. 本题寻找中点与[876.链表的中间节点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)略有不同，因为当链表为奇数时，需要翻转该点下一点，为了保持偶数时算法的一致性，则将876返回中点右节点的循环条件改成该题返回中点左节点。翻转部分与[206.反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)一样。
 
      
 
