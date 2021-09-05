@@ -1198,9 +1198,47 @@
 
   
 
-- 面试题16.26.计算器
+- [面试题16.26.计算器](https://leetcode-cn.com/problems/calculator-lcci/)
+
+  给定一个包含正整数、加(+)、减(-)、乘(*)、除(/)的算数表达式(括号除外)，计算其结果。
+
+  表达式仅包含非负整数，+， - ，*，/ 四种运算符和空格  。 整数除法仅保留整数部分。
+
+  ```python
+  class Solution:
+      def calculate(self, s: str) -> int:
+          stack = []
+          num, pre_sign = 0, '+'
+          for i in range(len(s)):
+              if s[i].isdigit(): num = num * 10 + ord(s[i]) - ord('0')
+              if s[i] in '+-*/' or i == len(s) - 1:
+                  if pre_sign == '+': 
+                      stack.append(num)
+                  elif pre_sign == '-': 
+                      stack.append(-num)
+                  elif pre_sign == '*': 
+                      stack.append(stack.pop() * num)
+                  else: 
+                      stack.append(int(stack.pop() / num))
+                  num, pre_sign = 0, s[i]
+          return sum(stack)
+  ```
+
+  
 
 - 772.基本计算器3
+
+  实现一个基本的计算器来计算简单的表达式字符串。
+
+  表达式字符串只包含非负整数，算符 +、-、*、/ ，左括号 ( 和右括号 ) 。整数除法需要 向下截断 。
+
+  你可以假定给定的表达式总是有效的。所有的中间结果的范围为 [-231, 231 - 1] 。
+
+  ```python
+  
+  ```
+
+  
 
 - 1047.删除字符串中的所有相邻重复项
 
