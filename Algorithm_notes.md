@@ -981,19 +981,55 @@
 例题：
 
 - 剑指Offer09.用两个栈实现队列
+
+  用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
+
+  ```python
+  class CQueue:
+      def __init__(self):
+          self.stack1 = []
+          self.stack2 = []
+  
+      def appendTail(self, value: int) -> None:
+          self.stack1.append(value)
+  
+      def deleteHead(self) -> int:
+          if self.stack2: return self.stack2.pop()
+          if not self.stack1: return -1
+          while self.stack1:
+              self.stack2.append(self.stack1.pop())
+          return self.stack2.pop()
+  ```
+
+  
+
 - 225.用队列实现栈
+
 - 面试题03.05.栈排序
+
 - 155.最小栈
+
 - 面试题03.01.三合一
+
 - 20.有效的括号
+
 - 面试题16.26.计算器
+
 - 772.基本计算器3
+
 - 1047.删除字符串中的所有相邻重复项
+
 - 剑指Offer31.栈的压入、弹出序列
+
 - 739.每日温度
+
 - 42.接雨水
+
 - 84.柱状图中最大的矩形
+
 - 面试题03.06.动物收容所
+
 - 剑指Offer59-2.队列的最大值
+
 - 剑指Offer59-1.滑动窗口的最大值
 
