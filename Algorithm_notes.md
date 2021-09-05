@@ -1091,8 +1091,7 @@
   
   
       def peek(self) -> int:
-          if not self.stack: return -1
-          return self.stack[-1]
+          return self.stack[-1] if self.stack else -1
   
   
       def isEmpty(self) -> bool:
@@ -1141,9 +1140,63 @@
 
   
 
-- 面试题03.01.三合一
+- [面试题03.01.三合一](https://leetcode-cn.com/problems/three-in-one-lcci/)
 
-- 20.有效的括号
+  三合一。描述如何只用一个数组来实现三个栈。
+
+  你应该实现push(stackNum, value)、pop(stackNum)、isEmpty(stackNum)、peek(stackNum)方法。stackNum表示栈下标，value表示压入的值。
+
+  构造函数会传入一个stackSize参数，代表每个栈的大小。
+
+  ```python
+  class TripleInOne:
+  
+      def __init__(self, stackSize: int):
+          self.stack = [[] for _ in range(3)]
+          self.size = stackSize
+  
+  
+      def push(self, stackNum: int, value: int) -> None:
+          if len(self.stack[stackNum]) < self.size:
+              self.stack[stackNum].append(value)
+  
+  
+      def pop(self, stackNum: int) -> int:
+          return self.stack[stackNum].pop() if self.stack[stackNum] else -1
+  
+  
+      def peek(self, stackNum: int) -> int:
+          return self.stack[stackNum][-1] if self.stack[stackNum] else -1
+  
+  
+      def isEmpty(self, stackNum: int) -> bool:
+          return not self.stack[stackNum]
+  ```
+
+  
+
+- [20.有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+
+  给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+
+  有效字符串需满足：
+
+  左括号必须用相同类型的右括号闭合。
+  左括号必须以正确的顺序闭合。
+
+  ```python
+  class Solution:
+      def isValid(self, s: str) -> bool:
+          if len(s) % 2 == 1: return False
+          dic = {'(': ')', '{': '}', '[': ']'}
+          stack = []
+          for c in s:
+              if c in dic: stack.append(c)
+              elif not stack or dic[stack.pop()] != c: return False
+          return not stack
+  ```
+
+  
 
 - 面试题16.26.计算器
 
