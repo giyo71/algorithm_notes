@@ -1066,17 +1066,80 @@
 
   
 
-- 面试题03.05.栈排序
+- [面试题03.05.栈排序](https://leetcode-cn.com/problems/sort-of-stacks-lcci/)
 
   栈排序。 编写程序，对栈进行排序使最小元素位于栈顶。最多只能使用一个其他的临时栈存放数据，但不得将元素复制到别的数据结构（如数组）中。该栈支持如下操作：push、pop、peek 和 isEmpty。当栈为空时，peek 返回 -1。
 
   ```python
+  class SortedStack:
   
+      def __init__(self):
+          self.stack = []
+  
+  
+      def push(self, val: int) -> None:
+          tmp_stack = []
+          while self.stack and val > self.stack[-1]:
+              tmp_stack.append(self.stack.pop())
+          self.stack.append(val)
+          while tmp_stack:
+              self.stack.append(tmp_stack.pop())
+  
+  
+      def pop(self) -> None:
+          if self.stack: self.stack.pop()
+  
+  
+      def peek(self) -> int:
+          if not self.stack: return -1
+          return self.stack[-1]
+  
+  
+      def isEmpty(self) -> bool:
+          return not self.stack
   ```
 
   
 
-- 155.最小栈
+- [155.最小栈](https://leetcode-cn.com/problems/min-stack/)
+
+  设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
+
+  push(x) —— 将元素 x 推入栈中。
+  pop() —— 删除栈顶的元素。
+  top() —— 获取栈顶元素。
+  getMin() —— 检索栈中的最小元素。
+
+  ```python
+  class MinStack:
+  
+      def __init__(self):
+          """
+          initialize your data structure here.
+          """
+          self.stack = []
+          self.min_stack = [math.inf]
+  
+  
+      def push(self, val: int) -> None:
+          self.stack.append(val)
+          self.min_stack.append(min(val, self.min_stack[-1]))
+  
+  
+      def pop(self) -> None:
+          self.stack.pop()
+          self.min_stack.pop()
+  
+  
+      def top(self) -> int:
+          return self.stack[-1]
+  
+  
+      def getMin(self) -> int:
+          return self.min_stack[-1]
+  ```
+
+  
 
 - 面试题03.01.三合一
 
