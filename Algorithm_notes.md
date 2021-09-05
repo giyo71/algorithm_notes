@@ -1238,9 +1238,35 @@
 
   
 
-- 1047.删除字符串中的所有相邻重复项
+- [1047.删除字符串中的所有相邻重复项](https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string/)
+
+  给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+
+  在 S 上反复执行重复项删除操作，直到无法继续删除。
+
+  在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+
+  ```python
+  class Solution:
+      def removeDuplicates(self, s: str) -> str:
+          stack = []
+          for c in s:
+              if stack and stack[-1] == c: stack.pop()
+              else: stack.append(c)
+          return ''.join(stack)
+  ```
+
+  
 
 - 剑指Offer31.栈的压入、弹出序列
+
+  输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
+
+  ```python
+  
+  ```
+
+  
 
 - 739.每日温度
 
