@@ -990,9 +990,11 @@
           self.stack1 = []
           self.stack2 = []
   
+          
       def appendTail(self, value: int) -> None:
           self.stack1.append(value)
   
+          
       def deleteHead(self) -> int:
           if self.stack2: return self.stack2.pop()
           if not self.stack1: return -1
@@ -1003,7 +1005,7 @@
 
   
 
-- 225.用队列实现栈
+- [225.用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/)
 
   请你仅使用两个队列实现一个后入先出（LIFO）的栈，并支持普通栈的全部四种操作（push、top、pop 和 empty）。
 
@@ -1021,12 +1023,58 @@
   你所使用的语言也许不支持队列。 你可以使用 list （列表）或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。
 
   ```python
+  class MyStack:
   
+      def __init__(self):
+          """
+          Initialize your data structure here.
+          """
+          self.queue1 = collections.deque()
+          self.queue2 = collections.deque()
+  
+  
+      def push(self, x: int) -> None:
+          """
+          Push element x onto stack.
+          """
+          self.queue2.append(x)
+          while self.queue1:
+              self.queue2.append(self.queue1.popleft())
+          self.queue1, self.queue2 = self.queue2, self.queue1
+  
+  
+      def pop(self) -> int:
+          """
+          Removes the element on top of the stack and returns that element.
+          """
+          return self.queue1.popleft()
+  
+  
+      def top(self) -> int:
+          """
+          Get the top element.
+          """
+          return self.queue1[0]
+  
+  
+      def empty(self) -> bool:
+          """
+          Returns whether the stack is empty.
+          """
+          return not self.queue1
   ```
 
   
 
 - 面试题03.05.栈排序
+
+  栈排序。 编写程序，对栈进行排序使最小元素位于栈顶。最多只能使用一个其他的临时栈存放数据，但不得将元素复制到别的数据结构（如数组）中。该栈支持如下操作：push、pop、peek 和 isEmpty。当栈为空时，peek 返回 -1。
+
+  ```python
+  
+  ```
+
+  
 
 - 155.最小栈
 
