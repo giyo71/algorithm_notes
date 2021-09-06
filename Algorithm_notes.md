@@ -1224,7 +1224,7 @@
 
   
 
-- 772.基本计算器3
+- [772.基本计算器3](https://leetcode-cn.com/problems/basic-calculator-iii/)
 
   实现一个基本的计算器来计算简单的表达式字符串。
 
@@ -1233,7 +1233,43 @@
   你可以假定给定的表达式总是有效的。所有的中间结果的范围为 [-231, 231 - 1] 。
 
   ```python
+  class Solution:
+      def calculate(self, s: str) -> int:
+          def cal(num1, num2, opt):
+              if opt == '+': return num2 + num1
+              elif opt == '-': return num2 - num1
+              elif opt == '*': return num2 * num1
+              else: return int(num2 / num1)
   
+          stack_num, stack_opt =[], []
+          i = 0
+          priority = {'(': 0, ')': 0, '+': 1, '-': 1, '*': 2, '/': 2}
+          while i < len(s):
+              if s[i] == ' ': 
+                  i += 1
+                  continue
+              elif s[i].isdigit():
+                  pre = i
+                  while i + 1 < len(s) and s[i + 1].isdigit():
+                      i += 1
+                  stack_num.append(int(s[pre: i + 1]))
+              elif s[i] == '(':
+                  stack_opt.append(s[i])
+              elif s[i] == ')':
+                  while stack_opt[-1] != '(':
+                      tmp = cal(stack_num.pop(), stack_num.pop(), stack_opt.pop())
+                      stack_num.append(tmp)
+                  stack_opt.pop()
+              else:
+                  while stack_opt and priority[stack_opt[-1]] >= priority[s[i]]:
+                      tmp = cal(stack_num.pop(), stack_num.pop(), stack_opt.pop())
+                      stack_num.append(tmp)
+                  stack_opt.append(s[i])
+              i += 1
+          while stack_opt:
+              tmp = cal(stack_num.pop(), stack_num.pop(), stack_opt.pop())
+              stack_num.append(tmp) 
+          return stack_num[-1]
   ```
 
   
