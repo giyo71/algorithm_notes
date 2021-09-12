@@ -1336,9 +1336,9 @@
   给定 *n* 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
 
   ```python
-  # 该解法属于栈和队列分类下，属于单调栈解法 (单调栈：要求栈中的元素始终保持单调性)
   # 该题单调栈解法空间复杂度为O(n)，单调栈stack的空间复杂度即为数组height的长度n
-  # 由于不是最优解，则最优解附下
+  # 由于不是最优解，则最优解附下方
+  # 由于该题属于栈和队列分类下，则保留单调栈解法 (单调栈：要求栈中的元素始终保持单调性)
   class Solution:
       def trap(self, height: List[int]) -> int:
           res, stack = 0, []
@@ -1356,6 +1356,21 @@
 
   ```python
   # 双指针，空间复杂度为O(1)
+  class Solution:
+      def trap(self, height: List[int]) -> int:
+          res = 0
+          i, j = 0, len(height) - 1
+          left_max = right_max = 0
+          while i < j:
+              left_max = max(left_max, height[i])
+              right_max = max(right_max, height[j])
+              if height[i] < height[j]:
+                  res += left_max - height[i]
+                  i += 1
+              else:
+                  res += right_max - height[j]
+                  j -= 1
+          return res
   ```
 
   
