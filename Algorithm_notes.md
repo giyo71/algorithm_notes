@@ -1398,9 +1398,46 @@
 
   
 
-- 面试题03.06.动物收容所
+- [面试题03.06.动物收容所](https://leetcode-cn.com/problems/animal-shelter-lcci/)
+
+  动物收容所。有家动物收容所只收容狗与猫，且严格遵守“先进先出”的原则。在收养该收容所的动物时，收养人只能收养所有动物中“最老”（由其进入收容所的时间长短而定）的动物，或者可以挑选猫或狗（同时必须收养此类动物中“最老”的）。换言之，收养人不能自由挑选想收养的对象。请创建适用于这个系统的数据结构，实现各种操作方法，比如enqueue、dequeueAny、dequeueDog和dequeueCat。允许使用Java内置的LinkedList数据结构。
+
+  enqueue方法有一个animal参数，animal[0]代表动物编号，animal[1]代表动物种类，其中 0 代表猫，1 代表狗。
+
+  dequeue*方法返回一个列表[动物编号, 动物种类]，若没有可以收养的动物，则返回[-1,-1]。
+
+  ```python
+  class AnimalShelf:
+  
+      def __init__(self):
+          self.animals = [deque(), deque()]
+  
+  
+      def enqueue(self, animal: List[int]) -> None:
+          self.animals[animal[1]].append(animal)
+  
+  
+      def dequeueAny(self) -> List[int]:
+          if self.animals[0] and self.animals[1]:
+              return self.animals[0].popleft() if self.animals[0][0][0] < self.animals[1][0][0] else self.animals[1].popleft()
+          elif self.animals[0]: return self.animals[0].popleft()
+          elif self.animals[1]: return self.animals[1].popleft()
+          else: return [-1, -1]
+  
+  
+      def dequeueDog(self) -> List[int]:
+          return self.animals[1].popleft() if self.animals[1] else [-1, -1]
+  
+  
+      def dequeueCat(self) -> List[int]:
+          return self.animals[0].popleft() if self.animals[0] else [-1, -1]
+  ```
+
+  
 
 - 剑指Offer59-2.队列的最大值
+
+  
 
 - 剑指Offer59-1.滑动窗口的最大值
 
