@@ -1471,5 +1471,28 @@
 
   
 
-- 剑指Offer59-1.滑动窗口的最大值
+- [剑指Offer59-1.滑动窗口的最大值](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/)
+
+  给定一个数组 `nums` 和滑动窗口的大小 `k`，请找出所有滑动窗口里的最大值。
+
+  ```python
+  class Solution:
+      def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+          if not nums: return []
+          deque = collections.deque()
+          for i in range(k):
+              while deque and deque[-1] < nums[i]:
+                  deque.pop()
+              deque.append(nums[i])
+          res = [deque[0]]
+          for i in range(k, len(nums)):
+              if deque[0] == nums[i - k]: deque.popleft()
+              while deque and deque[-1] < nums[i]:
+                  deque.pop()
+              deque.append(nums[i])
+              res.append(deque[0])
+          return res
+  ```
+
+  
 
