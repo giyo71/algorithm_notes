@@ -1321,8 +1321,8 @@
       def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
           res = [0] * len(temperatures)
           stack = []
-          for i in range(len(temperatures)):
-              while stack and temperatures[i] > temperatures[stack[-1]]:
+          for i, t in enumerate(temperatures):
+              while stack and t > temperatures[stack[-1]]:
                   tmp_i = stack.pop()
                   res[tmp_i] = i - tmp_i
               stack.append(i)
@@ -1331,7 +1331,34 @@
 
   
 
-- 42.接雨水
+- [42.接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
+
+  给定 *n* 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+
+  ```python
+  # 该解法属于栈和队列分类下，属于单调栈解法 (单调栈：要求栈中的元素始终保持单调性)
+  # 该题单调栈解法空间复杂度为O(n)，单调栈stack的空间复杂度即为数组height的长度n
+  # 由于不是最优解，则最优解附下
+  class Solution:
+      def trap(self, height: List[int]) -> int:
+          res, stack = 0, []
+          for right, h in enumerate(height):
+              while stack and h > height[stack[-1]]:
+                  mid = stack.pop()
+                  if not stack: break
+                  left = stack[-1]
+                  tmp_width = right - left - 1
+                  tmp_height = min(height[left], height[right]) - height[mid]
+                  res += tmp_width * tmp_height
+              stack.append(right)
+          return res
+  ```
+
+  ```python
+  # 双指针，空间复杂度为O(1)
+  ```
+
+  
 
 - 84.柱状图中最大的矩形
 
