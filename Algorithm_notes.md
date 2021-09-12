@@ -1347,9 +1347,9 @@
                   mid = stack.pop()
                   if not stack: break
                   left = stack[-1]
-                  tmp_width = right - left - 1
-                  tmp_height = min(height[left], height[right]) - height[mid]
-                  res += tmp_width * tmp_height
+                  tmp_w = right - left - 1
+                  tmp_h = min(height[left], height[right]) - height[mid]
+                  res += tmp_w * tmp_h
               stack.append(right)
           return res
   ```
@@ -1375,7 +1375,28 @@
 
   
 
-- 84.柱状图中最大的矩形
+- [84.柱状图中最大的矩形](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/)
+
+  给定 *n* 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+  求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+  ```python
+  class Solution:
+      def largestRectangleArea(self, heights: List[int]) -> int:
+          res, stack = 0, [0]
+          heights = [0] + heights + [0]
+          for i in range(1, len(heights)):
+              while heights[i] < heights[stack[-1]]:
+                  tmp_i = stack.pop()
+                  tmp_h = heights[tmp_i]
+                  tmp_w = i - stack[-1] - 1
+                  res = max(res, tmp_h * tmp_w)
+              stack.append(i)
+          return res
+  ```
+
+  
 
 - 面试题03.06.动物收容所
 
