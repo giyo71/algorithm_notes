@@ -1242,7 +1242,11 @@
           stack = []
           num, pre_sign = 0, '+'
           for i in range(len(s)):
+              # 当出现连续数字时直接处理即可
               if s[i].isdigit(): num = num * 10 + ord(s[i]) - ord('0')
+              # 当出现符号或遍历到最后一位时
+              # 判断前一个符号
+              # e.g. 若 2*3+4，遍历到+，则前一个符号是*，计算栈顶数2*当前数3即可
               if s[i] in '+-*/' or i == len(s) - 1:
                   if pre_sign == '+': 
                       stack.append(num)
@@ -1267,6 +1271,7 @@
   你可以假定给定的表达式总是有效的。所有的中间结果的范围为 [-231, 231 - 1] 。
 
   ```python
+  # 该题为逆波兰表达式
   class Solution:
       def calculate(self, s: str) -> int:
           def cal(num1, num2, opt):
@@ -1282,6 +1287,7 @@
               if s[i] == ' ': 
                   i += 1
                   continue
+              # 如果出现数字，则while循环遍历其之后的整串数字
               elif s[i].isdigit():
                   pre = i
                   while i + 1 < len(s) and s[i + 1].isdigit():
@@ -1289,17 +1295,20 @@
                   stack_num.append(int(s[pre: i + 1]))
               elif s[i] == '(':
                   stack_opt.append(s[i])
+              # 当出现右括号时，直到计算符栈出现左括号，while循环计算括号内剩余符号
               elif s[i] == ')':
                   while stack_opt[-1] != '(':
                       tmp = cal(stack_num.pop(), stack_num.pop(), stack_opt.pop())
                       stack_num.append(tmp)
                   stack_opt.pop()
+              # 当计算符栈顶符号优先度大于当前符号时，计算栈顶符号
               else:
                   while stack_opt and priority[stack_opt[-1]] >= priority[s[i]]:
                       tmp = cal(stack_num.pop(), stack_num.pop(), stack_opt.pop())
                       stack_num.append(tmp)
                   stack_opt.append(s[i])
               i += 1
+          # 遍历完成后，若最后还留下操作符，计算即可
           while stack_opt:
               tmp = cal(stack_num.pop(), stack_num.pop(), stack_opt.pop())
               stack_num.append(tmp) 
@@ -1321,7 +1330,10 @@
       def removeDuplicates(self, s: str) -> str:
           stack = []
           for c in s:
+              # 若当前字符等于栈顶字符，即前一个字符，将栈顶字符删去
+              # 该字符也不入栈即可
               if stack and stack[-1] == c: stack.pop()
+              # 否则该字符入栈
               else: stack.append(c)
           return ''.join(stack)
   ```
@@ -1335,10 +1347,13 @@
   ```python
   class Solution:
       def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+          # 初始i指针指向popped数组的首位
           stack, i = [], 0
           for num in pushed:
               stack.append(num)
+              # 判断栈顶元素是否等于出栈数组的i指针位元素
               while stack and stack[-1] == popped[i]:
+                  # 是则出栈，i指针继续往下一位遍历
                   stack.pop()
                   i += 1
           return not stack
@@ -1354,10 +1369,13 @@
   class Solution:
       def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
           res = [0] * len(temperatures)
+          # 创建单调递减栈
           stack = []
           for i, t in enumerate(temperatures):
+              # 若当前温度比栈顶温度高，则栈顶出栈，给答案数组赋值
               while stack and t > temperatures[stack[-1]]:
                   tmp_i = stack.pop()
+                  # 当前位置 i 到栈顶位置 tmp_i 相差天数 i - tmp_i
                   res[tmp_i] = i - tmp_i
               stack.append(i)
           return res
@@ -1375,15 +1393,20 @@
   # 由于该题属于栈和队列分类下，则保留单调栈解法 (单调栈：要求栈中的元素始终保持单调性)
   class Solution:
       def trap(self, height: List[int]) -> int:
+          # 创建单调递减栈
           res, stack = 0, []
           for right, h in enumerate(height):
+              # 若当前高度比栈顶高度高，则栈顶出栈，计算短板可以接的雨水量
               while stack and h > height[stack[-1]]:
+                  # left(栈顶前一位高度) > mid(栈顶高度) < right(当前高度)
                   mid = stack.pop()
                   if not stack: break
                   left = stack[-1]
                   tmp_w = right - left - 1
                   tmp_h = min(height[left], height[right]) - height[mid]
                   res += tmp_w * tmp_h
+              # 此时，right当前高度比栈顶高度低，保持单调递减栈的特性，
+              # 结束遍历，当前高度index入栈
               stack.append(right)
           return res
   ```
@@ -1393,11 +1416,14 @@
   class Solution:
       def trap(self, height: List[int]) -> int:
           res = 0
+          # 左右指针
           i, j = 0, len(height) - 1
           left_max = right_max = 0
           while i < j:
+              # 判断当前左右指针是否能更新左右最大高度
               left_max = max(left_max, height[i])
               right_max = max(right_max, height[j])
+              # 判断较低高度的指针，计算该指针位置能储水的量
               if height[i] < height[j]:
                   res += left_max - height[i]
                   i += 1
@@ -1418,14 +1444,21 @@
   ```python
   class Solution:
       def largestRectangleArea(self, heights: List[int]) -> int:
+          # 创建单调递增栈
+          # 本题使用哨兵节点，优点是循环时不作非空判断：
+          # 即从位置1开始遍历时不用考虑前一位，因为增加了哨兵头节点高度位0
+          # 遍历到最后一位时不用考虑最后一位的计算缺失，因为增加了哨兵尾节点高度0
           res, stack = 0, [0]
           heights = [0] + heights + [0]
           for i in range(1, len(heights)):
+              # 当前高度小于栈顶高度时
+              # 计算栈顶高度所能构成的最大面积
               while heights[i] < heights[stack[-1]]:
                   tmp_i = stack.pop()
                   tmp_h = heights[tmp_i]
                   tmp_w = i - stack[-1] - 1
                   res = max(res, tmp_h * tmp_w)
+              # 当前高度大于栈顶高度，保证单调递增栈的特性，当前高度index入栈
               stack.append(i)
           return res
   ```
@@ -1444,6 +1477,7 @@
   class AnimalShelf:
   
       def __init__(self):
+          # animals储存两个双端队列，分别为猫deque和狗deque
           self.animals = [deque(), deque()]
   
   
@@ -1452,9 +1486,12 @@
   
   
       def dequeueAny(self) -> List[int]:
+          # 当猫狗deque皆存在，判断哪个deque的头元素动物编号小，则该元素出队列，并return
           if self.animals[0] and self.animals[1]:
               return self.animals[0].popleft() if self.animals[0][0][0] < self.animals[1][0][0] else self.animals[1].popleft()
+          # 只存在猫deque
           elif self.animals[0]: return self.animals[0].popleft()
+          # 只存在狗deque
           elif self.animals[1]: return self.animals[1].popleft()
           else: return [-1, -1]
   
@@ -1482,6 +1519,8 @@
   
       def __init__(self):
           self.queue = queue.Queue()
+          # 创建单调递减双端队列
+          # 队首即是最大值
           self.deque = queue.deque()
   
   
@@ -1491,6 +1530,9 @@
   
       def push_back(self, value: int) -> None:
           self.queue.put(value)
+          # 当单调递减队列队尾 < 当前入队值时
+          # 循环将小于的元素删除
+          # 当前入队值入队
           while self.deque and self.deque[-1] < value:
               self.deque.pop()
           self.deque.append(value)
@@ -1499,6 +1541,8 @@
       def pop_front(self) -> int:
           if not self.deque: return -1
           val = self.queue.get()
+          # 若单调递减队列队首 = 当前出队值时
+          # 两队均出
           if self.deque[0] == val: self.deque.popleft()
           return val
   ```
@@ -1513,14 +1557,25 @@
   class Solution:
       def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
           if not nums: return []
+          # 创建单调递减双端队列
+          # 队列首元素即是最大值
           deque = collections.deque()
+          # 为形成首个窗口时
           for i in range(k):
+              # 当当前值大于队列尾元素时
+              # 为了保持递减性质，尾元素出队
               while deque and deque[-1] < nums[i]:
                   deque.pop()
               deque.append(nums[i])
+          # 答案数组直接加入首个窗口最大值
           res = [deque[0]]
+          # 形成窗口后
           for i in range(k, len(nums)):
+              # 当最大值是已经不在窗口内的元素时，删去该值
+              # i - k即窗口左侧第一个不在窗口内的元素
               if deque[0] == nums[i - k]: deque.popleft()
+              # 当当前值大于队列尾元素时
+              # 为了保持递减性质，尾元素出队
               while deque and deque[-1] < nums[i]:
                   deque.pop()
               deque.append(nums[i])
