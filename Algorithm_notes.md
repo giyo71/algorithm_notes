@@ -1597,13 +1597,82 @@
 
 例题：
 
-- 剑指Offer10-1.斐波那契数列
-- 剑指Offer10-2.青蛙跳台阶问题
+- [剑指Offer10-1.斐波那契数列](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
+
+  写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下：
+
+  F(0) = 0,   F(1) = 1
+  F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
+  斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。
+
+  答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+
+  ```python
+  # 动态规划
+  class Solution:
+      def fib(self, n: int) -> int:
+          a, b = 0, 1
+          for _ in range(n):
+              a, b = b, a + b
+          return a % 1000000007
+  ```
+
+  
+
+- [剑指Offer10-2.青蛙跳台阶问题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/)
+
+  一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
+
+  答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+
+  ```python
+  # 动态规划
+  class Solution:
+      def numWays(self, n: int) -> int:
+          a, b = 1, 1
+          for _ in range(n):
+              a, b = b, a + b
+          return a % 1000000007
+  ```
+
+  
+
+- [剑指Offer63.股票的最大利润](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/)
+
+  假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？
+
+  ```python
+  # 动态规划
+  # 此题为剑指Offer10-1和剑指Offer10-2的进阶题型
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+          cost, profit = float('+inf'), 0
+          for price in prices:
+              cost = min(cost, price)
+              profit = max(profit, price - cost)
+          return profit
+  ```
+
+  
+
 - 面试题08.01.三步问题
+
+  三步问题。有个小孩正在上楼梯，楼梯有n阶台阶，小孩一次可以上1阶、2阶或3阶。实现一种方法，计算小孩有多少种上楼梯的方式。结果可能很大，你需要对结果模1000000007。
+
+  ```python
+  
+  ```
+
+  
+
 - 剑指Offer06.从尾到头打印链表
+
 - 剑指Offer24.反转链表
+
 - 剑指Offer25.合并两个排序的链表
+
 - 剑指Offer16.数值的整数次方
+
 - 面试题08.05.递归乘法
 
 
