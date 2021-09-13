@@ -1758,7 +1758,8 @@
   class Solution:
       def multiply(self, A: int, B: int) -> int:
           if A == 0 or B == 0: return 0
-          res = self.multiply(A // 2, B)
+          # A >> 1 即 A // 2
+          res = self.multiply(A >> 1, B)
           if A % 2 == 1: return res + res + B
           else: return res + res
   ```
