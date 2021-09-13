@@ -1688,7 +1688,23 @@
 
   
 
-- 剑指Offer24.反转链表
+- [剑指Offer24.反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/submissions/)
+
+  定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
+
+  ```python
+  class Solution:
+      def reverseList(self, head: ListNode) -> ListNode:
+          pre, cur = None, head
+          while cur:
+              tmp = cur.next
+              cur.next = pre
+              pre = cur
+              cur = tmp
+          return pre
+  ```
+
+  
 
 - 剑指Offer25.合并两个排序的链表
 
