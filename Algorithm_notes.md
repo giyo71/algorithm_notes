@@ -1002,7 +1002,9 @@
   ```python
   class CQueue:
       def __init__(self):
+          # 插入尾端栈
           self.stack1 = []
+          # 删除头部栈
           self.stack2 = []
   
           
@@ -1011,9 +1013,13 @@
   
           
       def deleteHead(self) -> int:
+          # 存在stack2直接返回
           if self.stack2: return self.stack2.pop()
+          # 此时stack1和2均为空，直接返回 -1
           if not self.stack1: return -1
+          # 存在stack1，stack2为空
           while self.stack1:
+              # 即stack2是stack1的倒转
               self.stack2.append(self.stack1.pop())
           return self.stack2.pop()
   ```
@@ -1030,11 +1036,11 @@
   int pop() 移除并返回栈顶元素。
   int top() 返回栈顶元素。
   boolean empty() 如果栈是空的，返回 true ；否则，返回 false 。
-  
+
   注意：
-  
+
   你只能使用队列的基本操作 —— 也就是 push to back、peek/pop from front、size 和 is empty 这些操作。你所使用的语言也许不支持队列。 你可以使用 list （列表）或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。
-  
+
   ```python
   class MyStack:
   
@@ -1050,6 +1056,7 @@
           """
           Push element x onto stack.
           """
+          # 由于队列先进先出，栈后进先出，为了使用队列的pop from front，push时便将所有元素倒置
           self.queue2.append(x)
           while self.queue1:
               self.queue2.append(self.queue1.popleft())
@@ -1076,7 +1083,7 @@
           """
           return not self.queue1
   ```
-  
+
   
 
 - [面试题03.05.栈排序](https://leetcode-cn.com/problems/sort-of-stacks-lcci/)
@@ -1087,11 +1094,14 @@
   class SortedStack:
   
       def __init__(self):
+          # 单调递减栈
           self.stack = []
   
   
       def push(self, val: int) -> None:
           tmp_stack = []
+          # 如果栈尾元素大于要插入的元素
+          # 将大于的元素压入辅助栈再放回即可
           while self.stack and val > self.stack[-1]:
               tmp_stack.append(self.stack.pop())
           self.stack.append(val)
@@ -1130,11 +1140,13 @@
           initialize your data structure here.
           """
           self.stack = []
+          # 单调递增栈
           self.min_stack = [math.inf]
   
   
       def push(self, val: int) -> None:
           self.stack.append(val)
+          # 每次压入元素时判断最小值即可
           self.min_stack.append(min(val, self.min_stack[-1]))
   
   
@@ -1165,6 +1177,7 @@
   class TripleInOne:
   
       def __init__(self, stackSize: int):
+          # 即stack = [[], [], []]
           self.stack = [[] for _ in range(3)]
           self.size = stackSize
   
@@ -1200,12 +1213,18 @@
   ```python
   class Solution:
       def isValid(self, s: str) -> bool:
+          # 若字符串为奇数，直接返回False
           if len(s) % 2 == 1: return False
           dic = {'(': ')', '{': '}', '[': ']'}
           stack = []
           for c in s:
+              # 若当前字符为一种左括号，进栈
               if c in dic: stack.append(c)
+              # 当栈为空却直接出现右括号时
+              # or 当右括号不等于栈顶左括号时
+              # 直接返回False
               elif not stack or dic[stack.pop()] != c: return False
+          # 栈为空即括号均合法
           return not stack
   ```
 
