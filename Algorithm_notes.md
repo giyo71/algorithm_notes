@@ -1632,7 +1632,7 @@
           # 循环计算n次:
           # a    b
           # F(0) F(1) n = 0
-          # F(1) F(2) n = 1
+          # F(1) F(2) n = 1 <- 开始进入循环
           # F(2) F(3) n = 2
           for _ in range(n):
               # 每次计算后的b实际上是下一项的值
@@ -1658,7 +1658,7 @@
           # 循环计算n次
           # a    b
           # F(0) F(1) n = 0
-          # F(1) F(2) n = 1
+          # F(1) F(2) n = 1 <- 开始进入循环
           # F(2) F(3) n = 2
           for _ in range(n):
               # 每次计算后的b实际上是下一项的值
@@ -1677,6 +1677,7 @@
   # 此题为剑指Offer10-1和剑指Offer10-2的进阶题型
   class Solution:
       def maxProfit(self, prices: List[int]) -> int:
+          # 需要找到max_profit = price - min_cost即可
           cost, profit = float('+inf'), 0
           for price in prices:
               cost = min(cost, price)
@@ -1691,12 +1692,22 @@
   三步问题。有个小孩正在上楼梯，楼梯有n阶台阶，小孩一次可以上1阶、2阶或3阶。实现一种方法，计算小孩有多少种上楼梯的方式。结果可能很大，你需要对结果模1000000007。
 
   ```python
+  # 动态规划
   class Solution:
       def waysToStep(self, n: int) -> int:
+          # 三步问题最开始情况：F(4) = F(3) + F(2) + F(1)
+          # a 为 F(1)，b 为 F(2), c 为 F(3)
           if n < 3: return n
           if n == 3: return 4
           a, b, c = 1, 2, 4
+          # 循环计算n-3次
+          # a    b    c
+          # F(1) F(2) F(3) n = 1,2,3
+          # F(2) F(3) F(4) n = 4 <- 开始进入循环
+          # F(3) F(4) F(5) n = 5
           for _ in range(n - 3):
+              # c即是我们需要的结果
+              # 注意此题需要在计算时取模，不会超时
               a, b, c = b, c, (a + b + c) % 1000000007
           return c
   ```
@@ -1710,6 +1721,7 @@
   ```python
   class Solution:
       def reversePrint(self, head: ListNode) -> List[int]:
+          # 顺序将值加入数组，最后打印数据倒序即可
           res = []
           while head:
               res.append(head.val)
@@ -1726,7 +1738,11 @@
   ```python
   class Solution:
       def reverseList(self, head: ListNode) -> ListNode:
+          # None (pre)
+          # head (cur)
           pre, cur = None, head
+          # 循环依次将cur指针指向pre指针处即可
+          # 当cur为空时，此时pre即指向反转后的头节点
           while cur:
               tmp = cur.next
               cur.next = pre
@@ -1749,6 +1765,8 @@
   ```python
   class Solution:
       def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+          # dum (cur)
+          # 循环依次将cur指针指向l1 or l2中较小的节点即可
           dum = cur = ListNode(0)
           while l1 and l2:
               if l1.val < l2.val:
@@ -1756,6 +1774,7 @@
               else:
                   cur.next, l2 = l2, l2.next
               cur = cur.next
+          # 需要注意，此时的情况必为：l1和l2一个为空一个剩余一个节点
           cur.next = l1 if l1 else l2
           return dum.next
   ```
@@ -1764,15 +1783,27 @@
 
 - [剑指Offer16.数值的整数次方](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/)
 
-  实现 pow(*x*, *n*) ，即计算 x 的 n 次幂函数（即，xn）。不得使用库函数，同时不需要考虑大数问题
+  实现 pow(*x*, *n*) ，即计算 x 的 n 次幂函数（即，x^n）。不得使用库函数，同时不需要考虑大数问题
 
   ```python
   class Solution:
       def myPow(self, x: float, n: int) -> float:
+          # 处理0的任何次方
           if x == 0: return 0
+          # 处理负数次方
           if n < 0: x, n = 1/x, -n
           res = 1
           while n:
+              # 当次方数n为奇数时，res乘上一个x
+              # 例：计算3^9
+              # n//2 			x=x^2 								res=1
+              # 9//2=4    3x3     							1x3
+              # 4//2=2 		(3x3)x(3x3)						1x3
+              # 2//2=1 		(3x3x3x3)x(3x3x3x3) 	1x3
+              # 1//2=0 		... 									1x3x((3x3x3x3)x(3x3x3x3))
+              # 即 3 x [(3x3) x (3x3)] x [(3x3) x (3x3)] 的循环过程
+              # 当有奇数出现时res单独乘上一个x
+              # 当最后一个奇数即n=1时，当前的 res*x 即是所求
               if n % 2 == 1: res *= x
               x *= x
               n //= 2
@@ -1791,7 +1822,10 @@
           if A == 0 or B == 0: return 0
           # A >> 1 即 A // 2
           res = self.multiply(A >> 1, B)
+          # 当A为奇数时，A * B = A//2 * B + A//2 * B + B
+          # 在递归的最深层，必有A//2 = 1，此时即满足不需要使用乘号也可以计算乘法
           if A % 2 == 1: return res + res + B
+          # 当A为偶数时，A * B = A//2 * B + A//2 * B
           else: return res + res
   ```
 
