@@ -1593,7 +1593,20 @@
 
 知识点：
 
-> pass
+> 经典递归函数：
+>
+> 斐波那契数列计算
+>
+> ```python
+> def fib(self, n: int) -> int:
+>     if n == 0: return 0
+>     if n == 1: return 1
+>     return fib(n - 1) + fib(n - 2)
+> ```
+>
+> 该方法也是经典的时间复杂度为 `O(n^2)` 的例子
+>
+> p.s. 注意：在使用python时，递归方法基本超时也不效率，除非特殊情况实际不用递归
 
 例题：
 
@@ -1611,8 +1624,16 @@
   # 动态规划
   class Solution:
       def fib(self, n: int) -> int:
+          # 斐波那契数列最开始情况：F(2) = F(1) + F(0)
+          # a 为 F(0)，b 为 F(1)
           a, b = 0, 1
+          # 循环计算n次:
+          # a    b
+          # F(0) F(1) n = 0
+          # F(1) F(2) n = 1
+          # F(2) F(3) n = 2
           for _ in range(n):
+              # 每次计算后的b实际上是下一项的值
               a, b = b, a + b
           return a % 1000000007
   ```
@@ -1629,8 +1650,16 @@
   # 动态规划
   class Solution:
       def numWays(self, n: int) -> int:
+          # 跳台阶最开始情况：F(2) = F(1) + F(0)
+          # a 为 F(0)，b 为 F(1)
           a, b = 1, 1
+          # 循环计算n次
+          # a    b
+          # F(0) F(1) n = 0
+          # F(1) F(2) n = 1
+          # F(2) F(3) n = 2
           for _ in range(n):
+              # 每次计算后的b实际上是下一项的值
               a, b = b, a + b
           return a % 1000000007
   ```
