@@ -1851,9 +1851,15 @@
 >
 > 
 >
-> (1) 冒泡排序
+> [常见排序](https://www.runoob.com/w3cnote/ten-sorting-algorithm.html)：
 >
-> (2) 插入排序
+> (1) [冒泡排序](https://www.runoob.com/python3/python-bubble-sort.html)
+>
+> 整个冒泡排序过程包含多趟冒泡操作。每一趟冒泡操作都会遍历整个数组，依次对数组中相邻的元素进行比较，看是否满足大小关系要求，如果不满足，就将他们互换位置。一趟冒泡操作会让至少一个元素移动到它应该在的位置，重复n次，就完成了n个数据的排序工作。
+>
+> (2) [插入排序](https://www.runoob.com/python3/python-insertion-sort.html)
+>
+> pass
 >
 > (3) 选择排序
 >
