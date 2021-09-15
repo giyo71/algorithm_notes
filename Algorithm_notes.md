@@ -1875,9 +1875,13 @@
 >
 > <img src="https://www.runoob.com/wp-content/uploads/2019/03/selectionSort.gif" style="zoom:50%;" />
 >
-> (4) 归并排序
+> (4) [归并排序](https://www.runoob.com/python3/python-merge-sort.html)
 >
-> pass
+> 归并排序利用了分治的思想，采用递归来实现。如果要排序一个数组，先把数组从中间分成前后两部分，然后对前后两部分分别排序，再将排好序的两部分合并在一起，这样整个数组就都有序了。
+>
+> p.s. 非原地 & 稳定
+>
+> <img src="https://www.runoob.com/wp-content/uploads/2019/03/mergeSort.gif" style="zoom:50%;" />
 >
 > (5) 快速排序
 >
