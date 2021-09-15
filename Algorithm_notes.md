@@ -1890,14 +1890,6 @@
 > p.s. 原地 & 不稳定
 >
 > <img src="https://www.runoob.com/wp-content/uploads/2019/03/quickSort.gif" style="zoom:50%;" />
->
-> (6) 桶排序
->
-> pass
->
-> (7) 基数排序
->
-> Pass
 
 例题：
 
