@@ -1857,7 +1857,7 @@
 >
 > p.s. 原地 & 稳定
 >
-> <img src="https://www.runoob.com/wp-content/uploads/2019/03/bubbleSort.gif"  />
+> <img src="https://www.runoob.com/wp-content/uploads/2019/03/bubbleSort.gif" style="zoom:50%;" />
 >
 > (2) [插入排序](https://www.runoob.com/python3/python-insertion-sort.html)
 >
@@ -1865,17 +1865,31 @@
 >
 > p.s. 原地 & 稳定
 >
-> ![](https://www.runoob.com/wp-content/uploads/2019/03/insertionSort.gif)
+> <img src="https://www.runoob.com/wp-content/uploads/2019/03/insertionSort.gif" style="zoom:50%;" />
 >
-> (3) 选择排序
+> (3) [选择排序](https://www.runoob.com/python3/python-selection-sort.html)
+>
+> 选择排序算法的实现思路有点类似插入排序，也将整个数组划分为已排序区间和未排序区间。但不同点在于：选择排序算法每次从未排序区间中，找到最小的元素，将其放到已排序区间的末尾。
+>
+> p.s. 原地 & 不稳定
+>
+> <img src="https://www.runoob.com/wp-content/uploads/2019/03/selectionSort.gif" style="zoom:50%;" />
 >
 > (4) 归并排序
 >
+> pass
+>
 > (5) 快速排序
+>
+> pass
 >
 > (6) 桶排序
 >
+> pass
+>
 > (7) 基数排序
+>
+> Pass
 
 例题：
 
