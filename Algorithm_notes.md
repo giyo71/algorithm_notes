@@ -1883,9 +1883,13 @@
 >
 > <img src="https://www.runoob.com/wp-content/uploads/2019/03/mergeSort.gif" style="zoom:50%;" />
 >
-> (5) 快速排序
+> (5) [快速排序](https://www.runoob.com/python3/python-quicksort.html)
 >
-> pass
+> 快速排序也利用了分治的思想，采用递归来实现。首先挑选基准值，重新排序数列，比基准值小的元素放在基准前面，比基准值大的元素放在基准后面。在这步分割结束之后，对该基准值的排序就已经完成。递归将小于基准值元素的子序列和大于基准值元素的子序列排序。
+>
+> p.s. 原地 & 不稳定
+>
+> <img src="https://www.runoob.com/wp-content/uploads/2019/03/quickSort.gif" style="zoom:50%;" />
 >
 > (6) 桶排序
 >
