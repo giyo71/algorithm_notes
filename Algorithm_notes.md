@@ -1925,7 +1925,27 @@
 
   
 
-- 242.有效的字母异位词
+- [242.有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
+
+  给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+  注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
+
+  ```python
+  class Solution:
+      def isAnagram(self, s: str, t: str) -> bool:
+          if len(s) != len(t): return False
+          tmp = [0] * 26
+          for char in s:
+              tmp[ord(char) - ord('a')] += 1
+          for char in t:
+              tmp[ord(char) - ord('a')] -= 1
+          for i in tmp:
+              if i != 0: return False
+          return True
+  ```
+
+  
 
 - 1502.判断能否形成等差数列
 
