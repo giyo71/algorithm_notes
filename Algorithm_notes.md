@@ -1893,17 +1893,58 @@
 
 例题：
 
-- 面试题10.01.合并排序的数组
+- [面试题10.01.合并排序的数组](https://leetcode-cn.com/problems/sorted-merge-lcci/)
+
+  给定两个排序后的数组 A 和 B，其中 A 的末端有足够的缓冲空间容纳 B。 编写一个方法，将 B 合并入 A 并排序。
+
+  初始化 A 和 B 的元素数量分别为 m 和 n。
+
+  ```python
+  class Solution:
+      def merge(self, A: List[int], m: int, B: List[int], n: int) -> None:
+          """
+          Do not return anything, modify A in-place instead.
+          """
+          i, j = m - 1, n - 1
+          tail = m + n - 1
+          while i >= 0 or j >= 0:
+              if i == -1:
+                  A[tail] = B[j]
+                  j -= 1
+              elif j == -1:
+                  A[tail] = A[i]
+                  i -= 1
+              elif A[i] > B[j]:
+                  A[tail] = A[i]
+                  i -= 1
+              else:
+                  A[tail] = B[j]
+                  j -= 1
+              tail -= 1
+  ```
+
+  
+
 - 242.有效的字母异位词
+
 - 1502.判断能否形成等差数列
+
 - 252.会议室
+
 - 56.合并区间
+
 - 剑指Offer21.调整数组顺序使奇数位于偶数前面
+
 - 75.颜色分类
+
 - 147.对链表进行插入排序
+
 - 148.排序链表
+
 - 215.数组中的第K个最大元素
+
 - 面试题17.14.最小K个数
+
 - 剑指Offer51.数组中的逆序对
 
 
