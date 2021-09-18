@@ -2083,14 +2083,40 @@
 
   
 
-- 215.数组中的第K个最大元素
+- [215.数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
 
   给定整数数组 `nums` 和整数 `k`，请返回数组中第 `k` 个最大的元素。
 
   请注意，你需要找的是数组排序后的第 `k` 个最大的元素，而不是第 `k` 个不同的元素。
 
   ```python
+  # 正常快速排序方法
+  # 此题引入随机数是为了增加代码通过效率，与时间复杂度并无关系
+  import random
   
+  class Solution:
+      def findKthLargest(self, nums: List[int], k: int) -> int:
+          def partition(l, r):
+              # 该步骤if只是为了增加代码通过效率，与时间复杂度并无关系
+              if l < r:
+                  tmp = random.randint(l, r)
+                  nums[l], nums[tmp] = nums[tmp], nums[l]
+                  
+              pivot = nums[l]
+              i = l
+              for j in range(i + 1, r + 1):
+                  if nums[j] < pivot:
+                      i += 1
+                      nums[i], nums[j] = nums[j], nums[i]
+              nums[l], nums[i] = nums[i], nums[l]
+              return i
+          
+          l, r = 0, len(nums) - 1
+          while True:
+              index = partition(l, r)
+              if index < len(nums) - k: l = index + 1
+              elif index > len(nums) - k: r = index - 1
+              else: return nums[index]
   ```
 
   
