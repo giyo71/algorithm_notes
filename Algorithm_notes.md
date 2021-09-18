@@ -2051,7 +2051,7 @@
   #         self.next = next
   class Solution:
       def insertionSortList(self, head: ListNode) -> ListNode:
-          if not head: return head
+          if not head: return None
           dum = ListNode(0, head)
           last, cur = head, head.next
           while cur:
