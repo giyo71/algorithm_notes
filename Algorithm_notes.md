@@ -1998,19 +1998,76 @@
 
   
 
-- 75.颜色分类
+- [75.颜色分类](https://leetcode-cn.com/problems/sort-colors/)
 
   给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
 
   此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
 
+  **进阶：**
+
+  你可以不使用代码库中的排序函数来解决这道题吗？
+
+  你能想出一个仅使用常数空间的一趟扫描算法吗？
+
   ```python
-  
+  class Solution:
+      def sortColors(self, nums: List[int]) -> None:
+          """
+          Do not return anything, modify nums in-place instead.
+          """
+          i, j = 0, len(nums) - 1
+          cur = 0
+          while cur <= j:
+              while cur <= j and nums[cur] == 2:
+                  nums[cur], nums[j] = nums[j], nums[cur]
+                  j -= 1
+              if nums[cur] == 0:
+                  nums[cur], nums[i] = nums[i], nums[cur]
+                  i += 1
+              cur += 1
+          return nums
   ```
 
   
 
-- 147.对链表进行插入排序
+- [147.对链表进行插入排序](https://leetcode-cn.com/problems/insertion-sort-list/)
+
+  对链表进行插入排序。
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif" style="zoom: 67%;" />
+
+  插入排序算法：
+
+  插入排序是迭代的，每次只移动一个元素，直到所有元素可以形成一个有序的输出列表。
+  每次迭代中，插入排序只从输入数据中移除一个待排序的元素，找到它在序列中适当的位置，并将其插入。
+  重复直到所有输入数据插入完为止。
+
+  ```python
+  # Definition for singly-linked list.
+  # class ListNode:
+  #     def __init__(self, val=0, next=None):
+  #         self.val = val
+  #         self.next = next
+  class Solution:
+      def insertionSortList(self, head: ListNode) -> ListNode:
+          if not head: return head
+          dum = ListNode(0, head)
+          last, cur = head, head.next
+          while cur:
+              if last.val <= cur.val: last = last.next
+              else:
+                  pre = dum
+                  while pre.next.val <= cur.val:
+                      pre = pre.next
+                  last.next = cur.next
+                  cur.next = pre.next
+                  pre.next = cur
+              cur = last.next
+          return dum.next
+  ```
+
+  
 
 - 148.排序链表
 
