@@ -1947,11 +1947,30 @@
 
   
 
-- 1502.判断能否形成等差数列
+- [252.会议室](https://leetcode-cn.com/problems/meeting-rooms/)
 
-- 252.会议室
+  给定一个会议时间安排的数组 intervals ，每个会议时间都会包括开始和结束的时间 intervals[i] = [starti, endi] ，请你判断一个人是否能够参加这里面的全部会议。
+
+  ```python
+  class Solution:
+      def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+          intervals.sort()
+          for i in range(len(intervals) - 1):
+              if intervals[i][1] > intervals[i + 1][0]: return False
+          return True
+  ```
+
+  
 
 - 56.合并区间
+
+  以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
+
+  ```python
+  
+  ```
+
+  
 
 - 剑指Offer21.调整数组顺序使奇数位于偶数前面
 
