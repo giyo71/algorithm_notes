@@ -2106,7 +2106,7 @@
                   
               pivot = nums[l]
               i = l
-              for j in range(i + 1, r + 1):
+              for j in range(l + 1, r + 1):
                   if nums[j] < pivot:
                       i += 1
                       nums[i], nums[j] = nums[j], nums[i]
@@ -2151,7 +2151,57 @@
 
   
 
-- 面试题17.14.最小K个数
+- [面试题17.14.最小K个数](https://leetcode-cn.com/problems/smallest-k-lcci/)
+
+  设计一个算法，找出数组中最小的k个数。以任意顺序返回这k个数均可。
+
+  ```python
+  # 方法1：
+  # 正常快速排序方法，时间复杂度O(n)，空间复杂度O(logn)
+  # (i/j双指针均从左指针处出发)
+  class Solution:
+      def smallestK(self, arr: List[int], k: int) -> List[int]:
+          if not arr or k >= len(arr): return arr
+          def partition(l, r):
+              pivot = arr[l]
+              i = l
+              for j in range(l + 1, r + 1):
+                  if arr[j] < pivot:
+                      i += 1
+                      arr[i], arr[j] = arr[j], arr[i]
+              arr[l], arr[i] = arr[i], arr[l]
+              return i
+          
+          l, r = 0, len(arr) - 1
+          while True:
+              index = partition(l, r)
+              if index < k: l = index + 1
+              elif index > k: r = index - 1
+              else: return arr[:k]
+  ```
+
+  ```python
+  # 方法2：
+  # 简化代码快速排序方法，时间复杂度O(n)，空间复杂度O(logn)
+  # (i指针从左指针处出发，j指针从右指针处出发，且该方法直接将左指针当作pivot)
+  class Solution:
+      def smallestK(self, arr: List[int], k: int) -> List[int]:
+          if not arr or k >= len(arr): return arr
+          def quick_sort(l, r):
+              i, j = l, r
+              while i < j:
+                  while i < j and arr[j] >= arr[l]: j -= 1
+                  while i < j and arr[i] <= arr[l]: i += 1
+                  arr[i], arr[j] = arr[j], arr[i]
+              arr[l], arr[i] = arr[i], arr[l]
+              if i < k: return quick_sort(i + 1, r)
+              if i > k: return quick_sort(l, i - 1)
+              return arr[:k]
+          
+          return quick_sort(0, len(arr) - 1)
+  ```
+
+  
 
 - 剑指Offer51.数组中的逆序对
 
