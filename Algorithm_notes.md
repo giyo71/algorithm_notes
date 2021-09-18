@@ -1981,9 +1981,34 @@
 
   
 
-- 剑指Offer21.调整数组顺序使奇数位于偶数前面
+- [剑指Offer21.调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
+
+  输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。
+
+  ```python
+  class Solution:
+      def exchange(self, nums: List[int]) -> List[int]:
+          i, j = 0, len(nums) - 1
+          while i < j:
+              while i < j and nums[i] % 2 == 1: i += 1
+              while i < j and nums[j] % 2 == 0: j -= 1
+              nums[i], nums[j] = nums[j], nums[i]
+          return nums
+  ```
+
+  
 
 - 75.颜色分类
+
+  给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+
+  此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+
+  ```python
+  
+  ```
+
+  
 
 - 147.对链表进行插入排序
 
