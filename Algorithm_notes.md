@@ -2090,14 +2090,16 @@
   请注意，你需要找的是数组排序后的第 `k` 个最大的元素，而不是第 `k` 个不同的元素。
 
   ```python
-  # 正常快速排序方法
+  # 方法1：
+  # 正常快速排序方法，时间复杂度O(n)，空间复杂度O(logn)
+  # (i/j双指针均从左指针处出发)
   # 此题引入随机数是为了增加代码通过效率，与时间复杂度并无关系
   import random
   
   class Solution:
       def findKthLargest(self, nums: List[int], k: int) -> int:
           def partition(l, r):
-              # 该步骤if只是为了增加代码通过效率，与时间复杂度并无关系
+              # notes: 该步骤if只是为了增加代码通过效率，与时间复杂度并无关系
               if l < r:
                   tmp = random.randint(l, r)
                   nums[l], nums[tmp] = nums[tmp], nums[l]
@@ -2117,6 +2119,34 @@
               if index < len(nums) - k: l = index + 1
               elif index > len(nums) - k: r = index - 1
               else: return nums[index]
+  ```
+
+  ```python
+  # 方法2：
+  # 简化代码快速排序方法，时间复杂度O(n)，空间复杂度O(logn)
+  # (i指针从左指针处出发，j指针从右指针处出发，且该方法直接将左指针当作pivot)
+  # 此题引入随机数是为了增加代码通过效率，与时间复杂度并无关系
+  import random
+  
+  class Solution:
+      def findKthLargest(self, nums: List[int], k: int) -> int:
+          def quick_sort(l, r):
+              # notes: 该步骤if只是为了增加代码通过效率，与时间复杂度并无关系
+              if l < r:
+                  tmp = random.randint(l, r)
+                  nums[l], nums[tmp] = nums[tmp], nums[l]
+                  
+              i, j = l, r
+              while i < j:
+                  while i < j and nums[j] >= nums[l]: j -= 1
+                  while i < j and nums[i] <= nums[l]: i += 1
+                  nums[i], nums[j] = nums[j], nums[i]
+              nums[l], nums[i] = nums[i], nums[l]
+              if i < len(nums) - k: return quick_sort(i + 1, r)
+              if i > len(nums) - k: return quick_sort(l, i - 1)
+              return nums[i]
+          
+          return quick_sort(0, len(nums) - 1)
   ```
 
   
