@@ -2078,10 +2078,15 @@
       def insertionSortList(self, head: ListNode) -> ListNode:
           if not head: return None
           dum = ListNode(0, head)
+          # last为已排序部分的最后一个节点
           last, cur = head, head.next
           while cur:
+              # 如果下一个节点 >= 已排序部分的最后一个节点，直接移动last指针即可
               if last.val <= cur.val: last = last.next
+              # 否则，进入排序步骤
               else:
+                  # 从dum指针处循环遍历已排序部分，当搜索到该节点大于当前需要排序的值时
+                  # 将需要排序的cur节点插入到该节点之前，即pre.next
                   pre = dum
                   while pre.next.val <= cur.val:
                       pre = pre.next
@@ -2115,13 +2120,15 @@
       def sortList(self, head: ListNode) -> ListNode:
           if not head or not head.next: return head
   
+          # 不对对中点处进行分割
           slow, fast = head, head.next
           while fast and fast.next:
               slow = slow.next
               fast = fast.next.next
           mid, slow.next = slow.next, None
           left, right = self.sortList(head), self.sortList(mid)
-  
+  				
+          # 无法再分割之后，开始排序整合
           dum = cur = ListNode(0)
           while left and right:
               if left.val < right.val:
@@ -2235,6 +2242,10 @@
           
           l, r = 0, len(nums) - 1
           while True:
+              # 不断进行快速排序
+              # index前的元素均小于index位，index后的元素均大于index位
+              # 当index为len(nums) - k即第k大的位置时，返回即可
+              # 并没有将前后子区间排序完
               index = partition(l, r)
               if index < len(nums) - k: l = index + 1
               elif index > len(nums) - k: r = index - 1
@@ -2294,6 +2305,10 @@
           
           l, r = 0, len(arr) - 1
           while True:
+              # 不断进行快速排序
+              # index前的元素均小于index位，index后的元素均大于index位
+              # 当index为k即第k小的位置时，[0:k)即最小k个数
+              # 并没有将前后子区间排序完
               index = partition(l, r)
               if index < k: l = index + 1
               elif index > k: r = index - 1
@@ -2328,23 +2343,30 @@
   在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
 
   ```python
+  # 即归并排序，在合并判断大小的时候判断逆序对个数
   class Solution:
       def reversePairs(self, nums: List[int]) -> int:
           def merge_sort(l, r):
               if l >= r: return 0
   
+              # 不断从中心点分割
               mid = (l + r) // 2
               res = merge_sort(l, mid) + merge_sort(mid + 1, r)
   
+              # 无法分割后，开始排序合并
               i, j = l, mid + 1
               tmp[l : r + 1] = nums[l : r + 1]
               for k in range(l, r + 1):
+                	# 左指针数组排序完成，剩余右指针数组
                   if i == mid + 1:
                       nums[k] = tmp[j]
                       j += 1
+                  # 右指针数组排序完成，剩余左指针数组
+                  # or 左指针数 < 右指针数
                   elif j == r + 1 or tmp[i] <= tmp[j]:
                       nums[k] = tmp[i]
                       i += 1
+                  # 左指针数 > 右指针数
                   else:
                       nums[k] = tmp[j]
                       j += 1
@@ -2354,8 +2376,8 @@
           tmp = [0] * len(nums)
           return merge_sort(0, len(nums) - 1)
   ```
-
-
+  
+  
 
 - [768.最多能完成排序的块2](https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/)
 
@@ -2368,15 +2390,22 @@
   ```python
   class Solution:
       def maxChunksToSorted(self, arr: List[int]) -> int:
+          # 创建一个单调递增栈
           res = []
           for num in arr:
+              # 如果当前数比单调递增栈最后一位小
+              # 则为了维持单调递增的特性
+              # 将最大的数提取出，即tmp
               if res and num < res[-1]:
                   tmp = res.pop()
+                  # 不断删去栈内元素，直到栈内最后一位 < 当前数
                   while res and num < res[-1]:
                       res.pop()
                   res.append(tmp)
               else:
                   res.append(num)
+          # 此时res数组的长度即是分区的块数
+          # res数组内的元素即是每个分区的最大数
           return len(res)
   ```
 
