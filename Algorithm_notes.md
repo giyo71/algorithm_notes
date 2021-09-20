@@ -1786,6 +1786,7 @@
   实现 pow(*x*, *n*) ，即计算 x 的 n 次幂函数（即，x^n）。不得使用库函数，同时不需要考虑大数问题
 
   ```python
+  # 即快速幂
   class Solution:
       def myPow(self, x: float, n: int) -> float:
           # 处理0的任何次方
