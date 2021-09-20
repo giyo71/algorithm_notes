@@ -2082,6 +2082,33 @@
   # 方法1:
   # 常规归并排序，使用了递归
   # 时间复杂度为O(nlogn)，空间复杂度为O(n)
+  # Definition for singly-linked list.
+  # class ListNode:
+  #     def __init__(self, val=0, next=None):
+  #         self.val = val
+  #         self.next = next
+  class Solution:
+      def sortList(self, head: ListNode) -> ListNode:
+          if not head or not head.next: return head
+  
+          slow, fast = head, head.next
+          while fast and fast.next:
+              slow = slow.next
+              fast = fast.next.next
+          mid, slow.next = slow.next, None
+          left, right = self.sortList(head), self.sortList(mid)
+  
+          dum = cur = ListNode(0)
+          while left and right:
+              if left.val < right.val:
+                  cur.next = left
+                  left = left.next
+              else:
+                  cur.next = right
+                  right = right.next
+              cur = cur.next
+          cur.next = left if left else right
+          return dum.next
   ```
 
   ```python
