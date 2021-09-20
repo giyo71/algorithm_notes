@@ -2069,7 +2069,7 @@
 
   
 
-- 148.排序链表
+- [148.排序链表](https://leetcode-cn.com/problems/sort-list/)
 
   给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
 
@@ -2081,6 +2081,65 @@
   # 由于要求时间复杂度要求O(nlogn)，即使用归并排序
   # 而空间复杂度要求O(1)，则不能使用常规归并O(n)
   # 因此本题应使用迭代归并而非递归归并
+  # Definition for singly-linked list.
+  # class ListNode:
+  #     def __init__(self, val=0, next=None):
+  #         self.val = val
+  #         self.next = next
+  class Solution:
+      def sortList(self, head: ListNode) -> ListNode:
+          # 查找链表长度
+          len_total = 0
+          cur = head
+          while cur:
+              cur = cur.next
+              len_total += 1
+          
+          # 不断循环double每组个数intv
+          dum = ListNode(0, head)
+          intv = 1
+          while intv < len_total:
+              pre, cur = dum, dum.next
+              while cur:
+                  # 处理第一组头节点h1
+                  h1, i = cur, intv
+                  while i and cur:
+                      cur = cur.next
+                      i -= 1
+                  if i: break
+  								
+                  # 处理第二组头节点h2
+                  h2, i = cur, intv
+                  while i and cur:
+                      cur = cur.next
+                      i -= 1
+                  len1, len2 = intv, intv - i
+  								
+                  # 当h1和h2两个链表长度均大于0时
+                  # 循环判断数值并添加到pre指针后
+                  while len1 and len2:
+                      if h1.val < h2.val:
+                          pre.next = h1
+                          h1 = h1.next
+                          len1 -= 1
+                      else:
+                          pre.next = h2
+                          h2 = h2.next
+                          len2 -=1
+                      pre = pre.next
+                      
+                  # 当其中一个链表长度为0时，将pre指针接到另一个链表剩余节点处
+                  # 并且循环遍历仍不等于0的链表长度，直接将该已排序的部分接到pre指针处
+                  pre.next = h1 if len1 else h2
+                  while len1 > 0 or len2 > 0:
+                      pre = pre.next
+                      len1 -= 1
+                      len2 -= 1
+                      
+                  # 循环完成，将pre指针接到cur指针处
+                  pre.next = cur
+              intv *= 2
+          return dum.next
   ```
 
   
