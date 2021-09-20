@@ -1906,18 +1906,25 @@
           """
           Do not return anything, modify A in-place instead.
           """
+          # 双指针从两个数组有数字的最后一位从后往前遍历
+          # tail即尾指针，指向A数组末端缓冲空间最后一位，也是从后往前赋值遍历
+          # 由于缓冲空间的存在，从后往前遍历不会覆盖掉未遍历的数字
           i, j = m - 1, n - 1
           tail = m + n - 1
           while i >= 0 or j >= 0:
+              # 数组A数字部分已经遍历完，直接依次赋值数组B剩余数字
               if i == -1:
                   A[tail] = B[j]
                   j -= 1
+              # 数组B数字部分已经遍历完，直接依次赋值数组A剩余数字
               elif j == -1:
                   A[tail] = A[i]
                   i -= 1
+              # A指针处数字大
               elif A[i] > B[j]:
                   A[tail] = A[i]
                   i -= 1
+              # B指针处数字大
               else:
                   A[tail] = B[j]
                   j -= 1
@@ -1933,9 +1940,13 @@
   注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
 
   ```python
+  # 使用哈希表方法而不去排序
+  # 时间复杂度优化为O(n)
+  # 空间复杂度仅为O(26)即常数级
   class Solution:
       def isAnagram(self, s: str, t: str) -> bool:
           if len(s) != len(t): return False
+          # 使用数组型哈希表
           tmp = [0] * 26
           for char in s:
               tmp[ord(char) - ord('a')] += 1
@@ -1955,7 +1966,10 @@
   ```python
   class Solution:
       def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+          # 以二维数组的第一维维key，排序二维数组
           intervals.sort()
+          # 先开始的会议如果结束时间 > 下个会议的开始时间
+          # 则不能参加，直接返回False
           for i in range(len(intervals) - 1):
               if intervals[i][1] > intervals[i + 1][0]: return False
           return True
@@ -1970,11 +1984,15 @@
   ```python
   class Solution:
       def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+          # 以二维数组的第一维维key，排序二维数组
           intervals.sort()
           res = []
           for interval in intervals:
+              # 如果res[-1]区间的end < 下一区间的start
+              # 则当前区间与下一区间无重叠，直接加入res
               if not res or res[-1][1] < interval[0]:
                   res.append(interval)
+              # 否则，将res[-1]区间的end更新，更新值为其与下一区间end的较大值
               else:
                   res[-1][1] = max(res[-1][1], interval[1])
           return res
@@ -1989,6 +2007,7 @@
   ```python
   class Solution:
       def exchange(self, nums: List[int]) -> List[int]:
+          # 双指针，从该数组前后依次将奇数换到前指针处，将偶数换到后指针处即可
           i, j = 0, len(nums) - 1
           while i < j:
               while i < j and nums[i] % 2 == 1: i += 1
@@ -2017,6 +2036,11 @@
           """
           Do not return anything, modify nums in-place instead.
           """
+          # 双指针从前后依次扫描
+          # 红0: 位于[0, i)
+          # 白1: 位于[i, cur)
+          # 而区间[cur, j)则是未扫描的位置
+          # 蓝2: 位于[j, len(nums)]
           i, j = 0, len(nums) - 1
           cur = 0
           while cur <= j:
@@ -2299,12 +2323,36 @@
 
   
 
-- 剑指Offer51.数组中的逆序对
+- [剑指Offer51.数组中的逆序对](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
 
   在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
 
   ```python
+  class Solution:
+      def reversePairs(self, nums: List[int]) -> int:
+          def merge_sort(l, r):
+              if l >= r: return 0
   
+              mid = (l + r) // 2
+              res = merge_sort(l, mid) + merge_sort(mid + 1, r)
+  
+              i, j = l, mid + 1
+              tmp[l : r + 1] = nums[l : r + 1]
+              for k in range(l, r + 1):
+                  if i == mid + 1:
+                      nums[k] = tmp[j]
+                      j += 1
+                  elif j == r + 1 or tmp[i] <= tmp[j]:
+                      nums[k] = tmp[i]
+                      i += 1
+                  else:
+                      nums[k] = tmp[j]
+                      j += 1
+                      res += mid - i + 1
+              return res
+          
+          tmp = [0] * len(nums)
+          return merge_sort(0, len(nums) - 1)
   ```
 
 
