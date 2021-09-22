@@ -2457,7 +2457,11 @@
 > binary_search(nums, value, 0, len(nums) - 1)
 > ```
 >
-> 
+> 双指针小技巧：
+>
+> 基础取mid位置，mid = (low + high) // 2
+>
+> 防止加法int越界，mid = low + (high - low) // 2
 
 例题：
 
