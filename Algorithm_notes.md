@@ -2462,6 +2462,24 @@
 > 基础取mid位置，mid = (low + high) // 2
 >
 > 防止加法int越界，mid = low + (high - low) // 2
+>
+> ```python
+> # 变题1：查找第一个值等于给定值的元素
+> def binary_search(nums: List[int], value: int):
+>     i, j = 0, len(nums) - 1
+>     while i <= j:
+>         mid = (i + j) // 2
+>         if nums[mid] == value:
+>             if mid == 0 or nums[mid - 1] != value: return mid
+>             else: j = mid - 1
+>         elif nums[mid] < value:
+>             i = mid + 1
+>         else:
+>             j = mid - 1
+>     return -1
+> ```
+>
+> 
 
 例题：
 
