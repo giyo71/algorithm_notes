@@ -2422,6 +2422,41 @@
 
 知识点：
 
+> 二分查找代码实现：
+>
+> ```python
+> # 经典实现1：非递归
+> # 空间复杂度O(1)，时间复杂度O(logn)
+> # i / j双指针，注意循环条件是i <= j，而不是i < j
+> def binary_search(nums: List[int], value: int):
+>     i, j = 0, len(nums) - 1
+>     while i <= j:
+>         mid = (i + j) // 2
+>         if nums[mid] == value:
+>             return mid
+>         elif nums[mid] < value:
+>             i = mid + 1
+>         else:
+>             j = mid - 1
+>     return -1
+> ```
+>
+> ```python
+> # 经典实现2: 递归
+> # 空间复杂度O(logn)，时间复杂度O(logn)
+> def binary_search(nums: List[int], value: int, i: int, j: int):
+>     if not i <= j: return -1
+>     mid = (i + j) // 2
+>     if nums[mid] == value:
+>         return mid
+>     elif nums[mid] < value:
+>         return binary_search(nums, value, mid + 1, j)
+>     else:
+>         return binary_search(nums, value, i, mid - 1)
+>       
+> binary_search(nums, value, 0, len(nums) - 1)
+> ```
+>
 > 
 
 例题：
