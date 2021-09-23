@@ -2510,6 +2510,27 @@
 >     return -1
 > ```
 >
+> ```python
+> # 变题2.1：循环有序数组中查找元素x（无重复数据）
+> # e.g. 789123
+> # 不命中时，
+> # 若mid在9，nums[i] <= 9，即左侧有序
+> # 若mid在2，nums[i] > 2，即右侧有序
+> def binary_search(nums: List[int], value: int):
+>     i, j = 0, len(nums) - 1
+>     while i <= j:
+>         mid = (i + j) // 2
+>         if nums[mid] == value:
+>             return mid
+>         elif nums[i] <= nums[mid]:
+>             if nums[i] <= value and value < nums[mid]: j = mid - 1
+>             else: i = mid + 1
+>         else:
+>             if nums[mid] < value and value <= nums[j]: i = mid + 1
+>             else: j = mid - 1
+>     return -1
+> ```
+>
 > 变题总结，即二分查找模版：
 >
 > (1) 有序递增数组：
