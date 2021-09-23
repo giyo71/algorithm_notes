@@ -2429,31 +2429,31 @@
 > # 空间复杂度O(1)，时间复杂度O(logn)
 > # i / j双指针，注意循环条件是i <= j，而不是i < j
 > def binary_search(nums: List[int], value: int):
->     i, j = 0, len(nums) - 1
->     while i <= j:
->         mid = (i + j) // 2
->         if nums[mid] == value:
->             return mid
->         elif nums[mid] < value:
->             i = mid + 1
->         else:
->             j = mid - 1
->     return -1
+>  i, j = 0, len(nums) - 1
+>  while i <= j:
+>      mid = (i + j) // 2
+>      if nums[mid] == value:
+>          return mid
+>      elif nums[mid] < value:
+>          i = mid + 1
+>      else:
+>          j = mid - 1
+>  return -1
 > ```
 >
 > ```python
 > # 经典实现2: 递归
 > # 空间复杂度O(logn)，时间复杂度O(logn)
 > def binary_search(nums: List[int], value: int, i: int, j: int):
->     if not i <= j: return -1
->     mid = (i + j) // 2
->     if nums[mid] == value:
->         return mid
->     elif nums[mid] < value:
->         return binary_search(nums, value, mid + 1, j)
->     else:
->         return binary_search(nums, value, i, mid - 1)
->       
+>  if not i <= j: return -1
+>  mid = (i + j) // 2
+>  if nums[mid] == value:
+>      return mid
+>  elif nums[mid] < value:
+>      return binary_search(nums, value, mid + 1, j)
+>  else:
+>      return binary_search(nums, value, i, mid - 1)
+> 
 > binary_search(nums, value, 0, len(nums) - 1)
 > ```
 >
@@ -2465,21 +2465,58 @@
 >
 > ```python
 > # 变题1：查找第一个值等于给定值的元素
+> # e.g. 123334 x=3, 12(3)334
+> def binary_search(nums: List[int], value: int):
+>    i, j = 0, len(nums) - 1
+>    while i <= j:
+>        mid = (i + j) // 2
+>        if nums[mid] == value:
+>            if mid == 0 or nums[mid - 1] != value: return mid
+>            else: j = mid - 1
+>        elif nums[mid] < value:
+>            i = mid + 1
+>        else:
+>            j = mid - 1
+>    return -1
+> ```
+>
+> ```python
+> # 变题2：查找第一个大于等于x
+> # e.g. 12567 x=4, 12(5)67
 > def binary_search(nums: List[int], value: int):
 >     i, j = 0, len(nums) - 1
 >     while i <= j:
 >         mid = (i + j) // 2
->         if nums[mid] == value:
->             if mid == 0 or nums[mid - 1] != value: return mid
+>         if nums[mid] >= value:
+>             if mid == 0 or nums[mid - 1] < value: return mid
 >             else: j = mid - 1
->         elif nums[mid] < value:
+>         else:
 >             i = mid + 1
+>     return -1
+> ```
+>
+> ```python
+> # 变题3：查找最后一个小于等于x的数
+> # e.g. 12567 x=3, 1(2)567
+> def binary_search(nums: List[int], value: int):
+>     i, j = 0, len(nums) - 1
+>     while i <= j:
+>         mid = (i + j) // 2
+>         if nums[mid] <= value:
+>             if mid == len(nums) - 1 or nums[mid + 1] > value: return mid
+>             else: i = mid + 1
 >         else:
 >             j = mid - 1
 >     return -1
 > ```
 >
-> 
+> 变题总结：（二分查找模版）
+>
+> (1) 双指针总是从头尾开始
+>
+> (2) 总是返回mid
+>
+> (3) 先处理命中区间，再处理不命中区间
 
 例题：
 
