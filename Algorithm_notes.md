@@ -2514,7 +2514,7 @@
 > # 变题2.1：循环有序数组中查找元素x（无重复数据）
 > # e.g. 789123
 > # 不命中时，
-> # 若mid在9，nums[i] <= 9，即左侧有序
+> # 若mid在9，nums[i] < 9，即左侧有序
 > # 若mid在2，nums[i] > 2，即右侧有序
 > def binary_search(nums: List[int], value: int):
 >     i, j = 0, len(nums) - 1
@@ -2531,15 +2531,35 @@
 >     return -1
 > ```
 >
+> ```python
+> # 变题2.2：循环有序数组中查找最小元素（无重复数据）
+> # e.g. 678123
+> # 不命中时，
+> # 若mid在7，7 > nums[j]，即右侧循环
+> # 若mid在2, 2 < nums[j]，即左侧循环
+> def binary_search(nums: List[int], value: int):
+>     i, j = 0, len(nums) - 1
+>     while i <= j:
+>         mid = (i + j) // 2
+>         if (mid != 0 and nums[mid] < nums[mid - 1]) or (mid == 0 and nums[mid] < nums[j]):
+>             return mid
+>         elif nums[mid] > nums[j]:
+>             i = mid + 1
+>         else:
+>             j = mid - 1
+>     return -1
+> ```
+>
 > 变题总结，即二分查找模版：
 >
 > - 双指针总是从头尾开始
+> - while总是i <= j
 >
 > - 总是返回mid
 > - 左指针总是mid + 1，右指针总是mid - 1
 >
 > - 先处理命中区间，再处理不命中区间
-> - 在处理不命中区间时，如果无法单纯根据mid判断，则先根据双指针+mid判断哪侧是有序的
+> - 对于非确定性查找，使用前后探测法
 
 例题：
 
