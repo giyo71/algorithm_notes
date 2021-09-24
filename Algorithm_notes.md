@@ -2664,7 +2664,47 @@
 
   
 
-- 34.在排序数组中查找元素的第一个和最后一个位置
+- [34.在排序数组中查找元素的第一个和最后一个位置](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+  给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+
+  如果数组中不存在目标值 target，返回 [-1, -1]。
+
+  进阶：
+
+  你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？
+
+  ```python
+  class Solution:
+      def searchRange(self, nums: List[int], target: int) -> List[int]:
+          left, right = -1, -1
+  
+          i, j = 0, len(nums) - 1
+          while i <= j:
+              mid = (i + j) // 2
+              if nums[mid] == target:
+                  if mid == 0 or nums[mid - 1] < target: 
+                      left = mid
+                      break
+                  else: j = mid - 1
+              elif nums[mid] < target: i = mid + 1
+              else: j = mid - 1
+          
+          if left == -1: return [-1, -1]
+          i, j = 0, len(nums) - 1
+          while i <= j:
+              mid = (i + j) // 2
+              if nums[mid] == target:
+                  if mid == len(nums) - 1 or nums[mid + 1] > target: 
+                      right = mid
+                      break
+                  else: i = mid + 1
+              elif nums[mid] < target: i = mid + 1
+              else: j = mid - 1
+          return [left, right]
+  ```
+
+  
 
 - 面试题10.05.稀疏数组搜索
 
