@@ -2563,7 +2563,26 @@
 
 例题：
 
-- 704.二分查找
+- [704.二分查找](https://leetcode-cn.com/problems/binary-search/)
+
+  给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
+
+  ```python
+  class Solution:
+      def search(self, nums: List[int], target: int) -> int:
+          i, j = 0, len(nums) - 1
+          while i <= j:
+              mid = (i + j) // 2
+              if nums[mid] == target:
+                  return mid
+              elif nums[mid] < target:
+                  i = mid + 1
+              else:
+                  j = mid - 1
+          return -1 
+  ```
+
+  
 
 - 374.猜数字大小
 
