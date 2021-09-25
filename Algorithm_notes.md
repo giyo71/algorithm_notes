@@ -2784,7 +2784,29 @@
 
   
 
-- 852.山脉数组的峰顶索引
+- [852.山脉数组的峰顶索引](https://leetcode-cn.com/problems/peak-index-in-a-mountain-array/)
+
+  符合下列属性的数组 arr 称为 山脉数组 ：
+  arr.length >= 3
+  存在 i（0 < i < arr.length - 1）使得：
+  arr[0] < arr[1] < ... arr[i-1] < arr[i]
+  arr[i] > arr[i+1] > ... > arr[arr.length - 1]
+  给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。
+
+  ```python
+  class Solution:
+      def peakIndexInMountainArray(self, arr: List[int]) -> int:
+          i, j = 0, len(arr) - 1
+          while i < j:
+              mid = i + (j - i) // 2
+              if arr[mid] > arr[mid + 1]:
+                  j = mid
+              else:
+                  i = mid + 1
+          return i
+  ```
+
+  
 
 - [162.寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
 
