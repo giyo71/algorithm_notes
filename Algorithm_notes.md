@@ -2884,7 +2884,25 @@
 
   
 
-- 74.搜索二维矩阵
+- [74.搜索二维矩阵](https://leetcode-cn.com/problems/search-a-2d-matrix/)
+
+  编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
+
+  每行中的整数从左到右按升序排列。
+  每行的第一个整数大于前一行的最后一个整数。
+
+  ```python
+  class Solution:
+      def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+          i, j = len(matrix) - 1, 0
+          while i >= 0 and j <= len(matrix[0]) - 1:
+              if matrix[i][j] == target: return True
+              elif matrix[i][j] < target: j += 1
+              else: i -= 1
+          return False
+  ```
+
+  
 
 - 658.找到K个最接近的元素
 
