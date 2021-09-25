@@ -2429,30 +2429,30 @@
 > # 空间复杂度O(1)，时间复杂度O(logn)
 > # i / j双指针，注意循环条件是i <= j，而不是i < j
 > def binary_search(nums: List[int], value: int):
->  i, j = 0, len(nums) - 1
->  while i <= j:
->      mid = (i + j) // 2
->      if nums[mid] == value:
->          return mid
->      elif nums[mid] < value:
->          i = mid + 1
->      else:
->          j = mid - 1
->  return -1
+>  		i, j = 0, len(nums) - 1
+>  		while i <= j:
+>     				mid = (i + j) // 2
+>      			if nums[mid] == value:
+>          			return mid
+>      			elif nums[mid] < value:
+>          			i = mid + 1
+>      			else:
+>          			j = mid - 1
+>  		return -1
 > ```
 >
 > ```python
 > # 经典实现2: 递归
 > # 空间复杂度O(logn)，时间复杂度O(logn)
 > def binary_search(nums: List[int], value: int, i: int, j: int):
->  if not i <= j: return -1
->  mid = (i + j) // 2
->  if nums[mid] == value:
->      return mid
->  elif nums[mid] < value:
->      return binary_search(nums, value, mid + 1, j)
->  else:
->      return binary_search(nums, value, i, mid - 1)
+>  		if not i <= j: return -1
+>  		mid = (i + j) // 2
+>  		if nums[mid] == value:
+>      			return mid
+>  		elif nums[mid] < value:
+>      			return binary_search(nums, value, mid + 1, j)
+>  		else:
+>      			return binary_search(nums, value, i, mid - 1)
 > 
 > binary_search(nums, value, 0, len(nums) - 1)
 > ```
@@ -2467,47 +2467,47 @@
 > # 变题1.1：查找第一个值等于给定值的元素
 > # e.g. 123334 x=3, 12(3)334
 > def binary_search(nums: List[int], value: int):
->    i, j = 0, len(nums) - 1
->    while i <= j:
->        mid = (i + j) // 2
->        if nums[mid] == value:
->            if mid == 0 or nums[mid - 1] != value: return mid
->            else: j = mid - 1
->        elif nums[mid] < value:
->            i = mid + 1
->        else:
->            j = mid - 1
->    return -1
+>    		i, j = 0, len(nums) - 1
+>    		while i <= j:
+>        		mid = (i + j) // 2
+>        		if nums[mid] == value:
+>            		if mid == 0 or nums[mid - 1] != value: return mid
+>            		else: j = mid - 1
+>        		elif nums[mid] < value:
+>            		i = mid + 1
+>        		else:
+>            		j = mid - 1
+>    		return -1
 > ```
 >
 > ```python
 > # 变题1.2：查找第一个大于等于x
 > # e.g. 12567 x=4, 12(5)67
 > def binary_search(nums: List[int], value: int):
->     i, j = 0, len(nums) - 1
->     while i <= j:
->         mid = (i + j) // 2
->         if nums[mid] >= value:
->             if mid == 0 or nums[mid - 1] < value: return mid
->             else: j = mid - 1
->         else:
->             i = mid + 1
->     return -1
+>        i, j = 0, len(nums) - 1
+>     		while i <= j:
+>        		mid = (i + j) // 2
+>         		if nums[mid] >= value:
+>            		if mid == 0 or nums[mid - 1] < value: return mid
+>            		else: j = mid - 1
+>         		else:
+>            		i = mid + 1
+>     		return -1
 > ```
 >
 > ```python
 > # 变题1.3：查找最后一个小于等于x的数
 > # e.g. 12567 x=3, 1(2)567
 > def binary_search(nums: List[int], value: int):
->     i, j = 0, len(nums) - 1
->     while i <= j:
->         mid = (i + j) // 2
->         if nums[mid] <= value:
->             if mid == len(nums) - 1 or nums[mid + 1] > value: return mid
->             else: i = mid + 1
->         else:
->             j = mid - 1
->     return -1
+>    		i, j = 0, len(nums) - 1
+>     		while i <= j:
+>        		mid = (i + j) // 2
+>         		if nums[mid] <= value:
+>            		if mid == len(nums) - 1 or nums[mid + 1] > value: return mid
+>             		else: i = mid + 1
+>         		else:
+>             		j = mid - 1
+>     		return -1
 > ```
 >
 > ```python
@@ -2517,18 +2517,18 @@
 > # 若mid在9，nums[i] < 9，即左侧有序
 > # 若mid在2，nums[i] > 2，即右侧有序
 > def binary_search(nums: List[int], value: int):
->     i, j = 0, len(nums) - 1
->     while i <= j:
->         mid = (i + j) // 2
->         if nums[mid] == value:
->             return mid
->         elif nums[i] <= nums[mid]:
->             if nums[i] <= value and value < nums[mid]: j = mid - 1
->             else: i = mid + 1
->         else:
->             if nums[mid] < value and value <= nums[j]: i = mid + 1
->             else: j = mid - 1
->     return -1
+>    		i, j = 0, len(nums) - 1
+>     		while i <= j:
+>        		mid = (i + j) // 2
+>         		if nums[mid] == value:
+>            		return mid
+>         		elif nums[i] <= nums[mid]:
+>            		if nums[i] <= value and value < nums[mid]: j = mid - 1
+>             		else: i = mid + 1
+>         		else:
+>             		if nums[mid] < value and value <= nums[j]: i = mid + 1
+>             		else: j = mid - 1
+>     		return -1
 > ```
 >
 > ```python
@@ -2538,16 +2538,16 @@
 > # 若mid在7，7 > nums[j]，即右侧循环
 > # 若mid在2, 2 < nums[j]，即左侧循环
 > def binary_search(nums: List[int], value: int):
->     i, j = 0, len(nums) - 1
->     while i <= j:
->         mid = (i + j) // 2
->         if (mid != 0 and nums[mid] < nums[mid - 1]) or (mid == 0 and nums[mid] < nums[j]):
->             return mid
->         elif nums[mid] > nums[j]:
->             i = mid + 1
->         else:
->             j = mid - 1
->     return -1
+>    		i, j = 0, len(nums) - 1
+>     		while i <= j:
+>        		mid = (i + j) // 2
+>         		if (mid != 0 and nums[mid] < nums[mid - 1]) or (mid == 0 and nums[mid] < nums[j]):
+>            		return mid
+>         		elif nums[mid] > nums[j]:
+>            		i = mid + 1
+>         		else:
+>             		j = mid - 1
+>     		return -1
 > ```
 >
 > 变题总结，即二分查找标准模版：
@@ -2572,7 +2572,7 @@
       def search(self, nums: List[int], target: int) -> int:
           i, j = 0, len(nums) - 1
           while i <= j:
-              mid = (i + j) // 2
+              mid = i + (j - i) // 2
               if nums[mid] == target: 
                   return mid
               elif nums[mid] < target: 
@@ -2631,7 +2631,7 @@
       def nextGreatestLetter(self, letters: List[str], target: str) -> str:
           i, j = 0, len(letters) - 1
           while i <= j:
-              mid = (i + j) // 2
+              mid = i + (j - i) // 2
               if letters[mid] > target:
                   if mid == 0 or letters[mid - 1] <= target: return letters[mid]
                   else: j = mid - 1
@@ -2654,7 +2654,7 @@
           if nums[-1] < target: return len(nums)
           i, j = 0, len(nums) - 1
           while i <= j:
-              mid = (i + j) // 2
+              mid = i + (j - i) // 2
               if nums[mid] >= target:
                   if mid == 0 or nums[mid] == target or nums[mid - 1] < target: return mid
                   else: j = mid - 1
@@ -2681,7 +2681,7 @@
   
           i, j = 0, len(nums) - 1
           while i <= j:
-              mid = (i + j) // 2
+              mid = i + (j - i) // 2
               if nums[mid] == target:
                   if mid == 0 or nums[mid - 1] < target: 
                       left = mid
@@ -2693,7 +2693,7 @@
           if left == -1: return [-1, -1]
           i, j = 0, len(nums) - 1
           while i <= j:
-              mid = (i + j) // 2
+              mid = i + (j - i) // 2
               if nums[mid] == target:
                   if mid == len(nums) - 1 or nums[mid + 1] > target: 
                       right = mid
