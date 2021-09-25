@@ -2706,7 +2706,29 @@
 
   
 
-- 面试题10.05.稀疏数组搜索
+- [面试题10.05.稀疏数组搜索](https://leetcode-cn.com/problems/sparse-array-search-lcci/)
+
+  稀疏数组搜索。有个排好序的字符串数组，其中散布着一些空字符串，编写一种方法，找出给定字符串的位置。
+
+  ```python
+  class Solution:
+      def findString(self, words: List[str], s: str) -> int:
+          i, j = 0, len(words) - 1
+          while i <= j:
+              mid = i + (j - i) // 2
+              if words[mid] == '':
+                  if words[j] == s: return j
+                  j -= 1
+              elif words[mid] == s:
+                  return mid
+              elif words[mid] < s:
+                  i = mid + 1
+              else:
+                  j = mid - 1
+          return -1
+  ```
+
+  
 
 - 33.搜索选择排序数组
 
