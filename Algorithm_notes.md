@@ -2892,6 +2892,25 @@
   每行的第一个整数大于前一行的最后一个整数。
 
   ```python
+  # 二分查找
+  # 将二维矩阵当作一维
+  # 时间复杂度为O(logmn)
+  class Solution:
+      def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+          m, n = len(matrix), len(matrix[0])
+          i, j = 0, m * n - 1
+          while i <= j:
+              mid = i + (j - i) // 2
+              tmp = matrix[mid // n][mid % n]
+              if tmp == target: return True
+              elif tmp < target: i = mid + 1
+              else: j = mid - 1
+          return False
+  ```
+
+  ```python
+  # 特殊解法：根据该矩阵的性质
+  # 时间复杂度为O(m + n)
   class Solution:
       def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
           i, j = len(matrix) - 1, 0
