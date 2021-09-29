@@ -2923,7 +2923,30 @@
 
   
 
-- 658.找到K个最接近的元素
+- [658.找到K个最接近的元素](https://leetcode-cn.com/problems/find-k-closest-elements/)
+
+  给定一个排序好的数组 arr ，两个整数 k 和 x ，从数组中找到最靠近 x（两数之差最小）的 k 个数。返回的结果必须要是按升序排好的。
+
+  整数 a 比整数 b 更接近 x 需要满足：
+
+  |a - x| < |b - x| 或者
+  |a - x| == |b - x| 且 a < b
+
+  ```python
+  # Note：本题不用标准模版，使用二分搜索return左指针（变题）
+  class Solution:
+      def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+          i, j = 0, len(arr) - k
+          while i < j:
+              mid = i + (j - i) // 2
+              if x - arr[mid] > arr[mid + k] - x:
+                  i = mid + 1
+              else:
+                  j = mid
+          return arr[i:i + k]
+  ```
+
+  
 
 - 875.爱吃香蕉的珂珂
 
