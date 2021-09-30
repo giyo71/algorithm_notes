@@ -2602,7 +2602,6 @@
   # @param num, your guess
   # @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
   # def guess(num: int) -> int:
-  
   class Solution:
       def guessNumber(self, n: int) -> int:
           i, j = 1, n
@@ -2610,9 +2609,11 @@
               mid = i + (j - i) // 2
               if guess(mid) == 0: 
                   return mid
-              elif guess(mid) == 1: 
+              # guess < num
+              elif guess(mid) == 1:
                   i = mid + 1
-              else: 
+              # guess > num
+              else:
                   j = mid - 1
   ```
 
@@ -2634,6 +2635,7 @@
               mid = i + (j - i) // 2
               if letters[mid] > target:
                   if mid == 0 or letters[mid - 1] <= target: return letters[mid]
+                  # in this case, target < mid-1的值 < mid的值
                   else: j = mid - 1
               else:
                   i = mid + 1
@@ -2657,6 +2659,10 @@
               mid = i + (j - i) // 2
               if nums[mid] >= target:
                   if mid == 0 or nums[mid] == target or nums[mid - 1] < target: return mid
+                  # in this case,
+                  # 1. mid已经在数组第一位
+                  # 2. mid的值与target相等
+                  # 3. mid-1的值 < targert < mid的值
                   else: j = mid - 1
               else:
                   i = mid + 1
@@ -2678,7 +2684,8 @@
   class Solution:
       def searchRange(self, nums: List[int], target: int) -> List[int]:
           left, right = -1, -1
-  
+          
+          # 找到目标值的左端点
           i, j = 0, len(nums) - 1
           while i <= j:
               mid = i + (j - i) // 2
@@ -2691,6 +2698,7 @@
               else: j = mid - 1
           
           if left == -1: return [-1, -1]
+          # 找到目标值的右端点
           i, j = 0, len(nums) - 1
           while i <= j:
               mid = i + (j - i) // 2
@@ -2716,6 +2724,8 @@
           i, j = 0, len(words) - 1
           while i <= j:
               mid = i + (j - i) // 2
+              # 特殊处理空字符串即可：
+              # 当出现空字符串，若空字符串不为目标，则指针直接左移
               if words[mid] == '':
                   if words[j] == s: return j
                   j -= 1
@@ -2746,9 +2756,11 @@
               mid = i + (j - i) // 2
               if nums[mid] == target:
                   return mid
+              # 左侧有序，即i到mid有序
               elif nums[i] <= nums[mid]:
                   if nums[i] <= target and target < nums[mid]: j = mid - 1
                   else: i = mid + 1
+              # 右侧有序，即mid到j有序
               else:
                   if nums[mid] < target and target <= nums[j]: i = mid + 1
                   else: j = mid - 1
@@ -2776,6 +2788,8 @@
               mid = i + (j - i) // 2
               if nums[mid] == target:
                   return True
+              # 当三个数值相等时，无法判断左侧还是右侧有序
+              # 此时将左右指针均向内移动1即可
               elif nums[i] == nums[mid] and nums[mid] == nums[j]:
                   i += 1
                   j -= 1
@@ -2839,10 +2853,10 @@
                   j = mid
               elif nums[mid] > nums[j]:
                   i = mid + 1
-              else:
-                  # 当nums[mid] == nums[j]的时候，
-                  # 因为存在mid的值等于j的值，将j左移1位重新二分即可
-                  # 且由于mid的值等于j的值，区间[i,j]不会丢失最小值
+              # 当nums[mid] == nums[j]的时候，
+              # 因为存在mid的值等于j的值，将j左移1位重新二分即可
+              # 且由于mid的值等于j的值，区间[i,j]不会丢失最小值
+              else:             
                   j -= 1
           return nums[i]
   ```
@@ -2859,6 +2873,9 @@
   给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。
 
   ```python
+  # Note：本题不用标准模版，使用二分搜索return左指针
+  # 确保while范围是i < j，让[i, j]范围内一定有峰值
+  # 当退出循环时，一定是i = j的情况，此时返回任一指针均是峰值
   class Solution:
       def peakIndexInMountainArray(self, arr: List[int]) -> int:
           i, j = 0, len(arr) - 1
@@ -2911,6 +2928,7 @@
   class Solution:
       def isPerfectSquare(self, num: int) -> bool:
           if num == 1: return True
+          # 缩小右指针区间进行二分即可
           i, j = 2, num // 2
           while i <= j:
               mid = i + (j - i) // 2
@@ -2935,6 +2953,7 @@
   class Solution:
       def mySqrt(self, x: int) -> int:
           i, j = 0, x
+          # 不断更新mid平方 <= x，最后的res即是小等于x的最大数
           res = -1
           while i <= j:
               mid = i + (j - i) // 2
@@ -2963,9 +2982,12 @@
   class Solution:
       def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
           m, n = len(matrix), len(matrix[0])
+          # 右指针即是两个矩阵长度和的位置
           i, j = 0, m * n - 1
           while i <= j:
               mid = i + (j - i) // 2
+              # mid//n 为二维矩阵的行数
+              # mid%n 为二维矩阵的列数
               tmp = matrix[mid // n][mid % n]
               if tmp == target: return True
               elif tmp < target: i = mid + 1
@@ -2978,6 +3000,9 @@
   # 时间复杂度为O(m + n)
   class Solution:
       def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+          # 从二维矩阵的左小角开始搜索
+          # 若target大，则向右移动
+          # 若target小，则向上移动
           i, j = len(matrix) - 1, 0
           while i >= 0 and j <= len(matrix[0]) - 1:
               if matrix[i][j] == target: return True
@@ -3001,11 +3026,14 @@
   # Note：本题不用标准模版，使用二分搜索return左指针（变题）
   class Solution:
       def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+          # len(arr)-k 为需要返回的左指针的最大值
           i, j = 0, len(arr) - k
           while i < j:
               mid = i + (j - i) // 2
+              # x与arr[mid]的差更大时，指针需向右移动，来减小差
               if x - arr[mid] > arr[mid + k] - x:
                   i = mid + 1
+              # arr[mid+k]与x的差更大时，指针需向左移动，来减小差
               else:
                   j = mid
           return arr[i:i + k]
@@ -3036,6 +3064,9 @@
           i, j = 1, max(piles)
           while i < j:
               mid = i + (j - i) // 2
+              # 退出循环的情况，例：
+              # F, F, T, T
+              #       ij
               if not possible(mid):
                   i = mid + 1
               else:
@@ -3046,6 +3077,12 @@
   
 
 - 4.寻找两个正序数组的中位数
+
+  给定两个大小分别为 `m` 和 `n` 的正序（从小到大）数组 `nums1` 和 `nums2`。请你找出并返回这两个正序数组的 **中位数** 。
+
+  ```python
+  
+  ```
 
 
 
