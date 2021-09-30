@@ -2757,6 +2757,39 @@
 
   
 
+- [81.搜索选择排序数组2](https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/)
+
+  已知存在一个按非降序排列的整数数组 nums ，数组中的值不必互不相同。
+
+  在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转 ，使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,4,4,5,6,6,7] 在下标 5 处经旋转后可能变为 [4,5,6,6,7,0,1,2,4,4] 。
+
+  给你 旋转后 的数组 nums 和一个整数 target ，请你编写一个函数来判断给定的目标值是否存在于数组中。如果 nums 中存在这个目标值 target ，则返回 true ，否则返回 false 。
+
+  ```python
+  class Solution:
+      def search(self, nums: List[int], target: int) -> bool:
+          if not nums: return False
+          if len(nums) == 1: return nums[0] == target
+  
+          i, j = 0, len(nums) - 1
+          while i <= j:
+              mid = i + (j - i) // 2
+              if nums[mid] == target:
+                  return True
+              elif nums[i] == nums[mid] and nums[mid] == nums[j]:
+                  i += 1
+                  j -= 1
+              elif nums[i] <= nums[mid]:
+                  if nums[i] <= target and target < nums[mid]: j = mid - 1
+                  else: i = mid + 1
+              else:
+                  if nums[mid] < target and target <= nums[j]: i = mid + 1
+                  else: j = mid - 1
+          return False
+  ```
+
+  
+
 - [153.寻找选择排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
 
   已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,2,4,5,6,7] 在变化后可能得到：
@@ -2779,6 +2812,38 @@
                   j = mid
               else:
                   i = mid + 1
+          return nums[i]
+  ```
+
+  
+
+- [154.寻找旋转排序数组中的最小值2](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
+
+  已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,4,4,5,6,7] 在变化后可能得到：
+  若旋转 4 次，则可以得到 [4,5,6,7,0,1,4]
+  若旋转 7 次，则可以得到 [0,1,4,4,5,6,7]
+  注意，数组 [a[0], a[1], a[2], ..., a[n-1]] 旋转一次 的结果为数组 [a[n-1], a[0], a[1], a[2], ..., a[n-2]] 。
+
+  给你一个可能存在 重复 元素值的数组 nums ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。
+
+  ```python
+  # Note：本题不用标准模版，使用二分搜索return左指针
+  # 确保while范围是i < j，让[i, j]范围内一定有最小值
+  # 当退出循环时，一定是i = j的情况，此时返回任一指针均是最小值
+  class Solution:
+      def findMin(self, nums: List[int]) -> int:
+          i, j = 0, len(nums) - 1
+          while i < j:
+              mid = i + (j - i) // 2
+              if nums[mid] < nums[j]:
+                  j = mid
+              elif nums[mid] > nums[j]:
+                  i = mid + 1
+              else:
+                  # 当nums[mid] == nums[j]的时候，
+                  # 因为存在mid的值等于j的值，将j左移1位重新二分即可
+                  # 且由于mid的值等于j的值，区间[i,j]不会丢失最小值
+                  j -= 1
           return nums[i]
   ```
 
@@ -2979,41 +3044,6 @@
   ```
 
   
-
-- [81.搜索选择排序数组2](https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/)
-
-  已知存在一个按非降序排列的整数数组 nums ，数组中的值不必互不相同。
-
-  在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转 ，使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,4,4,5,6,6,7] 在下标 5 处经旋转后可能变为 [4,5,6,6,7,0,1,2,4,4] 。
-
-  给你 旋转后 的数组 nums 和一个整数 target ，请你编写一个函数来判断给定的目标值是否存在于数组中。如果 nums 中存在这个目标值 target ，则返回 true ，否则返回 false 。
-
-  ```python
-  class Solution:
-      def search(self, nums: List[int], target: int) -> bool:
-          if not nums: return False
-          if len(nums) == 1: return nums[0] == target
-  
-          i, j = 0, len(nums) - 1
-          while i <= j:
-              mid = i + (j - i) // 2
-              if nums[mid] == target:
-                  return True
-              elif nums[i] == nums[mid] and nums[mid] == nums[j]:
-                  i += 1
-                  j -= 1
-              elif nums[i] <= nums[mid]:
-                  if nums[i] <= target and target < nums[mid]: j = mid - 1
-                  else: i = mid + 1
-              else:
-                  if nums[mid] < target and target <= nums[j]: i = mid + 1
-                  else: j = mid - 1
-          return False
-  ```
-
-  
-
-- 154.寻找旋转排序数组中的最小值2
 
 - 4.寻找两个正序数组的中位数
 
