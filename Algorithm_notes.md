@@ -2959,9 +2959,13 @@
   返回她可以在 H 小时内吃掉所有香蕉的最小速度 K（K 为整数）。
 
   ```python
+  # Note：本题不用标准模版，使用二分搜索return左指针
+  # 确保while范围是i < j：当前速度吃不完香蕉时，i向右移；当前速度吃得完香蕉时，j向左移
+  # 当退出循环时，一定是i = j的情况，此时当前速度的左侧速度一定吃不完香蕉
   class Solution:
       def minEatingSpeed(self, piles: List[int], h: int) -> int:
           def possible(k):
+              # 向上取整除法
               return sum((p + k - 1) // k for p in piles) <= h
   
           i, j = 1, max(piles)
