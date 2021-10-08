@@ -3170,7 +3170,33 @@
 
   
 
-- 面试题02.01.移除重复节点
+- [面试题02.01.移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
+
+  编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
+
+  ```python
+  # Definition for singly-linked list.
+  # class ListNode:
+  #     def __init__(self, x):
+  #         self.val = x
+  #         self.next = None
+  
+  class Solution:
+      def removeDuplicateNodes(self, head: ListNode) -> ListNode:
+          if not head: return None
+          vals = {head.val}
+          cur = head
+          while cur.next:
+              tmp = cur.next
+              if tmp.val not in vals:
+                  vals.add(tmp.val)
+                  cur = cur.next
+              else:
+                  cur.next = cur.next.next
+          return head
+  ```
+
+  
 
 - 面试题16.02.单词频率
 
