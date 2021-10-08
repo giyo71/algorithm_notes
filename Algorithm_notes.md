@@ -3100,20 +3100,115 @@
 例题：
 
 - 1.两数之和
+
 - 15.三数之和
+
 - 160.相交链表
+
 - 141.环形链表
+
 - 面试题02.01.移除重复节点
+
 - 面试题16.02.单词频率
+
 - 面试题01.02判定是否互为字符重排
+
 - 剑指Offer03.数组中重复的数字
+
 - 242.有效的字母异位词
+
 - 49.字母异位词分组
+
 - 136.只出现一次的数字
+
 - 349.两个数组的交集
+
 - 1122.数组的相对排序
+
 - 706.设计哈希映射
-- 146.LRU缓存机制
+
+- [146.LRU缓存机制](https://leetcode-cn.com/problems/lru-cache/)
+
+  运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。
+  实现 LRUCache 类：
+
+  LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存
+  int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
+  void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。
+
+
+  进阶：你是否可以在 O(1) 时间复杂度内完成这两种操作？
+
+  ```python
+  class DLinkedNode:
+      def __init__(self, key=0, value=0):
+          self.key = key
+          self.value = value
+          self.pre = None
+          self.next = None
+  
+  
+  class LRUCache:
+      def __init__(self, capacity: int):
+          self.cache = {}
+          self.head, self.tail = DLinkedNode(), DLinkedNode()
+          self.head.next = self.tail
+          self.tail.pre = self.head
+          self.capacity = capacity
+          self.size = 0
+  
+      def get(self, key: int) -> int:
+          if key not in self.cache:
+              return -1
+          node = self.cache[key]
+          self.moveToHead(node)
+          return node.value
+  
+      def put(self, key: int, value: int) -> None:
+          if key not in self.cache:
+              node = DLinkedNode(key, value)
+              self.cache[key] = node
+              self.addToHead(node)
+              self.size += 1
+              if self.size > self.capacity:
+                  tmp = self.removeTail()
+                  self.cache.pop(tmp.key)
+                  self.size -= 1
+          else:
+              node = self.cache[key]
+              node.value = value
+              self.moveToHead(node)
+  
+      def removeNode(self, node):
+          node.pre.next = node.next
+          node.next.pre = node.pre
+  
+      def addToHead(self, node):
+          node.pre = self.head
+          node.next = self.head.next
+          self.head.next.pre = node
+          self.head.next = node
+  
+  
+      def moveToHead(self, node): 
+          self.removeNode(node)
+          self.addToHead(node)
+  
+      def removeTail(self):
+          node = self.tail.pre
+          self.removeNode(node)
+          return node
+  
+  
+  
+  # Your LRUCache object will be instantiated and called as such:
+  # obj = LRUCache(capacity)
+  # param_1 = obj.get(key)
+  # obj.put(key,value)
+  ```
+
+  
+
 - 面试题16.21.交换和
 
 
