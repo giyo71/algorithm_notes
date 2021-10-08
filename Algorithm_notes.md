@@ -3189,7 +3189,6 @@
           self.head.next.pre = node
           self.head.next = node
   
-  
       def moveToHead(self, node): 
           self.removeNode(node)
           self.addToHead(node)
