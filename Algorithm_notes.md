@@ -3198,7 +3198,33 @@
 
   
 
-- 面试题16.02.单词频率
+- [面试题16.02.单词频率](https://leetcode-cn.com/problems/words-frequency-lcci/)
+
+  设计一个方法，找出任意指定单词在一本书中的出现频率。
+
+  你的实现应该支持如下操作：
+
+  WordsFrequency(book)构造函数，参数为字符串数组构成的一本书
+  get(word)查询指定单词在书中出现的频率
+
+  ```python
+  # 本题可用哈希表及字典树
+  # 不常考题，以下直接使用内建函数Counter
+  class WordsFrequency:
+      def __init__(self, book: List[str]):
+          self.dic = collections.Counter(book)
+  
+      def get(self, word: str) -> int:
+          return self.dic.get(word, 0)
+  
+  
+  
+  # Your WordsFrequency object will be instantiated and called as such:
+  # obj = WordsFrequency(book)
+  # param_1 = obj.get(word)
+  ```
+
+  
 
 - 面试题01.02判定是否互为字符重排
 
