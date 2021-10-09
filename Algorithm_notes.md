@@ -3226,7 +3226,27 @@
 
   
 
-- 面试题01.02判定是否互为字符重排
+- [面试题01.02判定是否互为字符重排](https://leetcode-cn.com/problems/check-permutation-lcci/)
+
+  给定两个字符串 `s1` 和 `s2`，请编写一个程序，确定其中一个字符串的字符重新排列后，能否变成另一个字符串。
+
+  ```python
+  class Solution:
+      def CheckPermutation(self, s1: str, s2: str) -> bool:
+          if len(s1) != len(s2): return False
+          dic = {}
+          for s in s1:
+              if s not in dic: dic[s] = 1
+              else: dic[s] += 1
+          
+          for s in s2:
+              if s not in dic: return False
+              dic[s] -= 1
+              if dic[s] < 0: return False
+          return True
+  ```
+
+  
 
 - 剑指Offer03.数组中重复的数字
 
