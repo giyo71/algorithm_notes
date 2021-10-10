@@ -3315,9 +3315,50 @@
 
   
 
-- 136.只出现一次的数字
+- [136.只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
 
-- 349.两个数组的交集
+  给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+  说明：
+
+  你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+  ```python
+  # Note: 为不使用额外空间，本题使用位运算解法
+  class Solution:
+      def singleNumber(self, nums: List[int]) -> int:
+          x = 0
+          for num in nums:
+              x ^= num
+          return x
+  ```
+
+  
+
+- [349.两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
+
+  给定两个数组，编写一个函数来计算它们的交集。
+
+  ```python
+  class Solution:
+      def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+          nums1.sort()
+          nums2.sort()
+          res = []
+          i, j = 0, 0
+          while i < len(nums1) and j < len(nums2):
+              num1, num2 = nums1[i], nums2[j]
+              if num1 == num2:
+                  if not res or num1 != res[-1]:
+                      res.append(num1)
+                  i += 1
+                  j += 1
+              elif num1 > num2: j += 1
+              else: i += 1
+          return res
+  ```
+
+  
 
 - 1122.数组的相对排序
 
