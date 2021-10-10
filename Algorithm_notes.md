@@ -3295,7 +3295,25 @@
 
   
 
-- 49.字母异位词分组
+- [49.字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
+
+  给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
+
+  字母异位词 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母都恰好只用一次。
+
+  ```python
+  class Solution:
+      def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+          dic = collections.defaultdict(list)
+          for s in strs:
+              count = [0] * 26
+              for c in s:
+                  count[ord(c) - ord('a')] += 1
+              dic[tuple(count)].append(s)
+          return list(dic.values())
+  ```
+
+  
 
 - 136.只出现一次的数字
 
