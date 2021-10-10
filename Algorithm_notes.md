@@ -1944,7 +1944,7 @@
   注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
 
   ```python
-  # 使用哈希表方法而不去排序
+  # Note: 使用哈希表方法而不去排序
   # 时间复杂度优化为O(n)
   # 空间复杂度仅为O(26)即常数级
   class Solution:
@@ -3162,10 +3162,10 @@
   如果链表中存在环，则返回 true 。 否则，返回 false 。
 
   ```python
-  # 本题若用哈希表，
+  # Note: 本题若用哈希表，
   # 时间复杂度为O(N)
   # 空间复杂度为O(N)
-  # Note: 在"4.栈和队列"部分有相同题，使用双指针，将空间复杂度优化为O(1)
+  # 在"4.栈和队列"部分有相同题，使用双指针，将空间复杂度优化为O(1)
   ```
 
   
@@ -3208,7 +3208,7 @@
   get(word)查询指定单词在书中出现的频率
 
   ```python
-  # 本题可用哈希表及字典树
+  # Note: 本题可用哈希表及字典树
   # 不常考题，以下直接使用内建函数Counter
   class WordsFrequency:
       def __init__(self, book: List[str]):
@@ -3256,7 +3256,7 @@
   在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
 
   ```python
-  # 本题若用哈希表，
+  # Note: 本题若用哈希表，
   # 时间复杂度为O(N)
   # 空间复杂度为O(N)
   # 以下解题为原地交换，优化空间复杂度为O(1)
@@ -3274,7 +3274,27 @@
 
   
 
-- 242.有效的字母异位词
+- [242.有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
+
+  给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+  注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
+
+  ```python
+  class Solution:
+      def isAnagram(self, s: str, t: str) -> bool:
+          if len(s) != len(t): return False
+          tmp = [0] * 26
+          for char in s:
+              tmp[ord(char) - ord('a')] += 1
+          for char in t:
+              tmp[ord(char) - ord('a')] -= 1
+          for i in tmp:
+              if i != 0: return False
+          return True
+  ```
+
+  
 
 - 49.字母异位词分组
 
