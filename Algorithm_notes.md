@@ -3682,7 +3682,7 @@
 
   
 
-- 494.目标和
+- [494.目标和](https://leetcode-cn.com/problems/target-sum/)
 
   给你一个整数数组 nums 和一个整数 target 。
 
@@ -3692,7 +3692,21 @@
   返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。
 
   ```python
+  # 状态: dp[(sum(nums) - target) // 2]
+  # 状态转移方程: dp[j] = dp[j] + dp[j - num]
+  class Solution:
+      def findTargetSumWays(self, nums: List[int], target: int) -> int:
+          total = sum(nums)
+          diff = total - target
+          if diff < 0 or diff % 2 == 1: return 0
   
+          neg = diff // 2
+          dp = [1] + [0] * neg
+          for num in nums:
+              for j in range(neg, num - 1, -1):
+                  dp[j] += dp[j - num]
+          
+          return dp[-1]
   ```
 
   
