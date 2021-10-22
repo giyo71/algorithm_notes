@@ -3662,6 +3662,8 @@
   给你一个 **只包含正整数** 的 **非空** 数组 `nums` 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
 
   ```python
+  # 状态: dp[sum(nums) // 2]
+  # 状态转移方程: dp[j] = dp[j] or dp[j - num]
   class Solution:
       def canPartition(self, nums: List[int]) -> bool:
           if len(nums) < 2: return False
@@ -3671,7 +3673,7 @@
           
           val = total // 2
           dp = [True] + [False] * val
-          for i, num in enumerate(nums):
+          for num in nums:
               for j in range(val, num - 1, -1):
                   dp[j] = dp[j] or dp[j - num]
           
