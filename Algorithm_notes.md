@@ -3720,6 +3720,8 @@
   你可以认为每种硬币的数量是无限的。
 
   ```python
+  # 状态: dp[amount + 1]
+  # 状态转移方程: dp[i] = min(dp[i], dp[i - coin] + 1)
   class Solution:
       def coinChange(self, coins: List[int], amount: int) -> int:
           dp = [0] + [float('inf')] * amount
