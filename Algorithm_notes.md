@@ -3664,6 +3664,7 @@
   ```python
   # 状态: dp[sum(nums) // 2]
   # 状态转移方程: dp[j] = dp[j] or dp[j - num]
+  # 本题使用一维数组
   class Solution:
       def canPartition(self, nums: List[int]) -> bool:
           if len(nums) < 2: return False
@@ -3694,6 +3695,7 @@
   ```python
   # 状态: dp[(sum(nums) - target) // 2]
   # 状态转移方程: dp[j] = dp[j] + dp[j - num]
+  # 本题使用一维数组
   class Solution:
       def findTargetSumWays(self, nums: List[int], target: int) -> int:
           total = sum(nums)
@@ -3722,6 +3724,7 @@
   ```python
   # 状态: dp[amount + 1]
   # 状态转移方程: dp[i] = min(dp[i], dp[i - coin] + 1)
+  # 本题使用一维数组
   class Solution:
       def coinChange(self, coins: List[int], amount: int) -> int:
           dp = [0] + [float('inf')] * amount
@@ -3747,6 +3750,7 @@
   ```python
   # 状态: dp[amount + 1]
   # 状态转移方程: dp[i] = dp[i] + dp[i - coin]
+  # 本题使用一维数组
   class Solution:
       def change(self, amount: int, coins: List[int]) -> int:
           dp = [1] + [0] * amount
@@ -3756,7 +3760,7 @@
           
           return dp[-1]
   ```
-
+  
   
 
 > 题型2：路径
@@ -3830,7 +3834,46 @@
 
   
 
-- 62.不同路径
+- [62.不同路径](https://leetcode-cn.com/problems/unique-paths/)
+
+  一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
+
+  机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
+
+  问总共有多少条不同的路径？
+
+  ```python
+  # 状态: dp[m][n]
+  # 状态转移方程: dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+  class Solution:
+      def uniquePaths(self, m: int, n: int) -> int:
+          dp = [[0] * n for _ in range(m)]
+          for i in range(m):
+              for j in range(n):
+                  if i == 0 and j == 0: dp[i][j] = 1
+                  elif i == 0: dp[i][j] = dp[i][j - 1]
+                  elif j == 0: dp[i][j] = dp[i - 1][j]
+                  else: dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+  
+          return dp[-1][-1]
+  ```
+
+  ```python
+  # 状态: dp[m][n]
+  # 状态转移方程: dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+  # 本题使用滚动数组
+  class Solution:
+      def uniquePaths(self, m: int, n: int) -> int:
+          dp = [[0] * n for _ in range(3)]
+          for i in range(m):
+              for j in range(n):
+                  if i == 0 or j == 0: dp[i % 3][j] = 1
+                  else: dp[i % 3][j] = dp[(i - 1) % 3][j] + dp[i % 3][j - 1]
+  
+          return dp[(m - 1) % 3][-1]
+  ```
+
+  
 
 - 63.不同路径2
 
