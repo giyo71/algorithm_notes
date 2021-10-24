@@ -3807,14 +3807,25 @@
 
   
 
-- 120.三角形最小路径和
+- [120.三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
 
   给定一个三角形 triangle ，找出自顶向下的最小路径和。
 
   每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。
 
   ```python
-  
+  # 状态: dp[n][n]
+  # 状态转移方程: dp[i][j] += min(dp[i - 1][j], dp[i - 1][j - 1])
+  # 本题使用原地修改，不使用额外空间
+  class Solution:
+      def minimumTotal(self, triangle: List[List[int]]) -> int:
+          for i in range(1, len(triangle)):
+              for j in range(i + 1):
+                  if j == 0: triangle[i][j] += triangle[i - 1][j]
+                  elif j == i: triangle[i][j] += triangle[i - 1][j - 1]
+                  else: triangle[i][j] += min(triangle[i - 1][j], triangle[i - 1][j - 1])
+          
+          return min(triangle[-1])
   ```
 
   
