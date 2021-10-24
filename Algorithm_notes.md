@@ -2,6 +2,8 @@
 
 ###### Contents
 
+0. 自定义数据结构
+
 1. 纯编程题
 2. 找规律题
 3. 数组和链表
@@ -15,6 +17,37 @@
 11. 回溯
 12. DFS + BFS
 13. 动态规划
+
+
+
+------
+
+
+
+###### 0. 自定义数据结构
+
+- 二叉树
+
+  ```python
+  # Definition for a binary tree node.
+  class TreeNode:
+  		def __init__(self, val=0, left=None, right=None):
+      		self.val = val
+      		self.left = left
+      		self.right = right
+  ```
+
+  
+
+- 链表
+
+  ```python
+  # Definition for singly-linked list.
+  class ListNode:
+    	def __init__(self, val=0, next=None):
+  				self.val = val
+          self.next = next
+  ```
 
 
 
@@ -3965,7 +3998,30 @@
 
   
 
-- 337.打家劫舍3
+- [337.打家劫舍3](https://leetcode-cn.com/problems/house-robber-iii/)
+
+  在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。
+
+  计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。
+
+  ```python
+  # Note: 特殊情况，树形数组
+  # 每个节点的值分为 (不偷该节点，偷该节点)
+  class Solution:
+      def rob(self, root: TreeNode) -> int:
+          def treeRob(root):
+              if not root: return (0, 0)
+              left = treeRob(root.left)
+              right = treeRob(root.right)
+              val1 = root.val + left[1] + right[1]
+              val2 = max(left[0], left[1]) + max(right[0], right[1])
+              return (val1, val2)
+          
+          res = treeRob(root)
+          return max(res[0], res[1])
+  ```
+
+  
 
 - 714.买卖股票的最佳时机含手续
 
