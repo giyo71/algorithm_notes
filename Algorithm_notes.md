@@ -3940,7 +3940,29 @@
 
   
 
-- 213.打家劫舍2
+- [213.打家劫舍2](https://leetcode-cn.com/problems/house-robber-ii/)
+
+  你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
+
+  给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。
+
+  ```python
+  # 根据[198.打家劫舍]进阶回答，遍历两种情况即可
+  # 情况1.偷第一家，nums删去最后一家
+  # 情况2.不偷第一家，nums删去第一家
+  class Solution:
+      def rob(self, nums: List[int]) -> int:
+          def lineRob(nums):
+              cur, pre = 0, 0
+              for num in nums:
+                  cur, pre = max(cur, pre + num), cur
+              return cur
+          
+          if len(nums) == 1: return nums[0]
+          return max(lineRob(nums[:-1]), lineRob(nums[1:]))
+  ```
+
+  
 
 - 337.打家劫舍3
 
