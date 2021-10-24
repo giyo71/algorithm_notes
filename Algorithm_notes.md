@@ -3986,6 +3986,7 @@
   ```python
   # Note: 特殊情况，树形数组
   # 每个节点的值分为 (不偷该节点，偷该节点)
+  # 且遍历二叉树时采用后序遍历
   class Solution:
       def rob(self, root: TreeNode) -> int:
           def treeRob(root):
