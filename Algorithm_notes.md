@@ -3761,10 +3761,36 @@
 
 > 题型2：路径
 
-- 64.最小路径和
+- [64.最小路径和](https://leetcode-cn.com/problems/minimum-path-sum/)
+
+  给定一个包含非负整数的 `*m* x *n*` 网格 `grid` ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+
+  **说明：**每次只能向下或者向右移动一步。
+
+  ```python
+  # 状态: dp[m][n]
+  # 状态转移方程: dp[i][j] += min(dp[i - 1][j], dp[i][j - 1])
+  # 本题使用原地修改，不使用额外空间
+  class Solution:
+      def minPathSum(self, grid: List[List[int]]) -> int:
+          for i in range(len(grid)):
+              for j in range(len(grid[0])):
+                  if i == 0 and j == 0: continue
+                  elif i == 0: grid[i][j] += grid[i][j - 1]
+                  elif j == 0: grid[i][j] += grid[i - 1][j]
+                  else: grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+          
+          return grid[-1][-1]
+  ```
+
+  
+
 - 剑指Offer47.礼物的最大价值
+
 - 120.三角形最小路径和
+
 - 62.不同路径
+
 - 63.不同路径2
 
 > 题型3：打家劫舍&买卖股票
