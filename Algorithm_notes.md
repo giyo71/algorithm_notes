@@ -2109,11 +2109,6 @@
   重复直到所有输入数据插入完为止。
 
   ```python
-  # Definition for singly-linked list.
-  # class ListNode:
-  #     def __init__(self, val=0, next=None):
-  #         self.val = val
-  #         self.next = next
   class Solution:
       def insertionSortList(self, head: ListNode) -> ListNode:
           if not head: return None
@@ -2136,9 +2131,9 @@
               cur = last.next
           return dum.next
   ```
-
   
-
+  
+  
 - [148.排序链表](https://leetcode-cn.com/problems/sort-list/)
 
   给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
@@ -2151,11 +2146,6 @@
   # 方法1:
   # 常规归并排序，使用了递归
   # 时间复杂度为O(nlogn)，空间复杂度为O(n)
-  # Definition for singly-linked list.
-  # class ListNode:
-  #     def __init__(self, val=0, next=None):
-  #         self.val = val
-  #         self.next = next
   class Solution:
       def sortList(self, head: ListNode) -> ListNode:
           if not head or not head.next: return head
@@ -2181,17 +2171,12 @@
           cur.next = left if left else right
           return dum.next
   ```
-
+  
   ```python
   # 方法2:（进阶）
   # 由于要求时间复杂度要求O(nlogn)，即使用归并排序
   # 而空间复杂度要求O(1)，则不能使用常规归并O(n)
   # 因此本题应使用迭代归并而非递归归并
-  # Definition for singly-linked list.
-  # class ListNode:
-  #     def __init__(self, val=0, next=None):
-  #         self.val = val
-  #         self.next = next
   class Solution:
       def sortList(self, head: ListNode) -> ListNode:
           # 查找链表长度
@@ -2247,9 +2232,9 @@
               intv *= 2
           return dum.next
   ```
-
   
-
+  
+  
 - [215.数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
 
   给定整数数组 `nums` 和整数 `k`，请返回数组中第 `k` 个最大的元素。
@@ -3211,12 +3196,6 @@
   编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
 
   ```python
-  # Definition for singly-linked list.
-  # class ListNode:
-  #     def __init__(self, x):
-  #         self.val = x
-  #         self.next = None
-  
   class Solution:
       def removeDuplicateNodes(self, head: ListNode) -> ListNode:
           if not head: return None
@@ -3231,9 +3210,9 @@
                   cur.next = cur.next.next
           return head
   ```
-
   
-
+  
+  
 - [面试题16.02.单词频率](https://leetcode-cn.com/problems/words-frequency-lcci/)
 
   设计一个方法，找出任意指定单词在一本书中的出现频率。
