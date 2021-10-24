@@ -4016,11 +4016,11 @@
   ```python
   # 状态: dp[[n, n]]
   # 状态转移方程:
-  # 当前不持有股票利润：上一天不持有股票利润 / 上一天持有股票今天卖掉利润
+  # 当前不持有股票利润: 上一天不持有股票利润 / 上一天持有股票今天卖掉利润
   # dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i] - fee)
-  # 当前持有股票利润：上一天持有股票利润 / 上一天不持有股票今天买入利润
+  # 当前持有股票利润: 上一天持有股票利润 / 上一天不持有股票今天买入利润
   # dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i])
-  # p.s. 股票题特殊返回情况，最后一题不持有股票的利润一定大于持有的
+  # p.s. 股票题特殊返回情况，最后一天不持有股票的利润一定大于持有的
   class Solution:
       def maxProfit(self, prices: List[int], fee: int) -> int:
           n = len(prices)
@@ -4035,7 +4035,6 @@
   # 使用两个常量，优化空间复杂度为O(1)
   class Solution:
       def maxProfit(self, prices: List[int], fee: int) -> int:
-          n = len(prices)
           not_hold, hold = 0, -prices[0]
           for price in prices:
               not_hold = max(not_hold, hold + price - fee)
@@ -4045,7 +4044,50 @@
 
   
 
-- 309.最佳买卖股票时机含冷冻期
+- [309.最佳买卖股票时机含冷冻期](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+
+  给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。
+
+  设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+
+  你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+  卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+
+  ```python
+  # 状态: dp[[n, n, n]]
+  # 状态转移方程:
+  # 当前持有股票利润: 上一天持有股票利润 / 上一天不持有股票且不是冷冻期利润 + 今天买入
+  # dp[i][0] = max(dp[i - 1][0], dp[i - 1][2] - prices[i])
+  # 当前不持有股票且是冷冻期利润: 上一天持有股票利润 + 今天卖出
+  # dp[i][1] = dp[i - 1][0] + prices[i]
+  # 当前不持有股票且不是冷冻期利润: 上一天不持有股票且不是冷冻期利润 / 上一天不持有股票且是冷冻期
+  # dp[i][2] = max(dp[i - 1][2], dp[i - 1][1])
+  # p.s. 股票题特殊返回情况，最后一天不持有股票的利润一定大于持有的
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+          n = len(prices)
+          dp = [[-prices[0], 0, 0]] + [[0] * 3 for _ in range(n - 1)]
+          for i in range(1, n):
+              dp[i][0] = max(dp[i - 1][0], dp[i - 1][2] - prices[i])
+              dp[i][1] = dp[i - 1][0] + prices[i]
+              dp[i][2] = max(dp[i - 1][2], dp[i - 1][1])
+          return max(dp[-1][1], dp[-1][2])
+  ```
+
+  ```python
+  # 使用三个常量，优化空间复杂度为O(1)
+  class Solution:
+      def maxProfit(self, prices: List[int]) -> int:
+          f0, f1, f2 = -prices[0], 0, 0
+          for price in prices:
+              tmp_f0 = max(f0, f2 - price)
+              tmp_f1 = f0 + price
+              tmp_f2 = max(f2, f1)
+              f0, f1, f2 = tmp_f0, tmp_f1, tmp_f2
+          return max(f1, f2)
+  ```
+
+  
 
 > 题型4：爬楼梯问题
 
