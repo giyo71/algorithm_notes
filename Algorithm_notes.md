@@ -4132,7 +4132,7 @@
 
 > 题型4：爬楼梯问题
 
-- 70.爬楼梯
+- [70.爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
   假设你正在爬楼梯。需要 *n* 阶你才能到达楼顶。
 
@@ -4141,7 +4141,14 @@
   **注意：**给定 *n* 是一个正整数。
 
   ```python
-  
+  # 跳台阶最开始情况：F(2) = F(1) + F(0)
+  # a 为 F(0)，b 为 F(1)
+  class Solution:
+      def climbStairs(self, n: int) -> int:
+          a, b = 1, 1
+          for _ in range(n):
+              a, b = b, a + b
+          return a
   ```
 
   
