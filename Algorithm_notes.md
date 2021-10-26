@@ -3568,12 +3568,67 @@
 例题：
 
 - 23.合并K个升序链表
+
 - 347.前K个高频元素
-- 295.数据流的中位数
+
+- [295.数据流的中位数](https://leetcode-cn.com/problems/find-median-from-data-stream/)
+
+  中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。
+
+  例如，
+
+  [2,3,4] 的中位数是 3
+
+  [2,3] 的中位数是 (2 + 3) / 2 = 2.5
+
+  设计一个支持以下两种操作的数据结构：
+
+  void addNum(int num) - 从数据流中添加一个整数到数据结构中。
+  double findMedian() - 返回目前所有元素的中位数。
+
+  ```python
+  class MedianFinder:
+  
+      def __init__(self):
+          self.heap_min = []
+          self.heap_max = []
+  
+  
+      def addNum(self, num: int) -> None:
+          if not self.heap_min or num <= -self.heap_min[0]:
+              heapq.heappush(self.heap_min, -num)
+              if len(self.heap_min) > len(self.heap_max) + 1:
+                  heapq.heappush(self.heap_max, -heapq.heappop(self.heap_min))
+          else:
+              heapq.heappush(self.heap_max, num)
+              if len(self.heap_max) > len(self.heap_min):
+                  heapq.heappush(self.heap_min, -heapq.heappop(self.heap_max))
+  
+  
+      def findMedian(self) -> float:
+          if len(self.heap_min) > len(self.heap_max):
+              return -self.heap_min[0]
+          else:
+              return (-self.heap_min[0] + self.heap_max[0]) / 2
+  
+  
+  
+  # Your MedianFinder object will be instantiated and called as such:
+  # obj = MedianFinder()
+  # obj.addNum(num)
+  # param_2 = obj.findMedian()
+  ```
+
+  
+
 - 973.最接近原点的K个点
+
 - 313.超级丑数
+
 - 208.实现Trie（前缀树）
+
 - 面试题17.17.多次搜索
+
 - 212.单词搜索2
 
 
