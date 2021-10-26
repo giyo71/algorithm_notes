@@ -1201,7 +1201,7 @@
           initialize your data structure here.
           """
           self.stack = []
-          # 单调递增栈
+          # 单调递减栈
           self.min_stack = [math.inf]
   
   
