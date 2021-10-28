@@ -2171,7 +2171,7 @@
       def sortList(self, head: ListNode) -> ListNode:
           if not head or not head.next: return head
   
-          # 不对对中点处进行分割
+          # 不断对中点处进行分割
           slow, fast = head, head.next
           while fast and fast.next:
               slow = slow.next
