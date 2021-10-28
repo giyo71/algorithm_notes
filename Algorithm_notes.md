@@ -2020,6 +2020,27 @@
 
   
 
+- [1502.判断能否形成等差数列](https://leetcode-cn.com/problems/can-make-arithmetic-progression-from-sequence/)
+
+  给你一个数字数组 arr 。
+
+  如果一个数列中，任意相邻两项的差总等于同一个常数，那么这个数列就称为 等差数列 。
+
+  如果可以重新排列数组形成等差数列，请返回 true ；否则，返回 false 。
+
+  ```python
+  class Solution:
+      def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+          arr.sort()
+          # 首位和末位不遍历
+          for i in range(1, len(arr) - 1):
+              if arr[i] * 2 != arr[i - 1] + arr[i + 1]:
+                  return False
+          return True
+  ```
+
+  
+
 - [252.会议室](https://leetcode-cn.com/problems/meeting-rooms/)
 
   给定一个会议时间安排的数组 intervals ，每个会议时间都会包括开始和结束的时间 intervals[i] = [starti, endi] ，请你判断一个人是否能够参加这里面的全部会议。
