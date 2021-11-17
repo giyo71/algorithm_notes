@@ -3719,6 +3719,23 @@
 >            board[row][col] = 'Q'
 >            backtrack(row + 1, board)
 >            board[row][col] = '*'
+>    def isOk(board, row, col):
+>        # 检查列
+>        for i in range(row):
+>            if board[i][col] == 'Q': return False
+>        # 检查右上对角线
+>        i, j = row - 1, col + 1
+>        while i >= 0 and j < 8:
+>            if board[i][j] == 'Q': return False
+>            i -= 1
+>            j += 1
+>        # 检查左上对角线
+>        i, j = row - 1, col - 1
+>        while i >= 0 and j >= 0:
+>            if board[i][j] == 'Q': return False
+>            i -= 1
+>            j -= 1
+>        return True
 >    board = [['*'] * 8 for _ in range(8)]
 >    backtrack(row, board)
 >    return res
