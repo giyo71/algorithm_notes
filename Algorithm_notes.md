@@ -3684,6 +3684,8 @@
 >        可选列表.append(选择) # 恢复可选列表
 >```
 >
+>(Note: Python中可选列表均能隐藏)
+>
 >```python
 ># 模版用例1:
 ># 全排列: 给定n个不重复的数，求这组数nums的所有的排列组合
@@ -3822,16 +3824,16 @@
   ```python
   class Solution:
       def subsets(self, nums: List[int]) -> List[List[int]]:
-          def backtrack(nums, k, path):
+          def backtrack(k, path):
               if k == len(nums):
                   res.append(path[:])
                   return
-              backtrack(nums, k + 1, path)
+              backtrack(k + 1, path)
               path.append(nums[k])
-              backtrack(nums, k + 1, path)
+              backtrack(k + 1, path)
               path.pop()
           res = []
-          backtrack(nums, 0, [])
+          backtrack(0, [])
           return res
   ```
 
@@ -3846,17 +3848,17 @@
   ```python
   class Solution:
       def permute(self, nums: List[int]) -> List[List[int]]:
-          def backtrack(nums, k, path):
+          def backtrack(k, path):
               if k == len(nums):
                   res.append(path[:])
                   return
               for num in nums:
                   if num in path: continue
                   path.append(num)
-                  backtrack(nums, k + 1, path)
+                  backtrack(k + 1, path)
                   path.pop()
           res = []
-          backtrack(nums, 0, [])
+          backtrack(0, [])
           return res
   ```
 
