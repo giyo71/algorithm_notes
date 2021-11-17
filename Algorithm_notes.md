@@ -3707,6 +3707,19 @@
 >```python
 ># 模版用例2:
 ># 全组合: 给定n个不重复的数，求这组数nums的所有的可能子集
+>def solution(nums):
+>    def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
+>        if k == len(nums):
+>            res.append(path[:])
+>            return
+>        backtrack(nums, k + 1, path)
+>        path.append(nums[k])
+>        backtrack(nums, k + 1, path)
+>        path.pop()
+>    res = []
+>    path = []
+>    backtrack(nums, 0, path)
+>    return res
 >```
 >
 >```python
