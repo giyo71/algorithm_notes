@@ -3678,19 +3678,25 @@
 >        return
 >    for 选择 in [可选列表]:
 >        路径.append(选择) # 做选择
->        可选列表.pop(选择)
->        
+>        可选列表.pop(选择) # 做选择
 >        backtrack(可选列表，决策阶段+1，路径)
->         
 >        路径.pop(选择) # 撤销选择
->        可选列表.append(选择)
+>        可选列表.append(选择) # 撤销选择
 >```
 >
 >```python
 ># 模版用例1:
 ># 全排列: 给定n个不重复的数，求这组数的所有的排列组合
 >res = []
->def backtrack():
+>def backtrack(nums, k, path):
+>    if k == len(nums):
+>        res.append(path)
+>        return
+>    for num in nums:
+>        if num in path:
+>            continue
+>        path.append(num)
+>        
 >```
 >
 >
