@@ -3691,7 +3691,7 @@
 >    res = []
 >    def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
 >        if k == len(nums):
->            res.append(path[:])
+>            res.append(path[:]) # 一维数组深拷贝
 >            return
 >        for num in nums:
 >            if num in path: # 该步骤即快速处理"可选列表"
@@ -3711,10 +3711,10 @@
 >    res = []
 >    def backtrack(row, board): # 可选列表: 隐藏 / 决策阶段: row / 路径: board
 >        if row == 8:
->            res.append([row[:] for row in board])
+>            res.append([row[:] for row in board]) # 二维数组深拷贝
 >            return
 >        for col in range(8):
->            if not isOk(board, row, col):
+>            if not isOk(board, row, col): # 该步骤即快速处理"可选列表"
 >                continue
 >            board[row][col] = 'Q'
 >            backtrack(row + 1, board)
