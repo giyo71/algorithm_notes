@@ -3696,7 +3696,8 @@
 >        if num in path:
 >            continue
 >        path.append(num)
->        
+>        backtrack(nums, k + 1, path)
+>        path.pop()
 >```
 >
 >
