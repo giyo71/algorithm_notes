@@ -3689,7 +3689,7 @@
 ># 全排列: 给定n个不重复的数，求这组数nums的所有的排列组合
 >def solution(nums):
 >    res = []
->    def backtrack(nums, k, path):
+>    def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
 >        if k == len(nums):
 >            res.append(path[:])
 >            return
@@ -3708,6 +3708,20 @@
 ># 模版用例2:
 ># 八皇后：8乘8棋盘，要求每个棋子所在的行、列、对角线都不能有另外一颗棋子
 >def solution():
+>    res = []
+>    def backtrack(row, board): # 可选列表: 隐藏 / 决策阶段: row / 路径: board
+>        if row == 8:
+>            res.append([row[:] for row in board])
+>            return
+>        for col in range(8):
+>            if not isOk(board, row, col):
+>                continue
+>            board[row][col] = 'Q'
+>            backtrack(row + 1, board)
+>            board[row][col] = '*'
+>    board = [['*'] * 8 for _ in range(8)]
+>    backtrack(row, board)
+>    return res
 >```
 >
 >
