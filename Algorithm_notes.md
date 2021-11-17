@@ -3691,7 +3691,7 @@
 >    res = []
 >    def backtrack(nums, k, path):
 >        if k == len(nums):
->            res.append(path[::])
+>            res.append(path[:])
 >            return
 >        for num in nums:
 >            if num in path: # 该步骤即快速处理"可选列表"
