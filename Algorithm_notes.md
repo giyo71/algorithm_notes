@@ -3688,7 +3688,6 @@
 ># 模版用例1:
 ># 全排列: 给定n个不重复的数，求这组数nums的所有的排列组合
 >def solution(nums):
->    res = []
 >    def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
 >        if k == len(nums):
 >            res.append(path[:]) # 一维数组深拷贝
@@ -3699,6 +3698,7 @@
 >            path.append(num)
 >            backtrack(nums, k + 1, path)
 >            path.pop()
+>    res = []
 >    path = []
 >    backtrack(nums, 0, path)
 >    return res
@@ -3708,7 +3708,6 @@
 ># 模版用例2:
 ># 八皇后：8乘8棋盘，要求每个棋子所在的行、列、对角线都不能有另外一颗棋子
 >def solution():
->    res = []
 >    def backtrack(row, board): # 可选列表: 隐藏 / 决策阶段: row / 路径: board
 >        if row == 8:
 >            res.append([row[:] for row in board]) # 二维数组深拷贝
@@ -3736,6 +3735,7 @@
 >            i -= 1
 >            j -= 1
 >        return True
+>    res = []
 >    board = [['*'] * 8 for _ in range(8)]
 >    backtrack(row, board)
 >    return res
