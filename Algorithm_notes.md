@@ -3813,7 +3813,29 @@
 
 - 77.组合
 
-- 78.子集
+- [78.子集](https://leetcode-cn.com/problems/subsets/)
+
+  给你一个整数数组 `nums` ，数组中的元素 **互不相同** 。返回该数组所有可能的子集（幂集）。
+
+  解集 **不能** 包含重复的子集。你可以按 **任意顺序** 返回解集。
+
+  ```python
+  class Solution:
+      def subsets(self, nums: List[int]) -> List[List[int]]:
+          def backtrack(nums, k, path):
+              if k == len(nums):
+                  res.append(path[:])
+                  return
+              backtrack(nums, k + 1, path)
+              path.append(nums[k])
+              backtrack(nums, k + 1, path)
+              path.pop()
+          res = []
+          backtrack(nums, 0, [])
+          return res
+  ```
+
+  
 
 - 90.子集2
 
