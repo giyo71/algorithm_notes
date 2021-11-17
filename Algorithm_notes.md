@@ -3710,19 +3710,54 @@
 例题：
 
 - 面试题08.12.八皇后
+
 - 37.解数独
+
 - 17.电话号码的字母组合
+
 - 77.组合
+
 - 78.子集
+
 - 90.子集2
-- 46.全排列
+
+- [46.全排列](https://leetcode-cn.com/problems/permutations/)
+
+  给定一个不含重复数字的数组 `nums` ，返回其 **所有可能的全排列** 。你可以 **按任意顺序** 返回答案。
+
+  ```python
+  class Solution:
+      def permute(self, nums: List[int]) -> List[List[int]]:
+          def backtrack(nums, k, path):
+              if k == len(nums):
+                  res.append(path[:])
+                  return
+              for num in nums:
+                  if num in path: continue
+                  path.append(num)
+                  backtrack(nums, k + 1, path)
+                  path.pop()
+          res = []
+          backtrack(nums, 0, [])
+          return res
+  ```
+
+  
+
 - 47.全排列2
+
 - 剑指Offer38.字符串的排列
+
 - 39.组合总和
+
 - 40.组合总和2
+
 - 216.组合总和3
+
 - 131.分割回文串
+
 - 93.复原IP地址
+
 - 22.括号生成
 
 
