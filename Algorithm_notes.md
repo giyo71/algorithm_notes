@@ -3686,18 +3686,23 @@
 >
 >```python
 ># 模版用例1:
-># 全排列: 给定n个不重复的数，求这组数的所有的排列组合
->res = []
->def backtrack(nums, k, path):
->    if k == len(nums):
->        res.append(path[::])
->        return
->    for num in nums:
->        if num in path: # 该步骤即快速处理"可选列表"
->            continue
->        path.append(num)
->        backtrack(nums, k + 1, path)
->        path.pop()
+># 全排列: 给定n个不重复的数，求这组数nums的所有的排列组合
+>def solution(nums):
+>    res = []
+>    def backtrack(nums, k, path):
+>        if k == len(nums):
+>            res.append(path[::])
+>            return
+>        for num in nums:
+>            if num in path: # 该步骤即快速处理"可选列表"
+>                continue
+>            path.append(num)
+>            backtrack(nums, k + 1, path)
+>            path.pop()
+>
+>    path = []
+>    backtrack(nums, 0, path)
+>    return res
 >```
 >
 >
