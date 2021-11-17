@@ -3693,7 +3693,7 @@
 >        res.append(path)
 >        return
 >    for num in nums:
->        if num in path:
+>        if num in path: # 该步骤即快速处理"可选列表"
 >            continue
 >        path.append(num)
 >        backtrack(nums, k + 1, path)
