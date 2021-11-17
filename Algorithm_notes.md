@@ -3678,10 +3678,10 @@
 >        return
 >    for 选择 in [可选列表]:
 >        路径.append(选择) # 做选择
->        可选列表.pop(选择) # 做选择
+>        可选列表.pop(选择) # 更改可选列表
 >        backtrack(可选列表，决策阶段+1，路径)
 >        路径.pop(选择) # 撤销选择
->        可选列表.append(选择) # 撤销选择
+>        可选列表.append(选择) # 恢复可选列表
 >```
 >
 >```python
@@ -3699,10 +3699,15 @@
 >            path.append(num)
 >            backtrack(nums, k + 1, path)
 >            path.pop()
->
 >    path = []
 >    backtrack(nums, 0, path)
 >    return res
+>```
+>
+>```python
+># 模版用例2:
+># 八皇后：8乘8棋盘，要求每个棋子所在的行、列、对角线都不能有另外一颗棋子
+>def solution():
 >```
 >
 >
