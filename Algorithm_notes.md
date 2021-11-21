@@ -3672,7 +3672,7 @@
 >
 >```python
 >res = []
->def backtrack(可选列表，决策阶段，路径):
+>def backtrack(可选列表，决策阶段，路径): # Notes: python中可隐藏可选列表
 >    if 满足结束条件: # 所有决策都已完成或得到可行解
 >        if 路径为可行解: res.append(路径)
 >        return
