@@ -3787,7 +3787,6 @@
 >    return matched
 >```
 >
->
 
 例题：
 
@@ -4237,13 +4236,13 @@
   # 本题使用滚动数组
   class Solution:
       def uniquePaths(self, m: int, n: int) -> int:
-          dp = [[0] * n for _ in range(3)]
+          dp = [[0] * n for _ in range(2)]
           for i in range(m):
               for j in range(n):
-                  if i == 0 or j == 0: dp[i % 3][j] = 1
-                  else: dp[i % 3][j] = dp[(i - 1) % 3][j] + dp[i % 3][j - 1]
+                  if i == 0 or j == 0: dp[i % 2][j] = 1
+                  else: dp[i % 2][j] = dp[(i - 1) % 2][j] + dp[i % 2][j - 1]
   
-          return dp[(m - 1) % 3][-1]
+          return dp[(m - 1) % 2][-1]
   ```
 
   
