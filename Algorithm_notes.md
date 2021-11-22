@@ -3673,15 +3673,15 @@
 >```python
 >res = []
 >def backtrack(可选列表，决策阶段，路径): # Notes: python中可隐藏可选列表
->    if 满足结束条件: # 所有决策都已完成或得到可行解
->        if 路径为可行解: res.append(路径)
->        return
->    for 选择 in [可选列表]:
->        路径.append(选择) # 做选择
->        可选列表.pop(选择) # 更改可选列表
->        backtrack(可选列表，决策阶段+1，路径)
->        路径.pop(选择) # 撤销选择
->        可选列表.append(选择) # 恢复可选列表
+>   if 满足结束条件: # 所有决策都已完成或得到可行解
+>       if 路径为可行解: res.append(路径)
+>       return
+>   for 选择 in [可选列表]:
+>       路径.append(选择) # 做选择
+>       可选列表.pop(选择) # 更改可选列表
+>       backtrack(可选列表，决策阶段+1，路径)
+>       路径.pop(选择) # 撤销选择
+>       可选列表.append(选择) # 恢复可选列表
 >```
 >
 >(Note: Python中可选列表均能隐藏)
@@ -3691,20 +3691,20 @@
 ># 全排列: 给定n个不重复的数，求这组数nums的所有的排列组合
 ># p.s. 有序
 >def solution(nums):
->    def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
->        if k == len(nums):
->            res.append(path[:]) # 一维数组深拷贝
->            return
->        for num in nums:
->            if num in path: # 该步骤即快速处理"可选列表"
->                continue
->            path.append(num)
->            backtrack(nums, k + 1, path)
->            path.pop()
->    res = []
->    path = []
->    backtrack(nums, 0, path)
->    return res
+>   def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
+>       if k == len(nums):
+>           res.append(path[:]) # 一维数组深拷贝
+>           return
+>       for num in nums:
+>           if num in path: # 该步骤即快速处理"可选列表"
+>               continue
+>           path.append(num)
+>           backtrack(nums, k + 1, path)
+>           path.pop()
+>   res = []
+>   path = []
+>   backtrack(nums, 0, path)
+>   return res
 >```
 >
 >```python
@@ -3712,62 +3712,79 @@
 ># 全组合: 给定n个不重复的数，求这组数nums的所有的可能子集
 ># p.s. 无序
 >def solution(nums):
->    def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
->        if k == len(nums):
->            res.append(path[:])
->            return
->        backtrack(nums, k + 1, path)
->        path.append(nums[k])
->        backtrack(nums, k + 1, path)
->        path.pop()
->    res = []
->    path = []
->    backtrack(nums, 0, path)
->    return res
+>   def backtrack(nums, k, path): # 可选列表: nums / 决策阶段: k / 路径: path
+>       if k == len(nums):
+>           res.append(path[:])
+>           return
+>       backtrack(nums, k + 1, path)
+>       path.append(nums[k])
+>       backtrack(nums, k + 1, path)
+>       path.pop()
+>   res = []
+>   path = []
+>   backtrack(nums, 0, path)
+>   return res
 >```
 >
 >```python
 ># 模版用例3:
 ># 八皇后：8乘8棋盘，要求每个棋子所在的行、列、对角线都不能有另外一颗棋子
 >def solution():
->    def backtrack(row, board): # 可选列表: 隐藏 / 决策阶段: row / 路径: board
->        if row == 8:
->            res.append([row[:] for row in board]) # 二维数组深拷贝
->            return
->        for col in range(8):
->            if not isOk(board, row, col): # 该步骤即快速处理"可选列表"
->                continue
->            board[row][col] = 'Q'
->            backtrack(row + 1, board)
->            board[row][col] = '*'
->    def isOk(board, row, col):
->        # 检查列
->        for i in range(row):
->            if board[i][col] == 'Q': return False
->        # 检查右上对角线
->        i, j = row - 1, col + 1
->        while i >= 0 and j < 8:
->            if board[i][j] == 'Q': return False
->            i -= 1
->            j += 1
->        # 检查左上对角线
->        i, j = row - 1, col - 1
->        while i >= 0 and j >= 0:
->            if board[i][j] == 'Q': return False
->            i -= 1
->            j -= 1
->        return True
->    res = []
->    board = [['*'] * 8 for _ in range(8)]
->    backtrack(row, board)
->    return res
+>   def backtrack(row, board): # 可选列表: 隐藏 / 决策阶段: row / 路径: board
+>       if row == 8:
+>           res.append([row[:] for row in board]) # 二维数组深拷贝
+>           return
+>       for col in range(8):
+>           if not isOk(board, row, col): # 该步骤即快速处理"可选列表"
+>               continue
+>           board[row][col] = 'Q'
+>           backtrack(row + 1, board)
+>           board[row][col] = '*'
+>   def isOk(board, row, col):
+>       # 检查列
+>       for i in range(row):
+>           if board[i][col] == 'Q': return False
+>       # 检查右上对角线
+>       i, j = row - 1, col + 1
+>       while i >= 0 and j < 8:
+>           if board[i][j] == 'Q': return False
+>           i -= 1
+>           j += 1
+>       # 检查左上对角线
+>       i, j = row - 1, col - 1
+>       while i >= 0 and j >= 0:
+>           if board[i][j] == 'Q': return False
+>           i -= 1
+>           j -= 1
+>       return True
+>   res = []
+>   board = [['*'] * 8 for _ in range(8)]
+>   backtrack(row, board)
+>   return res
 >```
 >
 >```python
 ># 模版用例4:
 ># 正则表达式：假设正则表达式只包含“*”和“?”，“*”匹配任意多个（大于等于0）任意字符，“?“匹配零个或一个任意字符。判断一个给定的文本，能否跟给定的正则表达式匹配
+># p.s. text为给定文本，pattern为给定正则表达式
 >def solution(text, pattern):
->   
+>    def backtrack(text, pattern, i, j): # 可选列表:text[i] / 决策阶段:pattern[j] / 路径:隐藏
+>        if j == len(pattern) - 1:
+>            if i == len(text) - 1:
+>                matched = True
+>            return
+>        if pattern[j] == '*': # 做选择：匹配任意个字符
+>            for k in range(i, len(text)):
+>                backtrack(text, pattern, i + k, j + 1)
+>        elif pattern[j] == '?': # 做选择：匹配0或1个字符
+>            backtrack(text, pattern, i, j + 1)
+>            if i < len(text) - 1:
+>                backtrack(text, pattern, i + 1, j + 1)
+>        elif i < len(text) - 1 and pattern[j] == text[i]: # 做选择：纯字符相同匹配
+>            backtrack(text, pattern, i + 1, j + 1)
+>    matched = False
+>    backtrack(text, pattern, 0, 0)
+>    return matched
 >```
 >
 >
