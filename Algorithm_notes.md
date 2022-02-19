@@ -861,16 +861,16 @@
      class Solution:
          def oddEvenList(self, head: ListNode) -> ListNode:
              if not head: return
-             # 创建奇数位头节点，并使用奇偶双指针 head (odd) -> even_head (even) 
+             # 创建偶数位头节点，并使用奇偶双指针 head (odd) -> even_head (even) 
              even_head = head.next
              odd, even = head, even_head
-             # 奇数为还有 next 则代表仍需循环让偶数位连接该 next
+             # 偶数为还有 next 则代表仍需循环让偶数位连接该 next
              while even and even.next:
                  odd.next = even.next
                  odd = odd.next
                  even.next = odd.next
                  even = even.next
-             # 偶数位最后拼接上奇数位头节点
+             # 奇数位最后拼接上偶数位头节点
              odd.next = even_head
              return head
      ```
