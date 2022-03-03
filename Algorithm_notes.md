@@ -2424,7 +2424,7 @@
   
               # 无法分割后，开始排序合并
               i, j = l, mid + 1
-              tmp[l : r + 1] = nums[l : r + 1]
+              tmp[l: r + 1] = nums[l: r + 1]
               for k in range(l, r + 1):
                 	# 左指针数组排序完成，剩余右指针数组
                   if i == mid + 1:
