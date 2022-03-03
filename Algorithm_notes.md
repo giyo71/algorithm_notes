@@ -2136,11 +2136,10 @@
                   nums[cur], nums[i] = nums[i], nums[cur]
                   i += 1
               cur += 1
-          return nums
   ```
-
   
-
+  
+  
 - [147.对链表进行插入排序](https://leetcode-cn.com/problems/insertion-sort-list/)
 
   对链表进行插入排序。
