@@ -4357,7 +4357,7 @@
               return (val1, val2)
           
           res = treeRob(root)
-          return max(res[0], res[1])
+          return max(res)
   ```
 
   
