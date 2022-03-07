@@ -3831,7 +3831,50 @@
 
   
 
-- 37.解数独
+- [37.解数独](https://leetcode-cn.com/problems/sudoku-solver/)
+
+  编写一个程序，通过填充空格来解决数独问题。
+
+  数独的解法需 遵循如下规则：
+
+  数字 1-9 在每一行只能出现一次。
+  数字 1-9 在每一列只能出现一次。
+  数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图）
+  数独部分空格内已填入了数字，空白格用 '.' 表示。
+
+  ```python
+  class Solution:
+      def solveSudoku(self, board: List[List[str]]) -> None:
+          """
+          Do not return anything, modify board in-place instead.
+          """
+          def backtrack(board):
+              for i in range(len(board)):
+                  for j in range(len(board[0])):
+                      if board[i][j] != '.': continue
+                      for k in range(1, 10):
+                          if isOk(i, j, k, board):
+                              board[i][j] = str(k)
+                              if backtrack(board): return True
+                              board[i][j] = '.'
+                      return False
+              return True
+  
+          def isOk(row, col, val, board):
+              for i in range(9):
+                  if board[i][col] == str(val): return False
+              for j in range(9):
+                  if board[row][j] == str(val): return False
+              box_row, box_col = (row // 3) * 3, (col // 3) * 3
+              for i in range(box_row, box_row + 3):
+                  for j in range(box_col, box_col + 3):
+                      if board[i][j] == str(val): return False
+              return True
+  
+          backtrack(board)
+  ```
+
+  
 
 - 17.电话号码的字母组合
 
