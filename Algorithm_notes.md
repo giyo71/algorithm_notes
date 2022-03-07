@@ -3740,7 +3740,7 @@
 >           backtrack(row + 1, board)
 >           board[row][col] = '*'
 >   def isOk(board, row, col):
->       # 检查列
+>       # 检查行
 >       for i in range(row):
 >           if board[i][col] == 'Q': return False
 >       # 检查右上对角线
