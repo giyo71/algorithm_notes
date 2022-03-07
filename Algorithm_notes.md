@@ -3758,7 +3758,7 @@
 >       return True
 >   res = []
 >   board = [['*'] * 8 for _ in range(8)]
->   backtrack(row, board)
+>   backtrack(0, board)
 >   return res
 >```
 >
