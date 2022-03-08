@@ -3947,7 +3947,7 @@
 
 - 笔试真题（虾皮2022.03.07）
 
-  操作1: (x+1, y+1), 操作2: (x*2, y*2), 给定x,y,X,Y (均>0), 至少几次步骤可以将(x, y) -> (X, Y), 不能返回-1
+  操作1: (x+1, y+1), 操作2: (x * 2, y * 2), 给定x,y,X,Y (均>0), 至少几次步骤可以将(x, y) -> (X, Y), 不能返回-1
 
   ```python
   def GetMinCalculateCount(self, sourceX, sourceY, targetX, targetY) :
