@@ -3950,18 +3950,19 @@
   操作1: (x+1, y+1), 操作2: (x * 2, y * 2), 给定x,y,X,Y (均>0), 至少几次步骤可以将(x, y) -> (X, Y), 不能返回-1
 
   ```python
-  def GetMinCalculateCount(self, sourceX, sourceY, targetX, targetY) :
-      def backtrack(n, x, y):
-          if x == targetX and y == targetY:
-              res.append(n)
-              return
-          if x > targetX or y > targetY:
-              return
-          backtrack(n + 1, x + 1, y + 1)
-          backtrack(n + 1, x * 2, y * 2)
-          res = []
-          backtrack(0, sourceX, sourceY)
-          return min(res)
+  class Solution:
+      def GetMinCalculateCount(self, sourceX, sourceY, targetX, targetY) :
+          def backtrack(n, x, y):
+              if x == targetX and y == targetY:
+                  res.append(n)
+                  return
+              if x > targetX or y > targetY:
+                  return
+              backtrack(n + 1, x + 1, y + 1)
+              backtrack(n + 1, x * 2, y * 2)
+              res = []
+              backtrack(0, sourceX, sourceY)
+              return min(res)
   ```
 
 
@@ -4699,7 +4700,7 @@
 
 > 真题：
 
-- [53.最大子数组和](https://leetcode-cn.com/problems/maximum-subarray/)（虾皮2022.03.07）
+- [53.最大子数组和](https://leetcode-cn.com/problems/maximum-subarray/)
 
   ```python
   class Solution:
@@ -4715,7 +4716,26 @@
           return max(dp)
   ```
 
-  
+- [152.乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/) (虾皮2022.03.07)
+
+  给你一个整数数组 nums ，请你找出数组中乘积最大的非空连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+
+  测试用例的答案是一个 32-位 整数。
+
+  子数组 是数组的连续子序列。
+
+  ```python
+  class Solution:
+      def maxProduct(self, nums: List[int]) -> int:
+          if not nums: return
+          dp_min, dp_max = [0] * len(nums), [0] * len(nums)
+          dp_min[0] = dp_max[0] = nums[0]
+          res = nums[0]
+          for i in range(1, len(nums)):
+              dp_max[i] = max(dp_max[i - 1] * nums[i], dp_min[i - 1] * nums[i], nums[i])
+              dp_min[i] = min(dp_max[i - 1] * nums[i], dp_min[i - 1] * nums[i], nums[i])
+          return max(dp_max)
+  ```
 
 
 
