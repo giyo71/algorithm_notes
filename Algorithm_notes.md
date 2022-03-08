@@ -4727,7 +4727,7 @@
   ```python
   class Solution:
       def maxProduct(self, nums: List[int]) -> int:
-          if not nums: return
+          if not nums: return 0
           dp_min, dp_max = [0] * len(nums), [0] * len(nums)
           dp_min[0] = dp_max[0] = nums[0]
           res = nums[0]
