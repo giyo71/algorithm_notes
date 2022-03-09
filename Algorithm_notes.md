@@ -4025,15 +4025,14 @@
   class Solution:
       def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
           old = image[sr][sc]
-          deque = collections.deque()
-          deque.append([sr, sc])
-          while deque:
-              x, y = deque.popleft()
+          q = collections.deque([[sr, sc]])
+          while q:
+              x, y = q.popleft()
               image[x][y] = newColor
-              for tx, ty in [[0, 1], [0, -1], [1, 0], [-1, 0]]:
+              for tx, ty in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
                   dx, dy = x + tx, y + ty
                   if 0 <= dx < len(image) and 0 <= dy < len(image[0]) and image[dx][dy] != newColor and image[dx][dy] == old:
-                      deque.append([dx, dy])
+                      q.append([dx, dy])
           return image
   ```
 
